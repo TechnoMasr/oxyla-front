@@ -51,7 +51,7 @@ const AboutBottomSection = () => {
 
         <div>
           <div className="flex flex-col mb-4 relative">
-            <div className="flex items-center justify-evenly gap-4 relative">
+            <div className="flex items-center justify-around gap-4 relative">
               {list.map((item, index) => (
                 <button
                   key={item.id}

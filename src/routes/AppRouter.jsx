@@ -3,7 +3,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import LoadingPage from "../components/Loading/LoadingPage";
 
-const Home = React.lazy(() => import("../pages/Home copy/Home"));
+const Home = React.lazy(() => import("../pages/Home/Home"));
 const AboutUS = React.lazy(() => import("../pages/AboutUS/AboutUS"));
 const ContactUS = React.lazy(() => import("../pages/ContactUS/ContactUS"));
 const ServicesPage = React.lazy(() =>
@@ -32,8 +32,9 @@ const Logout = React.lazy(() => import("../pages/Profile/sections/Logout"));
 
 const Signin = React.lazy(() => import("../pages/Signin/Signin"));
 const Signup = React.lazy(() => import("../pages/Signup/Signup"));
-const ForgotPassword = React.lazy(() => import("../pages/ForgotPassword/ForgotPassword"));
-
+const ForgotPassword = React.lazy(() =>
+  import("../pages/ForgotPassword/ForgotPassword")
+);
 
 const NotFound = React.lazy(() => import("../pages/NotFound/NotFound"));
 

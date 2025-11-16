@@ -5,19 +5,29 @@ import Features from "./sections/Features";
 import Testimonials from "./sections/Testimonials";
 import HomeBanner from "./sections/HomeBanner";
 import Partners from "./sections/Partners";
-import EmptySection from "../../components/sections/EmptySection";
+import HomeLoader from "./HomeLoader";
+import { useState } from "react";
+import Hero from "./sections/Hero/Hero";
 
 const Home = () => {
+  const [showLoader, setShowLoader] = useState(true);
+
   return (
     <article>
-      <EmptySection />
-      <WhyChooseUS />
-      <TopBookNow />
-      <RelaxationJourney />
-      <Features />
-      <Testimonials />
-      <HomeBanner />
-      <Partners />
+      <HomeLoader show={showLoader} onFinish={() => setShowLoader(false)} />
+
+      {!showLoader && (
+        <>
+          <Hero />
+          <WhyChooseUS />
+          <TopBookNow />
+          <RelaxationJourney />
+          <Features />
+          <Testimonials />
+          <HomeBanner />
+          <Partners />
+        </>
+      )}
     </article>
   );
 };
