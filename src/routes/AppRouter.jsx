@@ -80,11 +80,15 @@ const router = createBrowserRouter([
 ]);
 
 const AppRouter = () => {
-  return (
-    <Suspense fallback={<LoadingPage />}>
-      <RouterProvider router={router} />
-    </Suspense>
-  );
+  return <RouterProvider router={router} />;
 };
+
+// const AppRouter = () => {
+//   return (
+//     <Suspense fallback={<LoadingPage />}>
+//       <RouterProvider router={router} />
+//     </Suspense>
+//   );
+// };
 
 export default AppRouter;
