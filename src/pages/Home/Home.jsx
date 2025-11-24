@@ -1,13 +1,15 @@
-import WhyChooseUS from "./sections/WhyChooseUS";
-import TopBookNow from "./sections/TopBookNow";
-import RelaxationJourney from "./sections/RelaxationJourney";
-import Features from "./sections/Features";
-import Testimonials from "./sections/Testimonials";
-import HomeBanner from "./sections/HomeBanner";
-import Partners from "./sections/Partners";
 import HomeLoader from "./HomeLoader";
 import { useState } from "react";
 import Hero from "./sections/Hero/Hero";
+import Services from "./sections/Services";
+import Features from "./sections/Features";
+import Rooms from "./sections/Rooms";
+import MedicalGrade from "./sections/MedicalGrade";
+import Story from "./sections/Story";
+import FAQS from "./sections/FAQS";
+import Banner from "./sections/Banner";
+import HomeHeader from "./sections/HomeHeader";
+import HomeMenu from "./sections/HomeMenu";
 
 const Home = () => {
   const [showLoader, setShowLoader] = useState(true);
@@ -18,14 +20,16 @@ const Home = () => {
 
       {!showLoader && (
         <>
+          <HomeHeader />
+          <HomeMenu />
           <Hero />
-          <WhyChooseUS />
-          <TopBookNow />
-          <RelaxationJourney />
+          <Services />
           <Features />
-          <Testimonials />
-          <HomeBanner />
-          <Partners />
+          <Rooms />
+          <MedicalGrade />
+          <Story />
+          <FAQS />
+          <Banner />
         </>
       )}
     </article>

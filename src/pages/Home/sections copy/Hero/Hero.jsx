@@ -1,6 +1,7 @@
-import { motion } from "framer-motion";
+import { delay, motion } from "framer-motion";
 import HeroCard from "./HeroCard";
 import HeroCardImg from "../../../../assets/images/book-img.jpg";
+import HeroHeader from "./HeroHeader/HeroHeader";
 
 const Hero = () => {
   const list = [
@@ -39,6 +40,8 @@ const Hero = () => {
 
   return (
     <section className="h-[100svh] w-full relative">
+      <HeroHeader />
+
       <motion.dev
         variants={container}
         initial="hidden"
