@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import AuthCard from "../../components/form/AuthCard";
 import MainInput from "../../components/form/MainInput";
@@ -15,6 +15,7 @@ import { useState } from "react";
 
 const Signup = () => {
   const [successModal, setSuccessModal] = useState(false);
+  const navigate = useNavigate();
 
   // ✅ تعريف الـ validation schema
   const signupSchema = yup.object().shape({
@@ -51,14 +52,19 @@ const Signup = () => {
   const { mutate, isPending, error } = useMutation({
     mutationFn: (formData) => registerUser(formData),
     onSuccess: () => {
-      reset();
       setSuccessModal(true);
+      reset();
     },
   });
 
   // ✅ عند الإرسال
   const onSubmit = (data) => {
     mutate(data);
+  };
+
+  const handleCloseModal = () => {
+    setSuccessModal(false);
+    navigate("/signin");
   };
 
   return (
@@ -127,9 +133,9 @@ const Signup = () => {
 
       <SuccessModal
         openModal={successModal}
-        onClose={() => setSuccessModal(false)}
+        onClose={handleCloseModal}
         msg="Account created successfully"
-        onConfirm={() => setSuccessModal(false)}
+        onConfirm={handleCloseModal}
         btnText="OK"
       />
     </section>

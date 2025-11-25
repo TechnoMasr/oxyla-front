@@ -1,8 +1,11 @@
+import { useSelector } from "react-redux";
 import Avatar from "../../../components/common/Avatar";
 import FormBtn from "../../../components/form/FormBtn";
 import FormError from "../../../components/form/FormError";
 
 const EditProfile = () => {
+  const { profile } = useSelector((state) => state.profile);
+
   return (
     <section>
       <h2 className="text-2xl font-bold text-myPurple mb-4">Edit Profile</h2>
@@ -11,8 +14,8 @@ const EditProfile = () => {
         <div className="flex items-center gap-2">
           <Avatar name="John Doe" size="lg" />
           <div>
-            <p className="font-semibold text-lg">John Doe</p>
-            <p className="text-sm text-stone-600">JohnDoe@gmail.com</p>
+            <p className="font-semibold text-lg">{profile?.name}</p>
+            <p className="text-sm text-stone-600">{profile?.email}</p>
           </div>
         </div>
 
@@ -31,7 +34,7 @@ const EditProfile = () => {
               id="name"
               type="text"
               className="col-span-3 border-none outline-0"
-              value="John Doe"
+              value={profile?.name || ""}
               disabled
             />
           </div>
@@ -44,7 +47,7 @@ const EditProfile = () => {
               id="email"
               type="text"
               className="col-span-3 border-none outline-0"
-              value="JohnDoe@gmail.com"
+              value={profile?.email || ""}
               disabled
             />
           </div>
@@ -57,7 +60,7 @@ const EditProfile = () => {
               id="mobileNumber"
               type="text"
               className="col-span-3 border-none outline-0"
-              value="1234567890"
+              value={profile?.phone || ""}
               disabled
             />
           </div>
@@ -70,7 +73,7 @@ const EditProfile = () => {
               id="location"
               type="text"
               className="col-span-3 border-none outline-0"
-              value="Saudi Arabia"
+              value={profile?.location || ""}
               disabled
             />
           </div>

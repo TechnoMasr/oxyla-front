@@ -1,14 +1,18 @@
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { useDispatch } from "react-redux";
-import { logoutUser } from "../../../services/authServices";
-import { getProfileAct } from "../../../store/profile/profileSlice";
+import { logoutAct } from "../../../store/profile/profileSlice";
+import { useNavigate } from "react-router-dom";
 
 const Logout = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    dispatch(logoutUser());
-    dispatch(getProfileAct());
+    dispatch(logoutAct())
+      .unwrap()
+      .then(() => {
+        navigate("/", { replace: true });
+      });
   };
 
   return (

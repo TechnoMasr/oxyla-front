@@ -2,10 +2,14 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "../../assets/images/logo/logo.png";
 
-const LoadingHome = ({ show, onFinish }) => {
+const PagesLoading = ({ show, onFinish }) => {
   const [progress, setProgress] = useState(0);
   const [visible, setVisible] = useState(show);
   const [logoSize, setLogoSize] = useState(120);
+
+  useEffect(() => {
+    setVisible(show);
+  }, [show]);
 
   useEffect(() => {
     const updateLogoSize = () => {
@@ -22,7 +26,7 @@ const LoadingHome = ({ show, onFinish }) => {
 
   useEffect(() => {
     let start = null;
-    const duration = 5000;
+    const duration = 3000; // ← المدة الجديدة 3 ثواني
 
     const animate = (timestamp) => {
       if (!start) start = timestamp;
@@ -34,7 +38,7 @@ const LoadingHome = ({ show, onFinish }) => {
         requestAnimationFrame(animate);
       } else {
         // بعد انتهاء التحميل
-        setTimeout(() => setVisible(false), 500); // عشان نبدأ exit animation
+        setTimeout(() => setVisible(false), 300); // يفضل تسيبه 300ms عشان exit animation
       }
     };
 
@@ -47,7 +51,7 @@ const LoadingHome = ({ show, onFinish }) => {
     >
       {visible && (
         <motion.div
-          className="fixed inset-0 flex items-center justify-center bg-black z-50"
+          className="fixed inset-0 flex items-center justify-center bg-white z-[9999]"
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -85,8 +89,8 @@ const LoadingHome = ({ show, onFinish }) => {
                     }}
                   >
                     <span
-                      className="absolute inset-0 rounded-full bg-[rgba(0,0,0,0.5)] backdrop-blur-sm"
-                      style={{ boxShadow: "0 0 10px rgba(0,0,0,0.5)" }}
+                      className="absolute inset-0 rounded-full bg-[rgba(255,255,255,0.5)] backdrop-blur-sm"
+                      style={{ boxShadow: "0 0 10px rgba(255,255,255,0.5)" }}
                     ></span>
                     <span className="relative z-10">{progress}%</span>
                   </motion.div>
@@ -109,4 +113,4 @@ const LoadingHome = ({ show, onFinish }) => {
   );
 };
 
-export default LoadingHome;
+export default PagesLoading;

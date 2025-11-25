@@ -7,10 +7,6 @@ const AboutMiddleSection = ({ data }) => {
       />
 
       <div className="relative z-10 container py-30 lg:py-40">
-        {/* <h2 className="text-white text-3xl lg:text-5xl font-semibold text-center w-full max-w-lg mx-auto mb-8">
-          We are a expert team Our stats also are{" "}
-          <span className="text-myPurple">expert</span>
-        </h2> */}
         <h2 className="text-white text-3xl lg:text-5xl font-semibold text-center w-full max-w-lg mx-auto mb-8">
           {data?.title}
         </h2>

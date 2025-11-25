@@ -6,10 +6,10 @@ const AboutBanner = ({ data }) => {
         backgroundImage: `url(${data?.banner_image})`,
       }}
     >
-      <div className="absolute inset-0 bg-black/50" />
-
-      <div className="relative z-10 container pagePadding text-white">
-        {data?.head_text}
+      <div className="absolute inset-0 bg-black/50 flex items-center justify-center p-4">
+        <h2 className="text-white text-3xl lg:text-5xl font-bold text-center w-full capitalize">
+          {data?.head_text}
+        </h2>
       </div>
     </section>
   );

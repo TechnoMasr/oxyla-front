@@ -37,7 +37,7 @@ const HomeLoader = ({ show, onFinish }) => {
               duration: 2.5,
               delay: 0.2,
             }}
-            className="h-[150px] w-[150px] lg:h-[200px] lg:w-[200px] relative overflow-hidden"
+            className="h-[150px] w-[150px] relative overflow-hidden"
           >
             <img
               src={logo5}
@@ -62,7 +62,7 @@ const HomeLoader = ({ show, onFinish }) => {
             ))}
           </motion.div>
 
-          <h3 className="text-lg lg:text-2xl font-medium tracking-wide flex">
+          <h3 className="text-lg lg:text-xl font-medium tracking-wide flex">
             {Array.from(text).map((letter, index) => (
               <motion.span
                 key={index}

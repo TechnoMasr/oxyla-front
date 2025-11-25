@@ -10,9 +10,11 @@ import FAQS from "./sections/FAQS";
 import Banner from "./sections/Banner";
 import HomeHeader from "./sections/HomeHeader";
 import HomeMenu from "./sections/HomeMenu";
+import Footer from "../../components/layout/Footer/Footer";
 
 const Home = () => {
-  const [showLoader, setShowLoader] = useState(true);
+  const [showLoader, setShowLoader] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
 
   return (
     <article>
@@ -20,8 +22,9 @@ const Home = () => {
 
       {!showLoader && (
         <>
-          <HomeHeader />
-          <HomeMenu />
+          <HomeHeader setOpenMenu={setOpenMenu} />
+          <HomeMenu openMenu={openMenu} setOpenMenu={setOpenMenu} />
+
           <Hero />
           <Services />
           <Features />
@@ -30,6 +33,7 @@ const Home = () => {
           <Story />
           <FAQS />
           <Banner />
+          <Footer />
         </>
       )}
     </article>

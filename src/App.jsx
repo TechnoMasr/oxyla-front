@@ -1,29 +1,39 @@
 import { Outlet } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "./components/layout/Header/Header";
 import Footer from "./components/layout/Footer/Footer";
-import FixedSection from "./components/sections/FixedSection";
-import LoadingHome from "./components/Loading/LoadingHome";
+import PagesLoading from "./components/Loading/PagesLoading";
 
 function App() {
   const { pathname } = useLocation();
+  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
+  useEffect(() => {
+    setShowLoader(false);
+  }, [pathname]);
+
   return (
     <main>
-      {/* <Header /> */}
-      <div className="min-h-[calc(100dvh-315px)]">
-        <Outlet />
-      </div>
-      <Footer />
-      
-      {/* <LoadingHome /> */}
+      <PagesLoading
+        key={pathname}
+        show={showLoader}
+        onFinish={() => setShowLoader(false)}
+      />
 
-      {/* <FixedSection /> */}
+      {!showLoader && (
+        <>
+          <Header />
+          <div className="min-h-[100dvh]">
+            <Outlet />
+          </div>
+          <Footer />
+        </>
+      )}
     </main>
   );
 }

@@ -5,22 +5,8 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
-const AboutBottomSection = () => {
+const AboutBottomSection = ({ data }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const list = [
-    {
-      id: 1,
-      title: "Our Vision",
-      paragraph:
-        "To be the leading center in the Middle East providing hyperbaric oxygen therapy, giving everyone the opportunity for a healthier and more energetic life.",
-    },
-    {
-      id: 2,
-      title: "Our Mission",
-      paragraph:
-        "To provide a safe and comfortable environment for patients to receive oxygen therapy, ensuring their well-being and overall health.",
-    },
-  ];
 
   const images = [
     {
@@ -45,14 +31,13 @@ const AboutBottomSection = () => {
     <section className="sectionPadding w-full max-w-5xl mx-auto px-4 grid grid-cols-1 md:grid-cols-5 gap-8 lg:gap-16">
       <article className="md:col-span-3">
         <h2 className="text-3xl lg:text-5xl font-semibold w-full max-w-lg mb-8">
-          Our Journey Toward Excellence and{" "}
-          <span className="text-myPurple">Care</span>
+          {data?.title}
         </h2>
 
         <div>
           <div className="flex flex-col mb-4 relative">
             <div className="flex items-center justify-around gap-4 relative">
-              {list.map((item, index) => (
+              {data?.items.map((item, index) => (
                 <button
                   key={item.id}
                   className={`relative pb-2 text-xl md:text-2xl font-semibold transition-colors duration-300 cursor-pointer ${
@@ -72,14 +57,18 @@ const AboutBottomSection = () => {
               <div
                 className="absolute h-full bg-myPurple transition-all duration-500 ease-in-out"
                 style={{
-                  width: `${100 / list.length}%`,
-                  left: `${(100 / list.length) * currentIndex}%`,
+                  width: `${100 / data?.items.length}%`,
+                  left: `${(100 / data?.items.length) * currentIndex}%`,
                 }}
               />
             </div>
           </div>
 
-          <p>{list[currentIndex].paragraph}</p>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: data?.items[currentIndex].description,
+            }}
+          />
         </div>
       </article>
 

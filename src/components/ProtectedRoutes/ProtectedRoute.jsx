@@ -6,7 +6,7 @@ import ProtectModal from "../modals/ProtectModal";
 import LoadingPage from "../Loading/LoadingPage";
 
 const ProtectedRoute = ({ children }) => {
-  const token = Cookies.get("tokenAG");
+  const token = Cookies.get("tokenOx");
   const { profile, loading } = useSelector((state) => state.profile);
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);

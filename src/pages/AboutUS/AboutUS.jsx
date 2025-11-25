@@ -28,13 +28,12 @@ const AboutUS = () => {
       {aboutPage?.blocks?.map((block) =>
         block.type === "counter" ? (
           <AboutMiddleSection key={block.id} data={block} />
-        ) : block.type === "counter" ? (
-          <AboutMiddleSection key={block.id} data={block} />
-        ) : null
+        ) : block.type === "image_with_description_and_icons_with_titles" ? (
+          <AboutTopSection key={block.id} data={block} />
+        ) : (
+          <AboutBottomSection key={block.id} data={block} />
+        )
       )}
-      <AboutTopSection />
-      {/* <AboutMiddleSection /> */}
-      <AboutBottomSection />
     </section>
   );
 };

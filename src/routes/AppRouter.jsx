@@ -1,7 +1,8 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import LoadingPage from "../components/Loading/LoadingPage";
+import PublicRoute from "../components/ProtectedRoutes/PublicRoute";
+import ProtectedRoute from "../components/ProtectedRoutes/ProtectedRoute";
 
 const Home = React.lazy(() => import("../pages/Home/Home"));
 const AboutUS = React.lazy(() => import("../pages/AboutUS/AboutUS"));
@@ -41,54 +42,66 @@ const NotFound = React.lazy(() => import("../pages/NotFound/NotFound"));
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Home />, // ← الهوم لوصفها خاص
+  },
+
+  {
+    element: <App />, // ← layout للصفحات التانية
     children: [
+      { path: "services", element: <ServicesPage /> },
+      { path: "services/:id", element: <ServiceDetails /> },
+      { path: "cart", element: <Cart /> },
+      { path: "payment", element: <Payment /> },
+      { path: "your-session", element: <YourSession /> },
+      { path: "about-us", element: <AboutUS /> },
+      { path: "contact-us", element: <ContactUS /> },
+
       {
+        path: "profile",
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
         children: [
-          { index: true, element: <Home /> },
-          { path: "services", element: <ServicesPage /> },
-          { path: "services/:id", element: <ServiceDetails /> },
-          { path: "cart", element: <Cart /> },
-          { path: "payment", element: <Payment /> },
-          { path: "your-session", element: <YourSession /> },
-          { path: "about-us", element: <AboutUS /> },
-          { path: "contact-us", element: <ContactUS /> },
-
-          {
-            path: "profile",
-            element: <Profile />,
-            children: [
-              { index: true, element: <EditProfile /> },
-              { path: "notifications", element: <Notifications /> },
-              { path: "appointment", element: <Appointment /> },
-              { path: "wishlist", element: <Wishlist /> },
-              { path: "logout", element: <Logout /> },
-            ],
-          },
-
-          { path: "signin", element: <Signin /> },
-          { path: "signup", element: <Signup /> },
-          { path: "forgot-password", element: <ForgotPassword /> },
+          { index: true, element: <EditProfile /> },
+          { path: "notifications", element: <Notifications /> },
+          { path: "appointment", element: <Appointment /> },
+          { path: "wishlist", element: <Wishlist /> },
+          { path: "logout", element: <Logout /> },
         ],
+      },
+
+      {
+        path: "signin",
+        element: (
+          <PublicRoute>
+            <Signin />
+          </PublicRoute>
+        ),
+      },
+      {
+        path: "signup",
+        element: (
+          <PublicRoute>
+            <Signup />
+          </PublicRoute>
+        ),
+      },
+      {
+        path: "forgot-password",
+        element: (
+          <PublicRoute>
+            <ForgotPassword />
+          </PublicRoute>
+        ),
       },
     ],
   },
-  {
-    path: "*",
-    element: <NotFound />,
-  },
+
+  { path: "*", element: <NotFound /> },
 ]);
 
-const AppRouter = () => {
-  return <RouterProvider router={router} />;
-};
-
-// const AppRouter = () => {
-//   return (
-//     <Suspense fallback={<LoadingPage />}>
-//       <RouterProvider router={router} />
-//     </Suspense>
-//   );
-// };
+const AppRouter = () => <RouterProvider router={router} />;
 
 export default AppRouter;

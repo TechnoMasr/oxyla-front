@@ -37,6 +37,7 @@ export const logoutAct = createAsyncThunk(
   }
 );
 
+
 const profileSlice = createSlice({
   name: "profile",
   initialState,

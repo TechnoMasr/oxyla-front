@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import AuthCard from "../../components/form/AuthCard";
@@ -19,6 +19,8 @@ const Signin = () => {
   const [successModal, setSuccessModal] = useState(false);
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   // ✅ تعريف الـ validation schema
   const signinSchema = yup.object().shape({
@@ -47,15 +49,20 @@ const Signin = () => {
   const { mutate, isPending, error } = useMutation({
     mutationFn: (formData) => loginUser(formData),
     onSuccess: () => {
-      reset();
       setSuccessModal(true);
-      dispatch(getProfileAct());
+      reset();
     },
   });
 
   // ✅ عند الإرسال
   const onSubmit = (data) => {
     mutate(data);
+  };
+
+  const handleCloseModal = () => {
+    setSuccessModal(false);
+    navigate("/", { replace: true });
+    dispatch(getProfileAct());
   };
 
   return (
@@ -114,9 +121,9 @@ const Signin = () => {
 
       <SuccessModal
         openModal={successModal}
-        onClose={() => setSuccessModal(false)}
+        onClose={handleCloseModal}
         msg="Signed in successfully"
-        onConfirm={() => setSuccessModal(false)}
+        onConfirm={handleCloseModal}
         btnText="OK"
       />
     </section>
