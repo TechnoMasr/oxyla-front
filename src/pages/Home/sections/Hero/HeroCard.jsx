@@ -2,24 +2,24 @@ import { motion } from "framer-motion";
 import { GoArrowUpRight } from "react-icons/go";
 import { Link } from "react-router-dom";
 
-const cardVariant = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
-};
-
-const HeroCard = ({ item }) => {
+const HeroCard = ({ item, index }) => {
   return (
     <motion.div
-      variants={cardVariant}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1, delay: 1 * index }}
       className="overflow-hidden group relative"
     >
       <img
-        src={item.image}
-        alt={item.title}
-        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+        src={item?.mobile_image}
+        alt={item?.title}
+        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 md:hidden"
+      />
+
+      <img
+        src={item?.web_image}
+        alt={item?.title}
+        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 hidden md:block"
       />
 
       <div
@@ -27,14 +27,14 @@ const HeroCard = ({ item }) => {
         group-hover:backdrop-blur-xl group-hover:bottom-0 group-hover:bg-black/20
         transition-all duration-500 flex flex-col justify-center items-center text-center p-4"
       >
-        <h2 className="text-4xl font-bold text-white mb-2">{item.title}</h2>
-        <p className="text-white mb-4">{item.description}</p>
+        <h2 className="text-4xl font-bold text-white mb-2">{item?.title}</h2>
+        <p className="text-white mb-4">{item?.description}</p>
 
         <Link
-          to={item.path}
+          to={item?.button_url}
           className="px-4 py-2 text-xl text-white border font-semibold rounded flex items-center gap-2"
         >
-          Book Now <GoArrowUpRight />
+          {item?.button_text} <GoArrowUpRight />
         </Link>
       </div>
     </motion.div>

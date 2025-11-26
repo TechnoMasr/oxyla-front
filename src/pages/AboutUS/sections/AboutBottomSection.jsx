@@ -82,10 +82,10 @@ const AboutBottomSection = ({ data }) => {
           }}
           className="w-full h-full"
         >
-          {images.map((img, i) => (
+          {data?.images_full_path.map((img, i) => (
             <SwiperSlide key={i}>
               <img
-                src={img.img}
+                src={img}
                 alt={`img-${i}`}
                 className="w-full h-full object-cover"
               />

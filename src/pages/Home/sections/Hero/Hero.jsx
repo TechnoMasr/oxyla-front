@@ -1,54 +1,13 @@
-import { motion } from "framer-motion";
 import HeroCard from "./HeroCard";
-import HeroCardImg from "../../../../assets/images/book-img.jpg";
 
-const Hero = () => {
-  const list = [
-    {
-      id: 1,
-      title: "Heal.",
-      description: "lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      path: "/",
-      image: HeroCardImg,
-    },
-    {
-      id: 2,
-      title: "Renew.",
-      description: "lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      path: "/",
-      image: HeroCardImg,
-    },
-    {
-      id: 3,
-      title: "Breathe.",
-      description: "lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      path: "/",
-      image: HeroCardImg,
-    },
-  ];
-
-  const container = {
-    hidden: {},
-    show: {
-      transition: {
-        delayChildren: 0.5,
-        staggerChildren: 0.5,
-      },
-    },
-  };
-
+const Hero = ({ data }) => {
   return (
     <section className="h-[100svh] w-full relative">
-      <motion.dev
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="h-full w-full bg-white grid grid-cols-1 md:grid-cols-3"
-      >
-        {list.map((item) => (
-          <HeroCard key={item.id} item={item} />
+      <div className="h-full w-full bg-white grid grid-cols-1 md:grid-cols-3">
+        {data?.map((item, index) => (
+          <HeroCard key={item.id} item={item} index={index} />
         ))}
-      </motion.dev>
+      </div>
     </section>
   );
 };

@@ -36,13 +36,11 @@ export const sendNewsletter = async (email) => {
 };
 
 export const sendContactUs = async (formData) => {
-  const { data } = await api.post("/contact", formData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
+  const { data } = await api.post("/contact", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
   return data?.data || [];
 };
 
@@ -51,9 +49,7 @@ export const getSettings = async () => {
   return data?.data || [];
 };
 
-// export const getSearch = async (query) => {
-//   const { data } = await api.get("/search", {
-//     params: { query },
-//   });
-//   return data?.data || {};
-// };
+export const getHome = async () => {
+  const { data } = await api.get("/home");
+  return data?.data || [];
+};

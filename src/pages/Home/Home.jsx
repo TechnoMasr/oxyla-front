@@ -11,10 +11,20 @@ import Banner from "./sections/Banner";
 import HomeHeader from "./sections/HomeHeader";
 import HomeMenu from "./sections/HomeMenu";
 import Footer from "../../components/layout/Footer/Footer";
+import { getHome } from "../../services/homeServices";
+import { useQuery } from "@tanstack/react-query";
 
 const Home = () => {
   const [showLoader, setShowLoader] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
+
+  const {
+    data: homeData,
+    isLoading,
+  } = useQuery({
+    queryKey: ["homeData"],
+    queryFn: getHome,
+  });
 
   return (
     <article>
@@ -25,14 +35,14 @@ const Home = () => {
           <HomeHeader setOpenMenu={setOpenMenu} />
           <HomeMenu openMenu={openMenu} setOpenMenu={setOpenMenu} />
 
-          <Hero />
-          <Services />
-          <Features />
-          <Rooms />
-          <MedicalGrade />
-          <Story />
-          <FAQS />
-          <Banner />
+          <Hero data={homeData?.sliders} />
+          <Services data={homeData?.section2} />
+          <Features data={homeData?.section3} />
+          <Rooms data={homeData?.section4} />
+          <MedicalGrade data={homeData?.section5} />
+          <Story data={homeData?.section6} />
+          <FAQS data={homeData?.section7} />
+          <Banner data={homeData?.section8} />
           <Footer />
         </>
       )}
