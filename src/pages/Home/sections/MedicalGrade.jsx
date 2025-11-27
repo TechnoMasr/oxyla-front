@@ -14,7 +14,7 @@ const MedicalGrade = ({ data }) => {
         {data?.data.map((feature) => (
           <li
             key={feature.id}
-            className="space-y-4 p-4 border-b-2 border-gray-200"
+            className="space-y-4 py-4 border-b-2 border-gray-200"
           >
             <div className="w-full lg:max-w-sm h-60 overflow-hidden rounded-xl bg-gray-100">
               <img

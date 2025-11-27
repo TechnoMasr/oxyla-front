@@ -8,25 +8,6 @@ import "swiper/css/pagination";
 const AboutBottomSection = ({ data }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const images = [
-    {
-      id: 1,
-      img: Img,
-    },
-    {
-      id: 2,
-      img: Img,
-    },
-    {
-      id: 3,
-      img: Img,
-    },
-    {
-      id: 4,
-      img: Img,
-    },
-  ];
-
   return (
     <section className="sectionPadding w-full max-w-5xl mx-auto px-4 grid grid-cols-1 md:grid-cols-5 gap-8 lg:gap-16">
       <article className="md:col-span-3">
