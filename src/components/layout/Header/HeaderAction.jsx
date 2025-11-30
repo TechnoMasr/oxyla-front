@@ -74,18 +74,19 @@ const HeaderAction = ({ setActiveNav }) => {
         <Link
           to="/signin"
           className="text-2xl text-myPurple cursor-pointer"
-          onClick={() => setActiveNav(true)}
+          onClick={() => setActiveNav(false)}
         >
           <MdLogin />
         </Link>
       )}
 
-      <button
+      <Link
+        to="/cart"
         className="text-2xl text-myPurple cursor-pointer"
-        onClick={() => setActiveNav(true)}
+        onClick={() => setActiveNav(false)}
       >
         <IoCartOutline />
-      </button>
+      </Link>
     </div>
   );
 };

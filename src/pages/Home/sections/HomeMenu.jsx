@@ -6,8 +6,8 @@ const HomeMenu = ({ openMenu, setOpenMenu }) => {
   const Links = [
     { id: 1, title: "home", link: "/" },
     { id: 2, title: "about", link: "/about-us" },
-    { id: 3, title: "rooms", link: "/" },
-    { id: 4, title: "contact", link: "/" },
+    { id: 3, title: "rooms", link: "/services" },
+    { id: 4, title: "contact", link: "/contact-us" },
   ];
 
   const onClose = () => {
@@ -60,7 +60,7 @@ const HomeMenu = ({ openMenu, setOpenMenu }) => {
                     transition={{ delay: 0.2 + link.id * 0.05 }}
                   >
                     <Link
-                      className="text-xl font-semibold"
+                      className="text-xl font-semibold capitalize hover:text-myBlue"
                       to={link.link}
                       onClick={onClose}
                     >

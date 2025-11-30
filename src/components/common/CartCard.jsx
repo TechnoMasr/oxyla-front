@@ -1,0 +1,119 @@
+import { CiLocationOn } from "react-icons/ci";
+import { IoMdTime } from "react-icons/io";
+import { LuCalendarDays } from "react-icons/lu";
+import ConfirmModal from "../modals/ConfirmModal";
+import ChangeRoomModal from "../modals/ChangeRoomModal";
+import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { removeFromCart } from "../../services/cartServices";
+import RateModal from "../modals/RateModal";
+import { renderStars } from "../../utils/renderStars";
+import { toast } from "react-toastify";
+
+const CartCard = ({ item, orders = false }) => {
+  const [openDelete, setOpenDelete] = useState(false);
+  const [openChange, setOpenChange] = useState(false);
+  const [openRate, setOpenRate] = useState(false);
+
+  const queryClient = useQueryClient();
+
+  // Delete Mutation
+  const { mutate: removeMutate, isPending } = useMutation({
+    mutationFn: () => removeFromCart(item.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["cart"]);
+      setOpenDelete(false);
+      toast.success("Item removed from cart");
+    },
+  });
+
+  return (
+    <div className="flex items-center gap-4 py-4 not-last:border-b border-gray-200">
+      <div className="w-26 h-26 sm:w-32 sm:h-32 overflow-hidden">
+        <img
+          src={item.service?.image_url}
+          alt={item.service?.name}
+          className="w-full h-full object-cover"
+        />
+      </div>
+
+      <div className="space-y-2 flex-1">
+        <div className="text-lg font-semibold flex justify-between gap-4 w-full">
+          <h3 className="flex-1">{item.service?.name}</h3>
+          <p>{item.price} $</p>
+        </div>
+
+        <p className="text-xs text-gray-500 flex items-center gap-1">
+          <CiLocationOn className="text-myGreen text-lg" />
+          {item.service?.location}
+        </p>
+
+        <div className="flex items-center gap-4">
+          <p className="text-xs text-gray-500 flex items-center gap-1">
+            <LuCalendarDays className="text-myGreen text-sm" />
+            {item.booking_date}
+          </p>
+          <p className="text-xs text-gray-500 flex items-center gap-1">
+            <IoMdTime className="text-myGreen text-sm" />
+            {item.from_time}
+          </p>
+        </div>
+
+        {orders ? (
+          item.rate ? (
+            <div className="flex gap-1">{renderStars(item?.rate)}</div>
+          ) : (
+            <button
+              onClick={() => setOpenRate(true)}
+              className="mainBtn text-sm!"
+            >
+              Rate Now
+            </button>
+          )
+        ) : (
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setOpenChange(true)}
+              className="mainBtn text-sm!"
+            >
+              Change
+            </button>
+
+            <button
+              onClick={() => setOpenDelete(true)}
+              className="text-red-500 hover:underline cursor-pointer"
+            >
+              Remove
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* Delete Modal */}
+      <ConfirmModal
+        openModal={openDelete}
+        onClose={() => setOpenDelete(false)}
+        confirmMsg={"Are you sure you want to delete this item ?"}
+        onConfirm={() => removeMutate()}
+        disabled={isPending}
+        btnText={isPending ? "Removing..." : "Confirm"}
+      />
+
+      {/* Change Modal */}
+      <ChangeRoomModal
+        openModal={openChange}
+        onClose={() => setOpenChange(false)}
+        item={item}
+      />
+
+      {/* Rate Modal */}
+      <RateModal
+        openModal={openRate}
+        onClose={() => setOpenRate(false)}
+        bookingId={item.id}
+      />
+    </div>
+  );
+};
+
+export default CartCard;

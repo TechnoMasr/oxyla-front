@@ -53,27 +53,6 @@ const MainInput = ({
     );
   }
 
-  // if (type === "select") {
-  //   return (
-  //     <div>
-  //       {commonLabel}
-  //       <select
-  //         id={id}
-  //         disabled={disabled}
-  //         {...register}
-  //         className={`cursor-pointer ${commonInputClasses}`}
-  //       >
-  //         {options.map((option, idx) => (
-  //           <option key={`${option.value}-${idx}`} value={option.value}>
-  //             {option.label}
-  //           </option>
-  //         ))}
-  //       </select>
-  //       {commonError}
-  //     </div>
-  //   );
-  // }
-
   if (type === "select") {
     return (
       <div>

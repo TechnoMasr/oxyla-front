@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { RxMixerHorizontal } from "react-icons/rx";
 import FiltersSideBar from "./FiltersSideBar";
 import { useSearchParams } from "react-router-dom";
@@ -6,6 +6,7 @@ import { useSearchParams } from "react-router-dom";
 const Filters = ({ categories }) => {
   const [active, setActive] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [search, setSearch] = useState(searchParams.get("query") || "");
 
   const FiltersBtns = [
     { label: "All", slug: "all" },
@@ -15,10 +16,25 @@ const Filters = ({ categories }) => {
     })),
   ];
 
+  // --- عند الضغط على زر الفلتر ---
   const handleFilterClick = (i, slug) => {
     setActive(i);
-    setSearchParams({ category: slug }); // ← تحديث URL
+    setSearchParams({ category: slug, query: search });
   };
+
+  // --- تغير البحث داخل input ---
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+  };
+
+  // --- debounce effect ---
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setSearchParams({ category: FiltersBtns[active].slug, query: search });
+    }, 1000); // ← هنا مدة الـ debounce (500ms)
+
+    return () => clearTimeout(timeout); // تنظيف الـ timeout عند تغيّر القيمة
+  }, [search, active, FiltersBtns, setSearchParams]);
 
   return (
     <section>
@@ -27,11 +43,13 @@ const Filters = ({ categories }) => {
           type="text"
           placeholder="Search"
           className="flex-1 outline-0 border-0 p-2"
+          value={search}
+          onChange={handleSearchChange}
         />
 
-        <label htmlFor="filters-drawer" className="text-2xl p-2 cursor-pointer">
+        {/* <label htmlFor="filters-drawer" className="text-2xl p-2 cursor-pointer">
           <RxMixerHorizontal />
-        </label>
+        </label> */}
       </div>
 
       <div className="flex items-center gap-4 flex-wrap mt-4">
@@ -48,7 +66,7 @@ const Filters = ({ categories }) => {
         ))}
       </div>
 
-      <FiltersSideBar />
+      {/* <FiltersSideBar /> */}
     </section>
   );
 };

@@ -4,17 +4,18 @@ import { useLocation } from "react-router-dom";
 import Header from "./components/layout/Header/Header";
 import Footer from "./components/layout/Footer/Footer";
 import PagesLoading from "./components/Loading/PagesLoading";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const { pathname } = useLocation();
-  const [showLoader, setShowLoader] = useState(false);
+  const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
   useEffect(() => {
-    setShowLoader(false);
+    setShowLoader(true);
   }, [pathname]);
 
   return (
@@ -34,6 +35,8 @@ function App() {
           <Footer />
         </>
       )}
+
+      <ToastContainer />
     </main>
   );
 }

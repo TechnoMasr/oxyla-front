@@ -39,5 +39,5 @@ export const updateProfile = async (formData) => {
     Cookies.set("tokenOx", data?.data?.token);
   }
 
-  return data;
+  return data?.data;
 };

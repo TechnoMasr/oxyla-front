@@ -42,7 +42,7 @@ const HomeLoader = ({ show, onFinish }) => {
             <img
               src={logo5}
               alt="logo"
-              className="w-full absolute top-0 left-0 bg-white"
+              className="w-full absolute top-0 left-0 bg-white z-10"
             />
 
             {logos.map((logo, index) => (

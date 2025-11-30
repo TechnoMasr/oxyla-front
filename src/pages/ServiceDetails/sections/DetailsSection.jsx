@@ -2,14 +2,23 @@ import { useEffect, useRef, useState } from "react";
 import { renderStars } from "../../../utils/renderStars";
 import { HiMiniCalendarDateRange } from "react-icons/hi2";
 import { LuPlus, LuMinus } from "react-icons/lu";
+import { addToCart } from "../../../services/cartServices.js";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import "cally";
+import FormError from "../../../components/form/FormError.jsx";
+import { toast } from "react-toastify";
 
 const DetailsSection = ({ data }) => {
   const [selectedDate, setSelectedDate] = useState("");
-  const [selectedTime, setSelectedTime] = useState(""); // ✅ الحالة الجديدة
-  const callyRef = useRef(null);
+  const [selectedTime, setSelectedTime] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const [errorMessage, setErrorMessage] = useState("");
 
+  const callyRef = useRef(null);
+  const queryClient = useQueryClient();
+
+  // ✔ Listen for change event from <calendar-date>
   useEffect(() => {
     const callyEl = callyRef.current;
     if (callyEl) {
@@ -19,31 +28,69 @@ const DetailsSection = ({ data }) => {
     }
   }, []);
 
+  // ------------------ Counter -------------------
+  const increase = () => setQuantity((q) => q + 1);
+  const decrease = () => setQuantity((q) => (q > 1 ? q - 1 : 1));
+
+  // ------------------ Add To Cart Mutation -------------------
+  const {
+    mutate: addToCartMutate,
+    isPending,
+    error,
+  } = useMutation({
+    mutationFn: addToCart,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["cart"]);
+      toast.success("Item added to cart");
+      setErrorMessage("");
+      setQuantity(1);
+      setSelectedDate("");
+      setSelectedTime("");
+    },
+  });
+
+  const handleAddToCart = () => {
+    if (!selectedDate || !selectedTime) {
+      setErrorMessage("Please select date and time before adding to cart.");
+      return;
+    }
+
+    // Clear error when request is valid
+    setErrorMessage("");
+
+    addToCartMutate({
+      service_id: data?.id,
+      quantity,
+      booking_date: selectedDate,
+      service_time_id: selectedTime,
+    });
+  };
+
   return (
     <section className="space-y-6 order-2 lg:order-1">
       <div className="flex items-center gap-2">
-        <p className="text-gray-500">Capsules</p>/
-        <p className="font-bold">oxygen room</p>
+        <p className="text-gray-500">Home</p>/
+        <p className="font-bold">{data?.category?.name}</p>
       </div>
 
-      <h1 className="text-2xl font-bold">{data.title}</h1>
+      <h1 className="text-2xl font-bold">{data?.name}</h1>
 
       <div className="flex items-center justify-between gap-2">
-        <span className="font-bold text-xl">{data.price} $</span>
+        <span className="font-bold text-xl">{data?.price} $</span>
         <div className="flex items-center gap-1">
-          <div className="flex gap-1">{renderStars(data.rate)}</div>
-          <p className="text-gray-500">({data.rate})</p>
+          <div className="flex gap-1">{renderStars(data?.rate)}</div>
+          <p className="text-gray-500">({data?.rate})</p>
         </div>
       </div>
 
-      <p className="text-gray-500">{data.description}</p>
+      <p className="text-gray-500">{data?.description}</p>
 
-      {/* ✅ Date Picker Section */}
+      {/* DATE PICKER */}
       <div className="flex items-center gap-2">
         <HiMiniCalendarDateRange className="text-3xl text-myGreen" />
         <div>
           <button
-            popovertarget="cally-popover1"
+            popoverTarget="cally-popover1"
             id="cally1"
             style={{ anchorName: "--cally1" }}
             className="px-2 py-1 border border-gray-500 rounded-md hover:bg-gray-100 transition cursor-pointer"
@@ -82,15 +129,15 @@ const DetailsSection = ({ data }) => {
         </div>
       </div>
 
-      {/* ✅ Appointments Section */}
+      {/* TIME SELECTION */}
       <div>
         <p className="text-lg mb-1 font-semibold">Appointments available</p>
         <div className="flex flex-wrap gap-2">
-          {data.available_times.map((time) => (
+          {data?.times?.map((time) => (
             <label
               key={time.id}
               className={`border rounded-lg px-1 py-0.5 cursor-pointer transition text-sm font-medium ${
-                time.value === selectedTime
+                time.id === selectedTime
                   ? "bg-myGreen text-white border-myGreen"
                   : "bg-white text-gray-600 hover:bg-gray-100"
               }`}
@@ -98,58 +145,68 @@ const DetailsSection = ({ data }) => {
               <input
                 type="radio"
                 name="available_time"
-                value={time.value}
-                checked={selectedTime === time.value}
-                onChange={() => setSelectedTime(time.value)}
+                value={time.id}
+                checked={selectedTime === time.id}
+                onChange={() => setSelectedTime(time.id)}
                 className="hidden"
               />
-              {time.label}
+              {time.from_time}
             </label>
           ))}
         </div>
       </div>
 
+      {/* FEATURES */}
       <div>
         <p className="text-lg mb-1 font-semibold">Included in Your Session</p>
         <div className="flex flex-wrap gap-2">
-          {data.Included_in_session.map((item) => (
+          {data?.features?.map((item) => (
             <div
               key={item.id}
               className="flex flex-col items-center gap-1 text-gray-600"
             >
               <span className="w-12 h-12 overflow-hidden border-2 rounded-full">
                 <img
-                  src={item.image}
-                  alt={item.label}
+                  src={item.image_url}
+                  alt={item.name}
                   className="w-full h-full object-cover"
                 />
               </span>
 
-              <p className="text-sm">{item.label}</p>
+              <p className="text-sm">{item.name}</p>
             </div>
           ))}
         </div>
       </div>
 
+      {/* QUANTITY + ADD TO CART */}
       <div className="flex items-end gap-4">
         <div>
           <p className="text-lg mb-1 font-semibold">Number of People</p>
 
           <div className="flex items-center justify-between gap-2 p-2 rounded-full border">
-            <span className="text-xl cursor-pointer">
+            <span className="text-xl cursor-pointer" onClick={decrease}>
               <LuMinus />
             </span>
 
-            <p className="font-bold w-[50px] text-center">{1}</p>
+            <p className="font-bold w-[50px] text-center">{quantity}</p>
 
-            <span className="text-xl cursor-pointer">
+            <span className="text-xl cursor-pointer" onClick={increase}>
               <LuPlus />
             </span>
           </div>
         </div>
 
-        <button className="mainBtn rounded-full!">Check Out</button>
+        <button
+          className="mainBtn rounded-full!"
+          disabled={isPending}
+          onClick={handleAddToCart}
+        >
+          {isPending ? "Adding..." : "Add to Cart"}
+        </button>
       </div>
+
+      <FormError errorMsg={errorMessage || error?.data?.response?.message} />
     </section>
   );
 };

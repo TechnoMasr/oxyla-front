@@ -1,4 +1,23 @@
-const OrderSummary = () => {
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { confirmOrder } from "../../../services/cartServices";
+import ConfirmModal from "../../../components/modals/ConfirmModal";
+import { useState } from "react";
+import { toast } from "react-toastify";
+
+const OrderSummary = ({ data }) => {
+  const [openDelete, setOpenDelete] = useState(false);
+  const queryClient = useQueryClient();
+
+  // Mutation Update
+  const { mutate, isPending } = useMutation({
+    mutationFn: confirmOrder,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["cart"]);
+      setOpenDelete(false);
+      toast.success("Order Confirmed");
+    },
+  });
+
   return (
     <aside className="border border-gray-200 rounded-xl p-4 lg:p-6 bg-white shadow-sm h-fit">
       <h3 className="text-lg font-semibold mb-4">Order Summary</h3>
@@ -33,7 +52,7 @@ const OrderSummary = () => {
         {/* Total */}
         <div className="flex justify-between items-center text-gray-900">
           <span className="font-semibold text-lg">TOTAL</span>
-          <span className="font-bold text-lg">$288.08</span>
+          <span className="font-bold text-lg">{data?.total_price} $</span>
         </div>
 
         {/* Date */}
@@ -55,10 +74,25 @@ const OrderSummary = () => {
         </div>
 
         {/* Checkout Button */}
-        <button type="button" className="mainBtn w-full mt-4">
-          Proceed to Checkout
+        <button
+          onClick={() => setOpenDelete(true)}
+          disabled={isPending}
+          type="button"
+          className="mainBtn w-full mt-4"
+        >
+          {isPending ? "Loading ..." : "Proceed to Checkout"}
         </button>
       </div>
+
+      {/* Delete Modal */}
+      <ConfirmModal
+        openModal={openDelete}
+        onClose={() => setOpenDelete(false)}
+        confirmMsg={"Are you sure you want to delete this item ?"}
+        onConfirm={mutate}
+        disabled={isPending}
+        btnText={isPending ? "Removing..." : "Confirm"}
+      />
     </aside>
   );
 };

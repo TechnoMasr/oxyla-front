@@ -19,7 +19,7 @@ const ProtectedRoute = ({ children }) => {
 
   const handleConfirm = () => {
     setOpenModal(false);
-    navigate("/login", { replace: true });
+    navigate("/signin", { replace: true });
   };
 
   const handleClose = () => {

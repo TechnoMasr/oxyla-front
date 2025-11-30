@@ -15,7 +15,7 @@ import { getHome } from "../../services/homeServices";
 import { useQuery } from "@tanstack/react-query";
 
 const Home = () => {
-  const [showLoader, setShowLoader] = useState(false);
+  const [showLoader, setShowLoader] = useState(true);
   const [openMenu, setOpenMenu] = useState(false);
 
   const {

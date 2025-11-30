@@ -5,6 +5,7 @@ import Avatar from "../../../components/common/Avatar";
 import FormBtn from "../../../components/form/FormBtn";
 import FormError from "../../../components/form/FormError";
 import { updateProfile } from "../../../services/authServices";
+import {} from "../../../store/profile/profileSlice";
 
 const EditProfile = () => {
   const { profile } = useSelector((state) => state.profile);
@@ -30,9 +31,14 @@ const EditProfile = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: updateProfile,
-    onSuccess: () => {
+    onSuccess: (data) => {
       setError("");
       setIsEditing(false); // بعد الحفظ اقفله تاني
+      console.log("update data", data);
+
+      setForm({
+        name: data?.name,
+      });
     },
     onError: (err) => {
       setError(err?.response?.data?.message || "Something went wrong");
@@ -79,10 +85,10 @@ const EditProfile = () => {
       {/* Top section — avatar + edit button */}
       <div className="flex items-center justify-between gap-4 flex-wrap mb-4">
         <div className="flex items-center gap-2">
-          <Avatar name={profile?.name} size="lg" />
+          <Avatar name={form?.name} size="lg" />
           <div>
-            <p className="font-semibold text-lg">{profile?.name}</p>
-            <p className="text-sm text-stone-600">{profile?.email}</p>
+            <p className="font-semibold text-lg">{form?.name}</p>
+            <p className="text-sm text-stone-600">{form?.email}</p>
           </div>
         </div>
 
@@ -209,7 +215,7 @@ const EditProfile = () => {
         </div>
 
         {isEditing && (
-          <div className="mt-6 w-fit">
+          <div className="my-6 w-fit">
             <FormBtn title={isPending ? "Saving..." : "Save Changes"} />
           </div>
         )}

@@ -14,7 +14,7 @@ const Profile = () => {
       {/* 🔹 زر الفتح في الموبايل */}
       <button
         onClick={handleToggle}
-        className="md:hidden bg-myPurple text-white text-xl p-1 rounded shadow-lg"
+        className="lg:hidden bg-myPurple text-white text-xl p-1 rounded shadow-lg cursor-pointer"
       >
         <HiMenuAlt2 />
       </button>

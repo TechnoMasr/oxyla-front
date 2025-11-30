@@ -27,7 +27,7 @@ const Rooms = ({ data }) => {
 
                 <div className="w-full h-48 overflow-hidden rounded-xl">
                   <img
-                    src={item.main_image}
+                    src={item.image_url}
                     alt={item.name}
                     className="w-full h-full object-cover"
                   />
@@ -39,7 +39,7 @@ const Rooms = ({ data }) => {
 
         <div className="flex justify-center">
           <Link
-            to="/"
+            to="/services"
             className="flex items-center gap-1 font-semibold hover:underline"
           >
             Explore More Rooms <GoArrowUpRight className="text-lg" />
