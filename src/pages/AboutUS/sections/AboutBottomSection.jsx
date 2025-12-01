@@ -1,12 +1,13 @@
 import { useState } from "react";
-import Img from "../../../assets/images/book-img.jpg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import { useSelector } from "react-redux";
 
 const AboutBottomSection = ({ data }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { lang } = useSelector((state) => state.language);
 
   return (
     <section className="sectionPadding w-full max-w-5xl mx-auto px-4 grid grid-cols-1 md:grid-cols-5 gap-8 lg:gap-16">
@@ -39,7 +40,9 @@ const AboutBottomSection = ({ data }) => {
                 className="absolute h-full bg-myPurple transition-all duration-500 ease-in-out"
                 style={{
                   width: `${100 / data?.items.length}%`,
-                  left: `${(100 / data?.items.length) * currentIndex}%`,
+                  [lang === "ar" ? "right" : "left"]: `${
+                    (100 / data?.items.length) * currentIndex
+                  }%`,
                 }}
               />
             </div>

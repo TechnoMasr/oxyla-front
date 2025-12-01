@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import Cookies from "js-cookie";
+import { store } from "../store/store";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -13,7 +14,7 @@ const STATIC_WORD = import.meta.env.VITE_SIGNATURE_STATIC_WORD || "AGORA_2025";
 const SECRET_KEY =
   import.meta.env.VITE_SIGNATURE_SECRET || "D9CCAC38146C5B89A32D7C2671EEA";
 const BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "https://backend.indusagora.com/api";
+  import.meta.env.VITE_API_BASE_URL ;
 const BASE_URL_LOCAL = BASE_URL;
 
 // ✅ توليد nonce فريد
@@ -60,6 +61,9 @@ api.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
+    const lang = store.getState().language.lang || "en";
+    config.headers.lang = lang;
 
     return config;
   },

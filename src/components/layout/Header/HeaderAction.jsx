@@ -1,4 +1,3 @@
-import { CiGlobe } from "react-icons/ci";
 import { FiUser } from "react-icons/fi";
 import { IoCartOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
@@ -9,8 +8,7 @@ import { PiCalendarMinus } from "react-icons/pi";
 import { RiEdit2Line } from "react-icons/ri";
 import { TbLogout2 } from "react-icons/tb";
 import { MdLogin } from "react-icons/md";
-import flagAR from "../../../assets/icons/flag-ar.png";
-import flagEN from "../../../assets/icons/flag-en.png";
+import LanguageSwitcher from "../../common/LanguageSwitcher";
 
 const HeaderAction = ({ setActiveNav }) => {
   const { profile } = useSelector((state) => state.profile);
@@ -25,28 +23,7 @@ const HeaderAction = ({ setActiveNav }) => {
 
   return (
     <div className="flex items-center justify-center flex-wrap gap-2">
-      <div className="dropdown dropdown-end">
-        <div tabIndex={0} className="cursor-pointer text-2xl text-myPurple">
-          <CiGlobe />
-        </div>
-        <ul
-          tabIndex={0}
-          className="dropdown-content menu bg-base-100 rounded-box z-1 w-max p-2 shadow-lg"
-        >
-          <li>
-            <div className="flex items-center gap-2">
-              <img src={flagAR} alt="" className="w-8 rounded" />
-              <p>العربيه</p>
-            </div>
-          </li>
-          <li>
-            <div className="flex items-center gap-2">
-              <img src={flagEN} alt="" className="w-8 rounded" />
-              <p>English</p>
-            </div>
-          </li>
-        </ul>
-      </div>
+      <LanguageSwitcher />
 
       {profile ? (
         <div className="dropdown dropdown-end">

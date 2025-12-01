@@ -108,7 +108,7 @@ input::-webkit-inner-spin-button {
     @apply text-sm font-semibold text-myPurple duration-500 capitalize cursor-pointer relative;
 
     &::after {
-      @apply content-[''] absolute -bottom-1 start-1/2 -translate-x-1/2 h-0.5 w-0 bg-myPurple rounded-full duration-500;
+      @apply content-[''] absolute -bottom-1 left-1/2 -translate-x-1/2 h-0.5 w-0 bg-myPurple rounded-full duration-500;
     }
 
     &.active,
