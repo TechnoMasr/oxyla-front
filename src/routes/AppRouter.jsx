@@ -50,7 +50,14 @@ const router = createBrowserRouter([
     children: [
       { path: "services", element: <ServicesPage /> },
       { path: "services/:id", element: <ServiceDetails /> },
-      { path: "cart", element: <Cart /> },
+      {
+        path: "cart",
+        element: (
+          <ProtectedRoute>
+            <Cart />
+          </ProtectedRoute>
+        ),
+      },
       { path: "payment", element: <Payment /> },
       { path: "your-session", element: <YourSession /> },
       { path: "about-us", element: <AboutUS /> },

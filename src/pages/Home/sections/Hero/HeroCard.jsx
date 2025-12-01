@@ -31,7 +31,7 @@ const HeroCard = ({ item, index }) => {
         <p className="text-white mb-4">{item?.description}</p>
 
         <Link
-          to={item?.button_url}
+          to={item?.button_url || "/services"}
           className="px-4 py-2 text-xl text-white border font-semibold rounded flex items-center gap-2"
         >
           {item?.button_text} <GoArrowUpRight />
