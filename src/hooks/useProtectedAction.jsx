@@ -2,8 +2,10 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ProtectModal from "../components/modals/ProtectModal";
+import { useTranslation } from "react-i18next";
 
 const useProtectedAction = () => {
+  const { t } = useTranslation();
   const { profile } = useSelector((state) => state.profile);
   const [open, setOpen] = useState(false);
   const [pendingAction, setPendingAction] = useState(null);
@@ -31,9 +33,9 @@ const useProtectedAction = () => {
   const Modal = (
     <ProtectModal
       open={open}
-      title="Login Required"
-      message="You need to login first to perform this action."
-      confirmText="Login"
+      title={t("Protected.loginRequired")}
+      message={t("Protected.loginMessage")}
+      confirmText={t("Protected.loginBtn")}
       onConfirm={confirmHandler}
       onClose={closeHandler}
     />

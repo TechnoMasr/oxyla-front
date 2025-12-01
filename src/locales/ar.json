@@ -1,1 +1,346 @@
-{}
+{
+  "bookNow": "احجز الان",
+  "currency": "$",
+  "addToCart": "اضافة الى السلة",
+  "remove": "حذف",
+  "loading": "جاري التحميل",
+  "Cancel": "الغاء",
+  "noData": "لا يوجد بيانات متاحة",
+  "Menu": "القائمة",
+  "ExploreMoreRooms": "استكشف المزيد من الغرف",
+  "Testimonials": "تقييمات",
+  "MostBookedCapsules": "الغرف الاكثر زيارة",
+  "Search": "بحث",
+
+  "CartCard": {
+    "deleteConfirmation": "هل أنت متأكد أنك تريد حذف هذا العنصر؟",
+    "confirm": "تأكيد",
+    "removing": "جارٍ الحذف...",
+    "change": "تغيير",
+    "remove": "حذف",
+    "rateNow": "قيم الآن",
+    "itemRemoved": "تم حذف العنصر من السلة"
+  },
+
+  "Footer": {
+    "home": "الرئيسية",
+    "about": "من نحن",
+    "rooms": "الغرف",
+    "booking": "الحجز",
+    "contact": "اتصل بنا",
+    "logoAlt": "الشعار"
+  },
+
+  "Header": {
+    "home": "الرئيسية",
+    "aboutUs": "من نحن",
+    "products": "المنتجات",
+    "contact": "اتصل بنا",
+    "logoAlt": "الشعار"
+  },
+
+  "headerActions": {
+    "editProfile": "تعديل الملف الشخصي",
+    "notifications": "الإشعارات",
+    "appointment": "المواعيد",
+    "wishlist": "المفضلة",
+    "logout": "تسجيل الخروج",
+    "login": "تسجيل الدخول"
+  },
+
+  "ChangeRoomModal": {
+    "title": "تغيير الحجز",
+    "selectDate": "اختر تاريخ جديد",
+    "selectTime": "اختر وقت جديد",
+    "updateQuantity": "تحديث الكمية",
+    "saveChanges": "حفظ التغييرات",
+    "updating": "جارٍ التحديث..."
+  },
+
+  "ConfirmModal": {
+    "cancel": "إلغاء",
+    "processing": "جارٍ المعالجة...",
+    "Confirm": "تأكيد",
+    "DeleteItem": "هل أنت متأكد أنك تريد حذف هذا العنصر؟"
+  },
+
+  "RateModal": {
+    "title": "قيّم الخدمة",
+    "notes": "ملاحظات",
+    "cancel": "إلغاء",
+    "rate": "تقييم",
+    "submitting": "جارٍ الإرسال..."
+  },
+
+  "ProtectedRoute": {
+    "title": "يتطلب تسجيل الدخول",
+    "message": "يجب أن تكون مسجلاً للدخول للوصول إلى هذه الصفحة. هل تريد الذهاب إلى صفحة تسجيل الدخول الآن؟",
+    "confirm": "الذهاب لتسجيل الدخول"
+  },
+
+  "PublicRoute": {
+    "title": "أنت مسجل الدخول بالفعل",
+    "message": "أنت مسجل الدخول بالفعل ولا يمكنك الوصول لهذه الصفحة أثناء تسجيل الدخول.",
+    "confirm": "الذهاب للصفحة الرئيسية"
+  },
+
+  "Protected": {
+    "loginRequired": "مطلوب تسجيل الدخول",
+    "loginMessage": "يجب تسجيل الدخول أولاً لتنفيذ هذا الإجراء.",
+    "loginBtn": "تسجيل الدخول"
+  },
+
+  "Cart": {
+    "title": "عربة التسوق",
+    "items": "عناصر"
+  },
+
+  "OrderSummary": {
+    "orderSummary": "ملخص الطلب",
+    "price": "السعر",
+    "discount": "الخصم",
+    "shipping": "الشحن",
+    "free": "مجاني",
+    "couponApplied": "الكوبون المطبق",
+    "total": "الإجمالي",
+    "scheduledSessionDate": "تاريخ الجلسة المجدولة",
+    "couponCode": "كود الكوبون",
+    "proceedToCheckout": "إتمام الدفع",
+    "loading": "جاري التحميل ...",
+    "orderConfirmed": "تم تأكيد الطلب",
+    "confirmDeleteMsg": "هل أنت متأكد أنك تريد حذف هذا العنصر؟",
+    "confirm": "تأكيد",
+    "removing": "جاري الحذف..."
+  },
+
+  "ContactForm": {
+    "getInTouch": "تواصل معنا",
+    "description": "نود أن نسمع منك. تواصل معنا لأي أسئلة أو أفكار للتعاون.",
+    "inquiryType": "نوع الاستفسار",
+    "selectInquiry": "اختر نوع الاستفسار",
+    "general": "عام",
+    "support": "دعم",
+    "complaint": "شكوى",
+    "suggestion": "اقتراح",
+    "partnership": "شراكة",
+    "subject": "الموضوع",
+    "subjectPlaceholder": "مشكلة في حجزي",
+    "messageDetails": "تفاصيل الرسالة",
+    "messagePlaceholder": "اكتب رسالتك أو وصف مشكلتك هنا...",
+    "attachFile": "إرفاق ملف (اختياري)",
+    "name": "الاسم",
+    "namePlaceholder": "أدخل اسمك...",
+    "email": "البريد الإلكتروني",
+    "emailPlaceholder": "أدخل بريدك الإلكتروني...",
+    "phone": "رقم الهاتف",
+    "phonePlaceholder": "أدخل رقم هاتفك...",
+    "send": "إرسال",
+    "messageSent": "تم إرسال الرسالة بنجاح",
+    "ok": "حسناً",
+    "errors": {
+      "inquiry_type": "الرجاء اختيار نوع الاستفسار",
+      "subject": "الموضوع مطلوب",
+      "message": "تفاصيل الرسالة مطلوبة",
+      "file_path": "الملف مطلوب",
+      "name": "الاسم مطلوب",
+      "email": "البريد الإلكتروني مطلوب",
+      "emailInvalid": "تنسيق البريد الإلكتروني غير صحيح",
+      "phone": "رقم الهاتف مطلوب"
+    },
+    "contactLabels": {
+      "phone": "الهاتف",
+      "email": "البريد الإلكتروني",
+      "fax": "فاكس"
+    }
+  },
+
+  "ForgotPassword": {
+    "steps": {
+      "checkEmail": {
+        "title": "تحقق من البريد الإلكتروني",
+        "subtitle": "لقد أرسلنا رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني."
+      },
+      "enterOTP": {
+        "title": "أدخل رمز التحقق",
+        "subtitle": "لقد أرسلنا رمز التحقق (OTP) إلى بريدك الإلكتروني."
+      },
+      "resetPassword": {
+        "title": "إعادة تعيين كلمة المرور",
+        "subtitle": "الرجاء إدخال كلمة المرور الجديدة أدناه."
+      }
+    }
+  },
+
+  "checkEmail": {
+    "title": "نسيت كلمة المرور",
+    "label": "البريد الإلكتروني / الهاتف",
+    "placeholder": "البريد الإلكتروني / الهاتف",
+    "continue": "متابعة",
+    "errors": {
+      "email": "الرجاء إدخال بريد إلكتروني صالح",
+      "emailRequired": "البريد الإلكتروني مطلوب"
+    }
+  },
+
+  "otp": {
+    "title": "نسيت كلمة المرور",
+    "checkEmailTitle": "تحقق من بريدك الإلكتروني",
+    "checkEmailSubtitle": "أرسلنا رمز إعادة التعيين إلى {{email}}. الرجاء إدخال الرمز المكون من {{length}} أرقام الموجود في البريد.",
+    "checkBtn": "تحقق",
+    "resend": "إعادة إرسال البريد",
+    "resendIn": "أعد الإرسال خلال {{timer}} ثانية",
+    "resending": "جاري إعادة الإرسال...",
+    "successResend": "تم إرسال رمز جديد بنجاح!",
+    "otpError": "الرجاء إدخال جميع أرقام الرمز.",
+    "invalidOtp": "الرمز غير صحيح، حاول مرة أخرى.",
+    "otpNumbersOnly": "الرمز يجب أن يحتوي على أرقام فقط."
+  },
+
+  "resetPassword": {
+    "title": "نسيت كلمة المرور",
+    "newPassword": "كلمة المرور الجديدة",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "resetBtn": "إعادة تعيين كلمة المرور",
+    "successMsg": "تم إعادة تعيين كلمة المرور بنجاح!",
+    "goToSignin": "الذهاب لتسجيل الدخول",
+    "passwordStrength": {
+      "weak": "ضعيفة",
+      "medium": "متوسطة",
+      "strong": "قوية",
+      "veryStrong": "قوية جدًا"
+    },
+    "errors": {
+      "minLength": "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل",
+      "required": "كلمة المرور الجديدة مطلوبة",
+      "pattern": "يجب أن تحتوي كلمة المرور على حرف كبير، رقم وحرف خاص",
+      "match": "كلمتا المرور غير متطابقتين",
+      "confirmRequired": "يرجى تأكيد كلمة المرور"
+    },
+    "apiError": "فشل إعادة تعيين كلمة المرور"
+  },
+
+  "HomeMenu": {
+    "links": {
+      "home": "الرئيسية",
+      "about": "من نحن",
+      "rooms": "الخدمات",
+      "contact": "اتصل بنا"
+    }
+  },
+
+  "NotFound": {
+    "title": "404",
+    "subtitle": "الصفحة غير موجودة",
+    "goHome": "العودة للرئيسية"
+  },
+
+  "Appointment": {
+    "title": "الحجوزات",
+    "reservationCount": "حجز",
+    "noReservations": "لا توجد حجوزات حالياً"
+  },
+
+  "editProfilePage": {
+    "title": "تعديل الملف الشخصي",
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "mobileNumber": "رقم الهاتف",
+    "location": "الموقع",
+    "currentPassword": "كلمة المرور الحالية",
+    "newPassword": "كلمة المرور الجديدة",
+    "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
+    "edit": "تعديل",
+    "cancel": "إلغاء",
+    "saveChanges": "حفظ التغييرات",
+    "profileUpdated": "تم تحديث الملف الشخصي بنجاح",
+    "validation": {
+      "enterNewPassword": "يرجى إدخال كلمة المرور الجديدة وتأكيدها.",
+      "enterCurrentPassword": "يرجى إدخال كلمة المرور الحالية أولاً.",
+      "passwordMismatch": "تأكيد كلمة المرور لا يطابق."
+    },
+    "errorSomethingWrong": "حدث خطأ ما"
+  },
+
+  "logoutPage": {
+    "title": "تسجيل الخروج",
+    "confirmMessage": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+    "logoutBtn": "تسجيل الخروج"
+  },
+
+  "notificationsPage": {
+    "title": "الإشعارات",
+    "tabs": {
+      "all": "الكل",
+      "alert": "تنبيه",
+      "newsletter": "النشرة الإخبارية"
+    },
+    "noNotifications": "لا توجد إشعارات.",
+    "viewLink": "عرض",
+    "newMessage": "رسالة جديدة",
+    "messageFrom": "لديك رسالة جديدة من John Doe"
+  },
+
+  "wishlistPage": {
+    "title": "قائمة الرغبات",
+    "itemsCount": "{{count}} عنصر"
+  },
+
+  "profileSideBar": {
+    "title": "الملف الشخصي",
+    "editProfile": "تعديل الملف الشخصي",
+    "notifications": "الإشعارات",
+    "appointment": "المواعيد",
+    "wishlist": "قائمة الرغبات",
+    "logout": "تسجيل الخروج"
+  },
+
+  "detailsSection": {
+    "home": "الرئيسية",
+    "pickDate": "اختر التاريخ",
+    "appointmentsAvailable": "المواعيد المتاحة",
+    "includedInSession": "متضمن في جلستك",
+    "numberOfPeople": "عدد الأشخاص",
+    "addToCart": "أضف إلى السلة",
+    "adding": "جارٍ الإضافة...",
+    "selectDateTimeError": "يرجى اختيار التاريخ والوقت قبل إضافة الخدمة إلى السلة."
+  },
+
+  "signin": {
+    "title": "تسجيل الدخول",
+    "emailPhone": "البريد الإلكتروني / الهاتف",
+    "password": "كلمة المرور",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "signIn": "تسجيل الدخول",
+    "or": "أو",
+    "signInWithGoogle": "تسجيل الدخول باستخدام جوجل",
+    "dontHaveAccount": "ليس لديك حساب؟",
+    "signUp": "إنشاء حساب",
+    "successMsg": "تم تسجيل الدخول بنجاح",
+    "ok": "حسناً",
+    "emailRequired": "البريد الإلكتروني أو الهاتف مطلوب",
+    "emailOrPhoneInvalid": "يجب أن يكون بريد إلكتروني أو رقم هاتف صالح",
+    "passwordRequired": "كلمة المرور مطلوبة"
+  },
+
+  "signup": {
+    "title": "إنشاء حساب",
+    "name": "الاسم",
+    "emailPhone": "البريد الإلكتروني / الهاتف",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "signUp": "إنشاء حساب",
+    "or": "أو",
+    "signInWithGoogle": "تسجيل الدخول باستخدام جوجل",
+    "alreadyHaveAccount": "لديك حساب بالفعل؟",
+    "signIn": "تسجيل الدخول",
+    "successMsg": "تم إنشاء الحساب بنجاح",
+    "ok": "حسناً",
+    "nameRequired": "الاسم مطلوب",
+    "emailRequired": "البريد الإلكتروني أو الهاتف مطلوب",
+    "emailOrPhoneInvalid": "يجب أن يكون بريد إلكتروني أو رقم هاتف صالح",
+    "passwordRequired": "كلمة المرور مطلوبة",
+    "passwordMin": "يجب أن تكون كلمة المرور 6 أحرف على الأقل",
+    "confirmPasswordRequired": "يرجى تأكيد كلمة المرور",
+    "passwordsMustMatch": "كلمتا المرور غير متطابقتين"
+  }
+}

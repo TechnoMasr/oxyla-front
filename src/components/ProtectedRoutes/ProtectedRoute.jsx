@@ -4,8 +4,10 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import ProtectModal from "../modals/ProtectModal";
 import LoadingPage from "../Loading/LoadingPage";
+import { useTranslation } from "react-i18next";
 
 const ProtectedRoute = ({ children }) => {
+  const { t } = useTranslation();
   const token = Cookies.get("tokenOx");
   const { profile, loading } = useSelector((state) => state.profile);
   const navigate = useNavigate();
@@ -24,26 +26,22 @@ const ProtectedRoute = ({ children }) => {
 
   const handleClose = () => {
     setOpenModal(false);
-    // لو عايز تمنع البقاء على الصفحة الحالية ممكن نرجع للصفحة الرئيسية:
     navigate("/", { replace: true });
   };
 
-  // لو فيه توكن وبروفايل نعرض المحتوى
   if (!loading && token && profile) {
     return <>{children}</>;
   }
 
-  // أثناء تحميل البروفايل نقدر نعرض عنصر لودينج بسيط
   if (loading) return <LoadingPage />;
 
-  // بخلاف ذلك، نعرض المودال التنبيهي فقط
   return (
     <>
       <ProtectModal
         open={openModal}
-        title="Login Required"
-        message="You need to be logged in to access this page. Would you like to go to the login page now?"
-        confirmText="Go to Login"
+        title={t("ProtectedRoute.title")}
+        message={t("ProtectedRoute.message")}
+        confirmText={t("ProtectedRoute.confirm")}
         onConfirm={handleConfirm}
         onClose={handleClose}
       />

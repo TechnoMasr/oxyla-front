@@ -2,9 +2,12 @@ import { CiLocationOn } from "react-icons/ci";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { toggleWishList } from "../../services/wishListServices";
+import { useTranslation } from "react-i18next";
 
 const WishListCard = ({ item }) => {
   const queryClient = useQueryClient();
+
+  const { t } = useTranslation();
 
   const toggleMutation = useMutation({
     mutationFn: (payload) => toggleWishList(payload),
@@ -40,14 +43,14 @@ const WishListCard = ({ item }) => {
 
         <div className="flex items-center gap-4">
           <Link to={`/services/${item.id}`} className="mainBtn text-sm! w-fit">
-            Add To Cart
+            {t("addToCart")}
           </Link>
 
           <button
             onClick={handleToggle}
             className="text-red-500 hover:underline cursor-pointer"
           >
-            Remove
+            {t("remove")}
           </button>
         </div>
       </div>

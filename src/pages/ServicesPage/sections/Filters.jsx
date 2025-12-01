@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import { RxMixerHorizontal } from "react-icons/rx";
 import FiltersSideBar from "./FiltersSideBar";
 import { useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Filters = ({ categories }) => {
   const [active, setActive] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState(searchParams.get("query") || "");
+
+  const { t } = useTranslation();
 
   const FiltersBtns = [
     { label: "All", slug: "all" },
@@ -41,7 +44,7 @@ const Filters = ({ categories }) => {
       <div className="flex items-center p-2 rounded-full shadow-md">
         <input
           type="text"
-          placeholder="Search"
+          placeholder={t("Search")}
           className="flex-1 outline-0 border-0 p-2"
           value={search}
           onChange={handleSearchChange}

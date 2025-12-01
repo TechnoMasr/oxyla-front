@@ -3,20 +3,23 @@ import CheckEmail from "./sections/CheckEmail";
 import ResetPassword from "./sections/ResetPassword";
 import StepProgress from "../../components/form/StepProgress";
 import OTP from "./sections/OTP";
+import { useTranslation } from "react-i18next";
 
 const ForgotPassword = () => {
+  const { t } = useTranslation();
+
   const steps = [
     {
-      title: "Check Email",
-      subtitle: "We have sent a password reset link to your email address.",
+      title: t("ForgotPassword.steps.checkEmail.title"),
+      subtitle: t("ForgotPassword.steps.checkEmail.subtitle"),
     },
     {
-      title: "Enter OTP",
-      subtitle: "We have sent a One-Time Password (OTP) to your email address.",
+      title: t("ForgotPassword.steps.enterOTP.title"),
+      subtitle: t("ForgotPassword.steps.enterOTP.subtitle"),
     },
     {
-      title: "Reset Password",
-      subtitle: "Please enter your new password below.",
+      title: t("ForgotPassword.steps.resetPassword.title"),
+      subtitle: t("ForgotPassword.steps.resetPassword.subtitle"),
     },
   ];
 

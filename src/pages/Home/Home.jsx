@@ -18,10 +18,7 @@ const Home = () => {
   const [showLoader, setShowLoader] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
 
-  const {
-    data: homeData,
-    isLoading,
-  } = useQuery({
+  const { data: homeData, isLoading } = useQuery({
     queryKey: ["homeData"],
     queryFn: getHome,
   });

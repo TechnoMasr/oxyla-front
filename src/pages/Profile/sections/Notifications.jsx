@@ -2,27 +2,28 @@ import { useState } from "react";
 import { BsBell } from "react-icons/bs";
 import { IoMdTime } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Notifications = () => {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("all");
 
   const notificationsList = Array.from({ length: 10 }, (_, index) => ({
     id: index + 1,
-    title: "New Message",
-    description: "You have a new message from John Doe",
+    title: t("notificationsPage.newMessage"),
+    description: t("notificationsPage.messageFrom"),
     date: "2022-01-01",
     status: index % 2 === 0 ? "Unread" : "Read",
     link:
       index % 2 !== 0
         ? {
             url: "/",
-            name: "View",
+            name: t("notificationsPage.viewLink"),
           }
         : null,
     type: index % 2 === 0 ? "newsletter" : "alert",
   }));
 
-  // ✅ فلترة الإشعارات حسب التبويب
   const filteredNotifications =
     activeTab === "all"
       ? notificationsList
@@ -30,7 +31,9 @@ const Notifications = () => {
 
   return (
     <section>
-      <h2 className="text-2xl font-bold text-myPurple mb-4">Notifications</h2>
+      <h2 className="text-2xl font-bold text-myPurple mb-4">
+        {t("notificationsPage.title")}
+      </h2>
 
       {/* 🔹 التبويبات */}
       <div role="tablist" className="tabs tabs-border mb-4">
@@ -43,7 +46,7 @@ const Notifications = () => {
               activeTab === tab ? "tab-active text-myPurple font-semibold" : ""
             }`}
           >
-            {tab}
+            {t(`notificationsPage.tabs.${tab}`)}
           </button>
         ))}
       </div>
@@ -89,10 +92,9 @@ const Notifications = () => {
         </div>
       ))}
 
-      {/* 🔹 حالة عدم وجود إشعارات */}
       {filteredNotifications.length === 0 && (
         <p className="text-center text-gray-500 mt-4">
-          No notifications found.
+          {t("notificationsPage.noNotifications")}
         </p>
       )}
     </section>

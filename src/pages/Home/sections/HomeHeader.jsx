@@ -1,6 +1,8 @@
+import { useTranslation } from "react-i18next";
 import logo from "../../../assets/images/oxela-home-logo/logo-full.png";
 
 const HomeHeader = ({ setOpenMenu }) => {
+  const { t } = useTranslation();
   return (
     <>
       <img
@@ -15,9 +17,9 @@ const HomeHeader = ({ setOpenMenu }) => {
         </button>
         <button
           onClick={() => setOpenMenu(true)}
-          className="px-2 py-1 text-white font-bold text-2xl cursor-pointer"
+          className="px-2 py-1 text-white font-bold text-2xl cursor-pointer uppercase"
         >
-          MENU
+          {t("Menu")}
         </button>
       </div>
     </>

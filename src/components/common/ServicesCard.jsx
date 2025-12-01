@@ -5,9 +5,11 @@ import { IoHeart, IoHeartOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { toggleWishList } from "../../services/wishListServices";
 import useProtectedAction from "../../hooks/useProtectedAction";
+import { useTranslation } from "react-i18next";
 
 const ServicesCard = ({ service }) => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const { ProtectModalUI, checkAuthBefore } = useProtectedAction();
 
@@ -51,7 +53,7 @@ const ServicesCard = ({ service }) => {
 
             <div>
               <span className="text-sm font-bold">
-                {service.price} SAR/hour
+                {service.price} {t("currency")}
               </span>
               <div className="flex gap-1">{renderStars(service.rate)}</div>
             </div>
@@ -87,7 +89,7 @@ const ServicesCard = ({ service }) => {
               to={`/services/${service.id}`}
               className="bg-myGreen text-white px-2 py-1 rounded-full hover:brightness-90 transition cursor-pointer"
             >
-              Book Now
+              {t("bookNow")}
             </Link>
           </div>
         </div>

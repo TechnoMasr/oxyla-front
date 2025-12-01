@@ -9,16 +9,22 @@ import { RiEdit2Line } from "react-icons/ri";
 import { TbLogout2 } from "react-icons/tb";
 import { MdLogin } from "react-icons/md";
 import LanguageSwitcher from "../../common/LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 const HeaderAction = ({ setActiveNav }) => {
+  const { t } = useTranslation();
   const { profile } = useSelector((state) => state.profile);
 
   const profileList = [
-    { name: "edit profile", url: "", icon: <RiEdit2Line /> },
-    { name: "notifications", url: "notifications", icon: <BsBell /> },
-    { name: "appointment", url: "appointment", icon: <PiCalendarMinus /> },
-    { name: "wishlist", url: "wishlist", icon: <FiHeart /> },
-    { name: "logout", url: "logout", icon: <TbLogout2 /> },
+    { name: t("headerActions.editProfile"), url: "", icon: <RiEdit2Line /> },
+    { name: t("headerActions.notifications"), url: "notifications", icon: <BsBell /> },
+    {
+      name: t("headerActions.appointment"),
+      url: "appointment",
+      icon: <PiCalendarMinus />,
+    },
+    { name: t("headerActions.wishlist"), url: "wishlist", icon: <FiHeart /> },
+    { name: t("headerActions.logout"), url: "logout", icon: <TbLogout2 /> },
   ];
 
   return (
@@ -53,7 +59,7 @@ const HeaderAction = ({ setActiveNav }) => {
           className="text-2xl text-myPurple cursor-pointer"
           onClick={() => setActiveNav(false)}
         >
-          <MdLogin />
+          <MdLogin title={t("headerActions.login")} />
         </Link>
       )}
 

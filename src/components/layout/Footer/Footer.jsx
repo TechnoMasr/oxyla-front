@@ -1,15 +1,17 @@
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { IoLogoLinkedin } from "react-icons/io";
 import logo from "../../../assets/images/oxela-home-logo/5.png";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   const pageLinks = [
-    { name: "Home", url: "/" },
-    { name: "About", url: "/about-us" },
-    { name: "Rooms", url: "/services" },
-    { name: "Booking", url: "/services" },
-    { name: "Contact", url: "/contact-us" },
+    { name: t("Footer.home"), url: "/" },
+    { name: t("Footer.about"), url: "/about-us" },
+    { name: t("Footer.rooms"), url: "/services" },
+    { name: t("Footer.booking"), url: "/services" },
+    { name: t("Footer.contact"), url: "/contact-us" },
   ];
 
   const socialLinks = [

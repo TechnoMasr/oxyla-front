@@ -3,14 +3,16 @@ import { IoMdTime } from "react-icons/io";
 import { LuCalendarDays } from "react-icons/lu";
 import ConfirmModal from "../modals/ConfirmModal";
 import ChangeRoomModal from "../modals/ChangeRoomModal";
+import RateModal from "../modals/RateModal";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { removeFromCart } from "../../services/cartServices";
-import RateModal from "../modals/RateModal";
 import { renderStars } from "../../utils/renderStars";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const CartCard = ({ item, orders = false }) => {
+  const { t } = useTranslation(); // Hook for i18next
   const [openDelete, setOpenDelete] = useState(false);
   const [openChange, setOpenChange] = useState(false);
   const [openRate, setOpenRate] = useState(false);
@@ -23,7 +25,7 @@ const CartCard = ({ item, orders = false }) => {
     onSuccess: () => {
       queryClient.invalidateQueries(["cart"]);
       setOpenDelete(false);
-      toast.success("Item removed from cart");
+      toast.success(t("CartCard.itemRemoved"));
     },
   });
 
@@ -67,7 +69,7 @@ const CartCard = ({ item, orders = false }) => {
               onClick={() => setOpenRate(true)}
               className="mainBtn text-sm!"
             >
-              Rate Now
+              {t("CartCard.rateNow")}
             </button>
           )
         ) : (
@@ -76,14 +78,14 @@ const CartCard = ({ item, orders = false }) => {
               onClick={() => setOpenChange(true)}
               className="mainBtn text-sm!"
             >
-              Change
+              {t("CartCard.change")}
             </button>
 
             <button
               onClick={() => setOpenDelete(true)}
               className="text-red-500 hover:underline cursor-pointer"
             >
-              Remove
+              {t("CartCard.remove")}
             </button>
           </div>
         )}
@@ -93,10 +95,10 @@ const CartCard = ({ item, orders = false }) => {
       <ConfirmModal
         openModal={openDelete}
         onClose={() => setOpenDelete(false)}
-        confirmMsg={"Are you sure you want to delete this item ?"}
+        confirmMsg={t("CartCard.deleteConfirmation")}
         onConfirm={() => removeMutate()}
         disabled={isPending}
-        btnText={isPending ? "Removing..." : "Confirm"}
+        btnText={isPending ? t("CartCard.removing") : t("CartCard.confirm")}
       />
 
       {/* Change Modal */}

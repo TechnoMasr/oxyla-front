@@ -4,8 +4,10 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import ProtectModal from "../modals/ProtectModal";
 import LoadingPage from "../Loading/LoadingPage";
+import { useTranslation } from "react-i18next";
 
 const PublicRoute = ({ children }) => {
+  const { t } = useTranslation();
   const token = Cookies.get("tokenOx");
   const { profile, loading } = useSelector((state) => state.profile);
   const navigate = useNavigate();
@@ -24,11 +26,10 @@ const PublicRoute = ({ children }) => {
 
   const handleClose = () => {
     setOpenModal(false);
-    // لو عايز يسمح للمستخدم بالبقاء في صفحة تسجيل الدخول رغم لوجن، تقدر تحط هنا منطق آخر
     navigate("/", { replace: true });
   };
 
-  // لو المستخدم مش لوجن نسمح بالدخول (مثلاً صفحتي login/register)
+  // user not logged in → allow access (login/register pages)
   if (!loading && (!token || !profile)) {
     return <>{children}</>;
   }
@@ -39,9 +40,9 @@ const PublicRoute = ({ children }) => {
     <>
       <ProtectModal
         open={openModal}
-        title="Already Logged In"
-        message="You are already logged in. You cannot access this page while logged in."
-        confirmText="Go to Home"
+        title={t("PublicRoute.title")}
+        message={t("PublicRoute.message")}
+        confirmText={t("PublicRoute.confirm")}
         onConfirm={handleConfirm}
         onClose={handleClose}
       />

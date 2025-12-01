@@ -62,7 +62,7 @@ input::-webkit-inner-spin-button {
 
 @layer {
   body {
-    @apply bg-white font-[cairo];
+    @apply bg-white font-[Manrope];
   }
 
   .pagePadding {

@@ -1,4 +1,5 @@
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 
 const ConfirmModal = ({
   openModal,
@@ -8,6 +9,7 @@ const ConfirmModal = ({
   confirmMsg,
   disabled = false,
 }) => {
+  const { t } = useTranslation();
   if (!openModal) return null;
 
   return createPortal(
@@ -20,7 +22,7 @@ const ConfirmModal = ({
             onClick={onClose}
             className="btn bg-red-700 text-white rounded-lg"
           >
-            Cancel
+            {t("Cancel")}
           </button>
           <button onClick={onConfirm} className="mainBtn" disabled={disabled}>
             {btnText}

@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 const FormBtn = ({
   title = "Submit",
   disabled,
@@ -7,6 +9,8 @@ const FormBtn = ({
   margin = true,
 }) => {
   const isDisabled = disabled || loading;
+  const { t } = useTranslation();
+
   return (
     <button
       type={type}
@@ -18,7 +22,7 @@ const FormBtn = ({
     >
       {loading ? (
         <>
-          Loading ...
+          {t("loading")} ...
           <span className="inline-block w-4 h-4 border-2 border-myBlue-2 border-t-transparent rounded-full animate-spin ms-2"></span>
         </>
       ) : (

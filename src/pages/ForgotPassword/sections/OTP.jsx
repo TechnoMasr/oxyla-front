@@ -4,16 +4,17 @@ import FormBtn from "../../../components/form/FormBtn";
 import FormError from "../../../components/form/FormError";
 import { useEffect, useRef, useState } from "react";
 import { verifyOtp, reSendOtp } from "../../../services/forgotPasswordServices";
+import { useTranslation } from "react-i18next";
 
 const OTP = ({ goNext, parentData, setParentData }) => {
+  const { t } = useTranslation();
   const length = 6;
   const [otp, setOtp] = useState(Array(length).fill(""));
   const [error, setError] = useState("");
-  const [timer, setTimer] = useState(60); // ✅ عداد 60 ثانية
+  const [timer, setTimer] = useState(60);
   const [isResendDisabled, setIsResendDisabled] = useState(true);
   const inputsRef = useRef([]);
 
-  // ✅ Mutation للتحقق من OTP
   const {
     mutate: verifyOtpMutation,
     isPending,
@@ -27,7 +28,6 @@ const OTP = ({ goNext, parentData, setParentData }) => {
         otp: variables.code,
         reset_token: res.data.reset_token,
       }));
-      console.log("✅ OTP verified successfully:", res);
       goNext();
     },
     onError: (err) => {
@@ -35,7 +35,6 @@ const OTP = ({ goNext, parentData, setParentData }) => {
     },
   });
 
-  // ✅ Mutation لإعادة إرسال OTP
   const {
     mutate: resendOtpMutation,
     isPending: isResending,
@@ -43,17 +42,14 @@ const OTP = ({ goNext, parentData, setParentData }) => {
   } = useMutation({
     mutationFn: (email) => reSendOtp(email),
     onSuccess: () => {
-      console.log("✅ OTP resent successfully");
       setTimer(60);
       setIsResendDisabled(true);
     },
     onError: (err) => {
-      console.error("❌ Error resending OTP:", err);
-      setError("Failed to resend OTP. Please try again.");
+      setError(t("otp.invalidOtp"));
     },
   });
 
-  // ✅ مؤقت العد التنازلي
   useEffect(() => {
     let interval;
     if (isResendDisabled) {
@@ -71,7 +67,6 @@ const OTP = ({ goNext, parentData, setParentData }) => {
     return () => clearInterval(interval);
   }, [isResendDisabled]);
 
-  // ✅ handle input change
   const handleChange = (e, index) => {
     const value = e.target.value;
     if (/^\d*$/.test(value)) {
@@ -79,7 +74,6 @@ const OTP = ({ goNext, parentData, setParentData }) => {
       newOtp[index] = value.slice(-1);
       setOtp(newOtp);
       setError("");
-
       if (value && index < length - 1) {
         setTimeout(() => {
           inputsRef.current[index + 1]?.focus();
@@ -88,7 +82,6 @@ const OTP = ({ goNext, parentData, setParentData }) => {
     }
   };
 
-  // ✅ handle backspace
   const handleKeyDown = (e, index) => {
     if (e.key === "Backspace" && !otp[index] && index > 0) {
       const newOtp = [...otp];
@@ -98,12 +91,11 @@ const OTP = ({ goNext, parentData, setParentData }) => {
     }
   };
 
-  // ✅ handle paste
   const handlePaste = (e) => {
     e.preventDefault();
     const pasted = e.clipboardData.getData("text").trim();
     if (!/^\d+$/.test(pasted)) {
-      setError("OTP must contain only numbers");
+      setError(t("otp.otpNumbersOnly"));
       return;
     }
     const newOtp = pasted.split("").slice(0, length);
@@ -111,45 +103,39 @@ const OTP = ({ goNext, parentData, setParentData }) => {
     setOtp(newOtp);
   };
 
-  // ✅ handle focus
   const handleFocus = (index) => {
     const firstEmptyIndex = otp.findIndex((val) => val === "");
     if (firstEmptyIndex === -1) return;
-    if (index > firstEmptyIndex) {
-      inputsRef.current[firstEmptyIndex].focus();
-    }
+    if (index > firstEmptyIndex) inputsRef.current[firstEmptyIndex].focus();
   };
 
-  // ✅ handle submit (verify OTP)
   const handleSubmit = (e) => {
     e.preventDefault();
     const joinedOtp = otp.join("");
-
     if (joinedOtp.length !== length) {
-      setError("Please enter all digits of the OTP.");
+      setError(t("otp.otpError"));
       return;
     }
-
     verifyOtpMutation({ code: joinedOtp, email: parentData.email });
   };
 
-  // ✅ handle resend OTP
   const handleResend = () => {
     resendOtpMutation(parentData.email);
   };
 
   return (
-    <AuthCard title={"Forgot Password"} backBtn>
+    <AuthCard title={t("otp.title")} backBtn>
       <form className="space-y-4" onSubmit={handleSubmit}>
         <h2 className="text-center text-xl font-semibold capitalize">
-          Check your email
+          {t("otp.checkEmailTitle")}
         </h2>
         <p className="text-center text-sm text-gray-500">
-          We sent a reset code to {parentData.email}. Enter the {length}-digit
-          code mentioned in the email.
+          {t("otp.checkEmailSubtitle", {
+            email: parentData.email,
+            length,
+          })}
         </p>
 
-        {/* ✅ OTP Inputs */}
         <div className="flex justify-center max-w-sm mx-auto gap-2">
           {otp.map((digit, index) => (
             <input
@@ -163,29 +149,24 @@ const OTP = ({ goNext, parentData, setParentData }) => {
               onKeyDown={(e) => handleKeyDown(e, index)}
               onPaste={handlePaste}
               onFocus={() => handleFocus(index)}
-              className="w-10 h-10 text-center font-medium border border-gray-300 rounded-lg 
-              focus:outline-none focus:ring-2 focus:ring-myGreen focus:border-myBlue-2 transition-all"
+              className="w-10 h-10 text-center font-medium border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-myGreen focus:border-myBlue-2 transition-all"
             />
           ))}
         </div>
 
-        {/* ✅ عرض الخطأ */}
         <FormError
           errorMsg={
             error ||
             (isError
-              ? apiError?.response?.data?.message ||
-                "Invalid OTP, please try again."
+              ? apiError?.response?.data?.message || t("otp.invalidOtp")
               : "")
           }
         />
 
-        {/* ✅ زر التحقق */}
-        <FormBtn title={"Check"} loading={isPending} />
+        <FormBtn title={t("otp.checkBtn")} loading={isPending} />
 
-        {/* ✅ زر إعادة الإرسال */}
         <p className="text-sm text-gray-600 text-center">
-          Haven’t got the email yet?{" "}
+          {t("otp.resend")}{" "}
           <button
             type="button"
             onClick={handleResend}
@@ -196,17 +177,16 @@ const OTP = ({ goNext, parentData, setParentData }) => {
             }`}
           >
             {isResending
-              ? "Resending..."
+              ? t("otp.resending")
               : isResendDisabled
-              ? `Resend in ${timer}s`
-              : "Resend email"}
+              ? t("otp.resendIn", { timer })
+              : t("otp.resend")}
           </button>
         </p>
 
-        {/* ✅ عند النجاح في إعادة الإرسال */}
         {resendSuccess && (
           <p className="text-center text-green-600 text-sm">
-            New OTP has been sent successfully!
+            {t("otp.successResend")}
           </p>
         )}
       </form>

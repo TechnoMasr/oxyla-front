@@ -1,1 +1,346 @@
-{}
+{
+  "bookNow": "Book Now",
+  "currency": "$",
+  "addToCart": "Add to Cart",
+  "remove": "Remove",
+  "loading": "Loading",
+  "Cancel": "Cancel",
+  "noData": "No Data Available",
+  "Menu": "Menu",
+  "ExploreMoreRooms": "Explore more rooms",
+  "Testimonials": "Testimonials",
+  "MostBookedCapsules": "Most Booked Capsules",
+  "Search": "Search",
+
+  "CartCard": {
+    "deleteConfirmation": "Are you sure you want to delete this item?",
+    "confirm": "Confirm",
+    "removing": "Removing...",
+    "change": "Change",
+    "remove": "Remove",
+    "rateNow": "Rate Now",
+    "itemRemoved": "Item removed from cart"
+  },
+
+  "Footer": {
+    "home": "Home",
+    "about": "About",
+    "rooms": "Rooms",
+    "booking": "Booking",
+    "contact": "Contact",
+    "logoAlt": "Logo"
+  },
+
+  "Header": {
+    "home": "Home",
+    "aboutUs": "About Us",
+    "products": "Products",
+    "contact": "Contact",
+    "logoAlt": "Logo"
+  },
+
+  "headerActions": {
+    "editProfile": "Edit Profile",
+    "notifications": "Notifications",
+    "appointment": "Appointment",
+    "wishlist": "Wishlist",
+    "logout": "Logout",
+    "login": "Login"
+  },
+
+  "ChangeRoomModal": {
+    "title": "Change Booking",
+    "selectDate": "Select New Date",
+    "selectTime": "Select New Time",
+    "updateQuantity": "Update Quantity",
+    "saveChanges": "Save Changes",
+    "updating": "Updating..."
+  },
+
+  "ConfirmModal": {
+    "cancel": "Cancel",
+    "processing": "Processing...",
+    "Confirm": "Confirm",
+    "DeleteItem": "Are you sure you want to delete this item?"
+  },
+
+  "RateModal": {
+    "title": "Rate this service",
+    "notes": "Notes",
+    "cancel": "Cancel",
+    "rate": "Rate",
+    "submitting": "Submitting..."
+  },
+
+  "ProtectedRoute": {
+    "title": "Login Required",
+    "message": "You need to be logged in to access this page. Would you like to go to the login page now?",
+    "confirm": "Go to Login"
+  },
+
+  "PublicRoute": {
+    "title": "Already Logged In",
+    "message": "You are already logged in. You cannot access this page while logged in.",
+    "confirm": "Go to Home"
+  },
+
+  "Protected": {
+    "loginRequired": "Login Required",
+    "loginMessage": "You need to login first to perform this action.",
+    "loginBtn": "Login"
+  },
+
+  "Cart": {
+    "title": "Cart",
+    "items": "items"
+  },
+
+  "OrderSummary": {
+    "orderSummary": "Order Summary",
+    "price": "Price",
+    "discount": "Discount",
+    "shipping": "Shipping",
+    "free": "Free",
+    "couponApplied": "Coupon Applied",
+    "total": "TOTAL",
+    "scheduledSessionDate": "Scheduled Session Date",
+    "couponCode": "Coupon Code",
+    "proceedToCheckout": "Proceed to Checkout",
+    "loading": "Loading ...",
+    "orderConfirmed": "Order Confirmed",
+    "confirmDeleteMsg": "Are you sure you want to delete this item ?",
+    "confirm": "Confirm",
+    "removing": "Removing..."
+  },
+
+  "ContactForm": {
+    "getInTouch": "Get in Touch",
+    "description": "We’d love to hear from you. Reach out with any questions or collaboration ideas.",
+    "inquiryType": "Inquiry Type",
+    "selectInquiry": "Select inquiry",
+    "general": "General",
+    "support": "Support",
+    "complaint": "Complaint",
+    "suggestion": "Suggestion",
+    "partnership": "Partnership",
+    "subject": "Subject",
+    "subjectPlaceholder": "Problem with my booking",
+    "messageDetails": "Message Details",
+    "messagePlaceholder": "Write your message or describe your issue here...",
+    "attachFile": "Attach File (Optional)",
+    "name": "Name",
+    "namePlaceholder": "Enter your name...",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email...",
+    "phone": "Phone",
+    "phonePlaceholder": "Enter your phone...",
+    "send": "Send",
+    "messageSent": "Message sent successfully",
+    "ok": "OK",
+    "errors": {
+      "inquiry_type": "Please select inquiry type",
+      "subject": "Subject is required",
+      "message": "Message details are required",
+      "file_path": "File is required",
+      "name": "Name is required",
+      "email": "Email is required",
+      "emailInvalid": "Invalid email format",
+      "phone": "Phone number is required"
+    },
+    "contactLabels": {
+      "phone": "Phone",
+      "email": "Email",
+      "fax": "Fax"
+    }
+  },
+
+  "ForgotPassword": {
+    "steps": {
+      "checkEmail": {
+        "title": "Check Email",
+        "subtitle": "We have sent a password reset link to your email address."
+      },
+      "enterOTP": {
+        "title": "Enter OTP",
+        "subtitle": "We have sent a One-Time Password (OTP) to your email address."
+      },
+      "resetPassword": {
+        "title": "Reset Password",
+        "subtitle": "Please enter your new password below."
+      }
+    }
+  },
+
+  "checkEmail": {
+    "title": "Forgot Password",
+    "label": "Email / Phone",
+    "placeholder": "Email / Phone",
+    "continue": "Continue",
+    "errors": {
+      "email": "Please enter a valid email address",
+      "emailRequired": "Email is required"
+    }
+  },
+
+  "otp": {
+    "title": "Forgot Password",
+    "checkEmailTitle": "Check your email",
+    "checkEmailSubtitle": "We sent a reset code to {{email}}. Enter the {{length}}-digit code mentioned in the email.",
+    "checkBtn": "Check",
+    "resend": "Resend email",
+    "resendIn": "Resend in {{timer}}s",
+    "resending": "Resending...",
+    "successResend": "New OTP has been sent successfully!",
+    "otpError": "Please enter all digits of the OTP.",
+    "invalidOtp": "Invalid OTP, please try again.",
+    "otpNumbersOnly": "OTP must contain only numbers"
+  },
+
+  "resetPassword": {
+    "title": "Forgot Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "resetBtn": "Reset Password",
+    "successMsg": "Password reset successfully!",
+    "goToSignin": "Go To Signin",
+    "passwordStrength": {
+      "weak": "Weak",
+      "medium": "Medium",
+      "strong": "Strong",
+      "veryStrong": "Very Strong"
+    },
+    "errors": {
+      "minLength": "New password must be at least 8 characters",
+      "required": "New password is required",
+      "pattern": "Password must contain at least one uppercase letter, one number, and one special character",
+      "match": "Passwords must match",
+      "confirmRequired": "Please confirm your password"
+    },
+    "apiError": "Failed to reset password"
+  },
+
+  "HomeMenu": {
+    "links": {
+      "home": "Home",
+      "about": "About",
+      "rooms": "Rooms",
+      "contact": "Contact"
+    }
+  },
+
+  "NotFound": {
+    "title": "404",
+    "subtitle": "Page Not Found",
+    "goHome": "Go Home"
+  },
+
+  "Appointment": {
+    "title": "Appointment",
+    "reservationCount": "reserve",
+    "noReservations": "No reservations available"
+  },
+
+  "editProfilePage": {
+    "title": "Edit Profile",
+    "name": "Name",
+    "email": "Email",
+    "mobileNumber": "Mobile Number",
+    "location": "Location",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmNewPassword": "Confirm New Password",
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "saveChanges": "Save Changes",
+    "profileUpdated": "Profile updated successfully",
+    "validation": {
+      "enterNewPassword": "Please enter the new password and confirmation.",
+      "enterCurrentPassword": "Please enter your current password first.",
+      "passwordMismatch": "Password confirmation does not match."
+    },
+    "errorSomethingWrong": "Something went wrong"
+  },
+
+  "logoutPage": {
+    "title": "Logout",
+    "confirmMessage": "Are you sure you want to logout?",
+    "logoutBtn": "Logout"
+  },
+
+  "notificationsPage": {
+    "title": "Notifications",
+    "tabs": {
+      "all": "All",
+      "alert": "Alert",
+      "newsletter": "Newsletter"
+    },
+    "noNotifications": "No notifications found.",
+    "viewLink": "View",
+    "newMessage": "New Message",
+    "messageFrom": "You have a new message from John Doe"
+  },
+
+  "wishlistPage": {
+    "title": "Wishlist",
+    "itemsCount": "{{count}} items"
+  },
+
+  "profileSideBar": {
+    "title": "Profile",
+    "editProfile": "Edit Profile",
+    "notifications": "Notifications",
+    "appointment": "Appointment",
+    "wishlist": "Wishlist",
+    "logout": "Logout"
+  },
+
+  "detailsSection": {
+    "home": "Home",
+    "pickDate": "Pick a date",
+    "appointmentsAvailable": "Appointments available",
+    "includedInSession": "Included in Your Session",
+    "numberOfPeople": "Number of People",
+    "addToCart": "Add to Cart",
+    "adding": "Adding...",
+    "selectDateTimeError": "Please select date and time before adding to cart."
+  },
+
+  "signin": {
+    "title": "Sign In",
+    "emailPhone": "Email / Phone",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "signIn": "Sign In",
+    "or": "OR",
+    "signInWithGoogle": "Sign in with Google",
+    "dontHaveAccount": "Don't have an account?",
+    "signUp": "Sign up",
+    "successMsg": "Signed in successfully",
+    "ok": "OK",
+    "emailRequired": "Email or phone is required",
+    "emailOrPhoneInvalid": "Must be a valid email or phone",
+    "passwordRequired": "Password is required"
+  },
+
+  "signup": {
+    "title": "Sign Up",
+    "name": "Name",
+    "emailPhone": "Email / Phone",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "signUp": "Sign Up",
+    "or": "OR",
+    "signInWithGoogle": "Sign in with Google",
+    "alreadyHaveAccount": "Already have an account?",
+    "signIn": "Sign in",
+    "successMsg": "Account created successfully",
+    "ok": "OK",
+    "nameRequired": "Name is required",
+    "emailRequired": "Email or phone is required",
+    "emailOrPhoneInvalid": "Must be a valid email or phone",
+    "passwordRequired": "Password is required",
+    "passwordMin": "Password must be at least 6 characters",
+    "confirmPasswordRequired": "Please confirm your password",
+    "passwordsMustMatch": "Passwords must match"
+  }
+}

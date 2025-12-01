@@ -5,19 +5,29 @@ import { RiEdit2Line } from "react-icons/ri";
 import { TbLogout2 } from "react-icons/tb";
 import { IoClose } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const ProfileSideBar = ({ isOpen, handleClose }) => {
+  const { t } = useTranslation();
+
   const profileList = [
-    { name: "edit profile", url: "", icon: <RiEdit2Line /> },
-    { name: "notifications", url: "notifications", icon: <BsBell /> },
-    { name: "appointment", url: "appointment", icon: <PiCalendarMinus /> },
-    { name: "wishlist", url: "wishlist", icon: <FiHeart /> },
-    { name: "logout", url: "logout", icon: <TbLogout2 /> },
+    { name: t("profileSideBar.editProfile"), url: "", icon: <RiEdit2Line /> },
+    {
+      name: t("profileSideBar.notifications"),
+      url: "notifications",
+      icon: <BsBell />,
+    },
+    {
+      name: t("profileSideBar.appointment"),
+      url: "appointment",
+      icon: <PiCalendarMinus />,
+    },
+    { name: t("profileSideBar.wishlist"), url: "wishlist", icon: <FiHeart /> },
+    { name: t("profileSideBar.logout"), url: "logout", icon: <TbLogout2 /> },
   ];
 
   return (
     <>
-      {/* 🔹 الخلفية الشفافة عند الفتح */}
       {isOpen && (
         <div
           onClick={handleClose}
@@ -25,14 +35,14 @@ const ProfileSideBar = ({ isOpen, handleClose }) => {
         ></div>
       )}
 
-      {/* 🔹 السايدبار */}
       <aside
-        className={`fixed lg:static top-0 left-0 h-full w-64 bg-white border-e border-gray-200 z-[101] transform transition-transform duration-300
+        className={`fixed lg:static top-0 left-0 h-full w-64 bg-white border-e border-gray-200 z-[101] lg:z-0 transform transition-transform duration-300
         ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
       >
-        {/* 🔹 العنوان في الموبايل */}
         <div className="flex items-center justify-between p-4 border-b mb-4 border-gray-200">
-          <h3 className="text-xl font-bold text-myPurple">Profile</h3>
+          <h3 className="text-xl font-bold text-myPurple">
+            {t("profileSideBar.title")}
+          </h3>
           <button
             onClick={handleClose}
             className="text-gray-600 text-2xl cursor-pointer lg:hidden"
@@ -41,7 +51,6 @@ const ProfileSideBar = ({ isOpen, handleClose }) => {
           </button>
         </div>
 
-        {/* 🔹 الروابط */}
         <nav className="flex flex-col gap-2 px-4">
           {profileList.map((item) => (
             <NavLink

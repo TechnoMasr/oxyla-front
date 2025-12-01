@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
 import { AnimatePresence, motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const HomeMenu = ({ openMenu, setOpenMenu }) => {
+  const { t } = useTranslation();
+
   const Links = [
-    { id: 1, title: "home", link: "/" },
-    { id: 2, title: "about", link: "/about-us" },
-    { id: 3, title: "rooms", link: "/services" },
-    { id: 4, title: "contact", link: "/contact-us" },
+    { id: 1, title: t("HomeMenu.links.home"), link: "/" },
+    { id: 2, title: t("HomeMenu.links.about"), link: "/about-us" },
+    { id: 3, title: t("HomeMenu.links.rooms"), link: "/services" },
+    { id: 4, title: t("HomeMenu.links.contact"), link: "/contact-us" },
   ];
 
   const onClose = () => {

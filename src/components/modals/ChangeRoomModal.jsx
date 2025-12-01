@@ -2,8 +2,10 @@ import { createPortal } from "react-dom";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { editItemInCart } from "../../services/cartServices";
+import { useTranslation } from "react-i18next";
 
 const ChangeRoomModal = ({ openModal, onClose, item }) => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
 
   // Init with existing cart values
@@ -37,12 +39,15 @@ const ChangeRoomModal = ({ openModal, onClose, item }) => {
   return createPortal(
     <dialog className="modal modal-open" onClick={onClose}>
       <div className="modal-box space-y-4" onClick={(e) => e.stopPropagation()}>
-        <h2 className="text-xl font-bold text-center">Change Booking</h2>
+        <h2 className="text-xl font-bold text-center">
+          {t("ChangeRoomModal.title")}
+        </h2>
 
         {/* DATE PICKER */}
         <div>
-          <p className="font-semibold mb-1">Select New Date</p>
-
+          <p className="font-semibold mb-1">
+            {t("ChangeRoomModal.selectDate")}
+          </p>
           <input
             type="date"
             value={selectedDate}
@@ -54,8 +59,9 @@ const ChangeRoomModal = ({ openModal, onClose, item }) => {
 
         {/* TIME PICKER */}
         <div>
-          <p className="font-semibold mb-1">Select New Time</p>
-
+          <p className="font-semibold mb-1">
+            {t("ChangeRoomModal.selectTime")}
+          </p>
           <div className="flex flex-wrap gap-2">
             {item.service?.times?.map((time) => (
               <label
@@ -80,7 +86,9 @@ const ChangeRoomModal = ({ openModal, onClose, item }) => {
 
         {/* QUANTITY */}
         <div>
-          <p className="font-semibold mb-1">Update Quantity</p>
+          <p className="font-semibold mb-1">
+            {t("ChangeRoomModal.updateQuantity")}
+          </p>
           <div className="flex items-center justify-between gap-2 py-1 px-2 rounded-full border w-fit">
             <button onClick={decrease} className="px-2 cursor-pointer text-lg">
               -
@@ -97,7 +105,9 @@ const ChangeRoomModal = ({ openModal, onClose, item }) => {
           disabled={isPending}
           onClick={handleSubmit}
         >
-          {isPending ? "Updating..." : "Save Changes"}
+          {isPending
+            ? t("ChangeRoomModal.updating")
+            : t("ChangeRoomModal.saveChanges")}
         </button>
       </div>
     </dialog>,

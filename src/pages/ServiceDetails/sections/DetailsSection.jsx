@@ -4,24 +4,23 @@ import { HiMiniCalendarDateRange } from "react-icons/hi2";
 import { LuPlus, LuMinus } from "react-icons/lu";
 import { addToCart } from "../../../services/cartServices.js";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-
 import "cally";
 import FormError from "../../../components/form/FormError.jsx";
 import { toast } from "react-toastify";
 import useProtectedAction from "../../../hooks/useProtectedAction.jsx";
+import { useTranslation } from "react-i18next";
 
 const DetailsSection = ({ data }) => {
+  const { t } = useTranslation();
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [errorMessage, setErrorMessage] = useState("");
 
   const { ProtectModalUI, checkAuthBefore } = useProtectedAction();
-
   const callyRef = useRef(null);
   const queryClient = useQueryClient();
 
-  // ✔ Listen for change event from <calendar-date>
   useEffect(() => {
     const callyEl = callyRef.current;
     if (callyEl) {
@@ -31,11 +30,9 @@ const DetailsSection = ({ data }) => {
     }
   }, []);
 
-  // ------------------ Counter -------------------
   const increase = () => setQuantity((q) => q + 1);
   const decrease = () => setQuantity((q) => (q > 1 ? q - 1 : 1));
 
-  // ------------------ Add To Cart Mutation -------------------
   const {
     mutate: addToCartMutate,
     isPending,
@@ -44,7 +41,7 @@ const DetailsSection = ({ data }) => {
     mutationFn: addToCart,
     onSuccess: () => {
       queryClient.invalidateQueries(["cart"]);
-      toast.success("Item added to cart");
+      toast.success(t("detailsSection.addToCart"));
       setErrorMessage("");
       setQuantity(1);
       setSelectedDate("");
@@ -55,13 +52,10 @@ const DetailsSection = ({ data }) => {
   const handleAddToCart = () => {
     checkAuthBefore(() => {
       if (!selectedDate || !selectedTime) {
-        setErrorMessage("Please select date and time before adding to cart.");
+        setErrorMessage(t("detailsSection.selectDateTimeError"));
         return;
       }
-
-      // Clear error when request is valid
       setErrorMessage("");
-
       addToCartMutate({
         service_id: data?.id,
         quantity,
@@ -77,7 +71,7 @@ const DetailsSection = ({ data }) => {
 
       <section className="space-y-6 order-2 lg:order-1">
         <div className="flex items-center gap-2">
-          <p className="text-gray-500">Home</p>/
+          <p className="text-gray-500">{t("detailsSection.home")}</p>/
           <p className="font-bold">{data?.category?.name}</p>
         </div>
 
@@ -103,7 +97,7 @@ const DetailsSection = ({ data }) => {
               style={{ anchorName: "--cally1" }}
               className="px-2 py-1 border border-gray-500 rounded-md hover:bg-gray-100 transition cursor-pointer"
             >
-              {selectedDate ? selectedDate : "Pick a date"}
+              {selectedDate ? selectedDate : t("detailsSection.pickDate")}
             </button>
 
             <div
@@ -139,7 +133,9 @@ const DetailsSection = ({ data }) => {
 
         {/* TIME SELECTION */}
         <div>
-          <p className="text-lg mb-1 font-semibold">Appointments available</p>
+          <p className="text-lg mb-1 font-semibold">
+            {t("detailsSection.appointmentsAvailable")}
+          </p>
           <div className="flex flex-wrap gap-2">
             {data?.times?.map((time) => (
               <label
@@ -166,7 +162,9 @@ const DetailsSection = ({ data }) => {
 
         {/* FEATURES */}
         <div>
-          <p className="text-lg mb-1 font-semibold">Included in Your Session</p>
+          <p className="text-lg mb-1 font-semibold">
+            {t("detailsSection.includedInSession")}
+          </p>
           <div className="flex flex-wrap gap-2">
             {data?.features?.map((item) => (
               <div
@@ -180,7 +178,6 @@ const DetailsSection = ({ data }) => {
                     className="w-full h-full object-cover"
                   />
                 </span>
-
                 <p className="text-sm">{item.name}</p>
               </div>
             ))}
@@ -190,15 +187,14 @@ const DetailsSection = ({ data }) => {
         {/* QUANTITY + ADD TO CART */}
         <div className="flex items-end gap-4">
           <div>
-            <p className="text-lg mb-1 font-semibold">Number of People</p>
-
+            <p className="text-lg mb-1 font-semibold">
+              {t("detailsSection.numberOfPeople")}
+            </p>
             <div className="flex items-center justify-between gap-2 p-2 rounded-full border">
               <span className="text-xl cursor-pointer" onClick={decrease}>
                 <LuMinus />
               </span>
-
               <p className="font-bold w-[50px] text-center">{quantity}</p>
-
               <span className="text-xl cursor-pointer" onClick={increase}>
                 <LuPlus />
               </span>
@@ -210,7 +206,9 @@ const DetailsSection = ({ data }) => {
             disabled={isPending}
             onClick={handleAddToCart}
           >
-            {isPending ? "Adding..." : "Add to Cart"}
+            {isPending
+              ? t("detailsSection.adding")
+              : t("detailsSection.addToCart")}
           </button>
         </div>
 

@@ -3,11 +3,13 @@ import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { renderStars } from "../../../utils/renderStars";
+import { useTranslation } from "react-i18next";
 
 const ServiceTestimonials = ({ data }) => {
+  const { t } = useTranslation();
   return (
     <section className="my-12">
-      <h2 className="text-3xl font-bold text-center mb-8">Testimonials</h2>
+      <h2 className="text-3xl font-bold text-center mb-8">{t("Testimonials")}</h2>
 
       <Swiper
         modules={[Pagination, Autoplay]}

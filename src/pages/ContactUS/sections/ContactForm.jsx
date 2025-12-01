@@ -12,23 +12,28 @@ import { LiaFaxSolid } from "react-icons/lia";
 import { TbPhoneCall } from "react-icons/tb";
 import { HiOutlineMailOpen } from "react-icons/hi";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const ContactForm = () => {
+  const { t } = useTranslation();
   const [successModal, setSuccessModal] = useState(false);
 
   const { setting } = useSelector((state) => state.setting);
 
   const contactSchema = yup.object().shape({
-    inquiry_type: yup.string().required("Please select inquiry type"),
-    subject: yup.string().required("Subject is required"),
-    message: yup.string().required("Message details are required"),
-    file_path: yup.mixed().nullable().required("File is required"),
-    name: yup.string().required("Name is required"),
+    inquiry_type: yup.string().required(t("ContactForm.errors.inquiry_type")),
+    subject: yup.string().required(t("ContactForm.errors.subject")),
+    message: yup.string().required(t("ContactForm.errors.message")),
+    file_path: yup
+      .mixed()
+      .nullable()
+      .required(t("ContactForm.errors.file_path")),
+    name: yup.string().required(t("ContactForm.errors.name")),
     email: yup
       .string()
-      .email("Invalid email format")
-      .required("Email is required"),
-    phone: yup.string().required("Phone number is required"),
+      .email(t("ContactForm.errors.emailInvalid"))
+      .required(t("ContactForm.errors.email")),
+    phone: yup.string().required(t("ContactForm.errors.phone")),
   });
 
   const {
@@ -40,7 +45,6 @@ const ContactForm = () => {
     resolver: yupResolver(contactSchema),
   });
 
-  // 🧩 إعداد الـ mutation
   const { mutate, isPending, error } = useMutation({
     mutationFn: (formData) => sendContactUs(formData),
     onSuccess: () => {
@@ -49,7 +53,6 @@ const ContactForm = () => {
     },
   });
 
-  // 🧩 الدالة اللي بتتبعت عند الإرسال
   const onSubmit = (data) => {
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
@@ -63,39 +66,47 @@ const ContactForm = () => {
   };
 
   const contactUsList = [
-    { label: "Phone", value: setting?.phone, icon: <TbPhoneCall /> },
     {
-      label: "Email",
+      label: t("ContactForm.contactLabels.phone"),
+      value: setting?.phone,
+      icon: <TbPhoneCall />,
+    },
+    {
+      label: t("ContactForm.contactLabels.email"),
       value: setting?.site_email,
       icon: <HiOutlineMailOpen />,
     },
-    { label: "Fax", value: setting?.fax, icon: <LiaFaxSolid /> },
+    {
+      label: t("ContactForm.contactLabels.fax"),
+      value: setting?.fax,
+      icon: <LiaFaxSolid />,
+    },
   ];
 
   return (
     <section className="space-y-6">
       <hgroup>
         <h1 className="text-3xl lg:text-5xl font-bold mb-2">
-          Get in <span className="text-myPurple">Touch</span>
+          {t("ContactForm.getInTouch").split(" ")[0]}{" "}
+          <span className="text-myPurple">
+            {t("ContactForm.getInTouch").split(" ")[1]}
+          </span>
         </h1>
-        <p className="text-sm text-gray-500">
-          We’d love to hear from you. Reach out with any questions or
-          collaboration ideas.
-        </p>
+        <p className="text-sm text-gray-500">{t("ContactForm.description")}</p>
       </hgroup>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <MainInput
           id="inquiry_type"
-          label="Inquiry Type"
+          label={t("ContactForm.inquiryType")}
           type="select"
           options={[
-            { value: "", label: "Select inquiry" },
-            { value: "general", label: "General" },
-            { value: "support", label: "Support" },
-            { value: "complaint", label: "Complaint" },
-            { value: "suggestion", label: "Suggestion" },
-            { value: "partnership", label: "Partnership" },
+            { value: "", label: t("ContactForm.selectInquiry") },
+            { value: "general", label: t("ContactForm.general") },
+            { value: "support", label: t("ContactForm.support") },
+            { value: "complaint", label: t("ContactForm.complaint") },
+            { value: "suggestion", label: t("ContactForm.suggestion") },
+            { value: "partnership", label: t("ContactForm.partnership") },
           ]}
           register={register("inquiry_type")}
           error={errors.inquiry_type?.message}
@@ -103,24 +114,24 @@ const ContactForm = () => {
 
         <MainInput
           id="subject"
-          label="Subject"
-          placeholder="Problem with my booking"
+          label={t("ContactForm.subject")}
+          placeholder={t("ContactForm.subjectPlaceholder")}
           register={register("subject")}
           error={errors.subject?.message}
         />
 
         <MainInput
           id="message"
-          label="Message Details"
+          label={t("ContactForm.messageDetails")}
           type="textarea"
-          placeholder="Write your message or describe your issue here..."
+          placeholder={t("ContactForm.messagePlaceholder")}
           register={register("message")}
           error={errors.message?.message}
         />
 
         <MainInput
           id="file_path"
-          label="Attach File (Optional)"
+          label={t("ContactForm.attachFile")}
           type="file"
           register={register("file_path")}
           error={errors.file_path?.message}
@@ -128,30 +139,30 @@ const ContactForm = () => {
 
         <MainInput
           id="name"
-          label="Name"
-          placeholder="Enter your name..."
+          label={t("ContactForm.name")}
+          placeholder={t("ContactForm.namePlaceholder")}
           register={register("name")}
           error={errors.name?.message}
         />
 
         <MainInput
           id="email"
-          label="Email"
-          placeholder="Enter your email..."
+          label={t("ContactForm.email")}
+          placeholder={t("ContactForm.emailPlaceholder")}
           register={register("email")}
           error={errors.email?.message}
         />
 
         <MainInput
           id="phone"
-          label="Phone"
+          label={t("ContactForm.phone")}
           type="number"
-          placeholder="Enter your phone..."
+          placeholder={t("ContactForm.phonePlaceholder")}
           register={register("phone")}
           error={errors.phone?.message}
         />
 
-        <FormBtn title={"Send"} loading={isPending} />
+        <FormBtn title={t("ContactForm.send")} loading={isPending} />
         <FormError errorMsg={error?.response?.data?.message} />
       </form>
 
@@ -178,9 +189,9 @@ const ContactForm = () => {
       <SuccessModal
         openModal={successModal}
         onClose={() => setSuccessModal(false)}
-        msg="Message sent successfully"
+        msg={t("ContactForm.messageSent")}
         onConfirm={() => setSuccessModal(false)}
-        btnText="OK"
+        btnText={t("ContactForm.ok")}
       />
     </section>
   );

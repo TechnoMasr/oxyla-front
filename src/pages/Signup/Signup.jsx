@@ -3,42 +3,42 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import AuthCard from "../../components/form/AuthCard";
 import MainInput from "../../components/form/MainInput";
 import FormBtn from "../../components/form/FormBtn";
 import FormError from "../../components/form/FormError";
 import googleIcon from "../../assets/icons/google-icon.png";
-import { registerUser } from "../../services/authServices"; // المسار حسب مشروعك
+import { registerUser } from "../../services/authServices";
 import SuccessModal from "../../components/modals/SuccessModal";
-import { useState } from "react";
 
 const Signup = () => {
+  const { t } = useTranslation();
   const [successModal, setSuccessModal] = useState(false);
   const navigate = useNavigate();
 
-  // ✅ تعريف الـ validation schema
   const signupSchema = yup.object().shape({
-    name: yup.string().required("Name is required"),
+    name: yup.string().required(t("signup.nameRequired")),
     email: yup
       .string()
-      .required("Email or phone is required")
-      .test("emailOrPhone", "Must be a valid email or phone", (value) => {
+      .required(t("signup.emailRequired"))
+      .test("emailOrPhone", t("signup.emailOrPhoneInvalid"), (value) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const phoneRegex = /^[0-9]{8,15}$/;
         return emailRegex.test(value) || phoneRegex.test(value);
       }),
     password: yup
       .string()
-      .required("Password is required")
-      .min(6, "Password must be at least 6 characters"),
+      .required(t("signup.passwordRequired"))
+      .min(6, t("signup.passwordMin")),
     password_confirmation: yup
       .string()
-      .required("Please confirm your password")
-      .oneOf([yup.ref("password")], "Passwords must match"),
+      .required(t("signup.confirmPasswordRequired"))
+      .oneOf([yup.ref("password")], t("signup.passwordsMustMatch")),
   });
 
-  // ✅ إعداد الفورم
   const {
     register,
     handleSubmit,
@@ -48,7 +48,6 @@ const Signup = () => {
     resolver: yupResolver(signupSchema),
   });
 
-  // ✅ إعداد الـ mutation من React Query
   const { mutate, isPending, error } = useMutation({
     mutationFn: (formData) => registerUser(formData),
     onSuccess: () => {
@@ -57,10 +56,7 @@ const Signup = () => {
     },
   });
 
-  // ✅ عند الإرسال
-  const onSubmit = (data) => {
-    mutate(data);
-  };
+  const onSubmit = (data) => mutate(data);
 
   const handleCloseModal = () => {
     setSuccessModal(false);
@@ -69,61 +65,61 @@ const Signup = () => {
 
   return (
     <section className="container pagePadding">
-      <AuthCard title={"sign up"}>
+      <AuthCard title={t("signup.title")}>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <MainInput
             id="name"
-            label="Name"
-            placeholder="Name"
+            label={t("signup.name")}
+            placeholder={t("signup.name")}
             register={register("name")}
             error={errors.name?.message}
           />
 
           <MainInput
             id="email"
-            label="Email / Phone"
-            placeholder="Email / Phone"
+            label={t("signup.emailPhone")}
+            placeholder={t("signup.emailPhone")}
             register={register("email")}
             error={errors.email?.message}
           />
 
           <MainInput
             id="password"
-            label="Password"
+            label={t("signup.password")}
             type="password"
-            placeholder="Password"
+            placeholder={t("signup.password")}
             register={register("password")}
             error={errors.password?.message}
           />
 
           <MainInput
             id="password_confirmation"
-            label="Confirm Password"
+            label={t("signup.confirmPassword")}
             type="password"
-            placeholder="Confirm Password"
+            placeholder={t("signup.confirmPassword")}
             register={register("password_confirmation")}
             error={errors.password_confirmation?.message}
           />
 
-          <FormBtn title={"Sign Up"} loading={isPending} />
+          <FormBtn title={t("signup.signUp")} loading={isPending} />
 
-          <div className="divider">OR</div>
+          <div className="divider">{t("signup.or")}</div>
 
           <button
             type="button"
             className="w-full border border-gray-300 rounded-lg flex items-center justify-center gap-4 py-2 cursor-pointer hover:bg-gray-100 transition"
           >
             <img src={googleIcon} alt="google icon" />
-            <span>Sign in with Google</span>
+            <span>{t("signup.signInWithGoogle")}</span>
           </button>
 
           <p className="text-sm text-gray-600 text-center">
-            Already have an account?{" "}
+            {t("signup.alreadyHaveAccount")}{" "}
             <Link
               to="/signin"
               className="text-blue-600 text-sm hover:underline inline-block"
             >
-              Sign in
+              {t("signup.signIn")}
             </Link>
           </p>
 
@@ -134,9 +130,9 @@ const Signup = () => {
       <SuccessModal
         openModal={successModal}
         onClose={handleCloseModal}
-        msg="Account created successfully"
+        msg={t("signup.successMsg")}
         onConfirm={handleCloseModal}
-        btnText="OK"
+        btnText={t("signup.ok")}
       />
     </section>
   );

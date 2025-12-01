@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import Avatar from "../../../components/common/Avatar";
 import FormBtn from "../../../components/form/FormBtn";
 import FormError from "../../../components/form/FormError";
@@ -9,6 +10,7 @@ import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
 
 const EditProfile = () => {
+  const { t } = useTranslation();
   const { profile } = useSelector((state) => state.profile);
 
   const [showPassword, setShowPassword] = useState({
@@ -32,18 +34,16 @@ const EditProfile = () => {
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
-    if (!isEditing) return; // علشان متسمحش بالتعديل لو مش فاتح edit
+    if (!isEditing) return;
     setForm({ ...form, [e.target.id]: e.target.value });
   };
 
   const { mutate, isPending } = useMutation({
     mutationFn: updateProfile,
     onSuccess: (data) => {
-      toast.success("Profile updated successfully");
+      toast.success(t("editProfilePage.profileUpdated"));
       setError("");
-      setIsEditing(false); // بعد الحفظ اقفله تاني
-      console.log("update data", data);
-
+      setIsEditing(false);
       setForm((prev) => ({
         ...prev,
         name: data?.name,
@@ -56,26 +56,25 @@ const EditProfile = () => {
       }));
     },
     onError: (err) => {
-      setError(err?.response?.data?.message || "Something went wrong");
+      setError(
+        err?.response?.data?.message || t("editProfilePage.errorSomethingWrong")
+      );
     },
   });
 
-  // ⭐ Validation Logic
   const validateForm = () => {
     const { current_password, password, password_confirmation } = form;
 
-    if (current_password) {
-      if (!password || !password_confirmation) {
-        return "Please enter the new password and confirmation.";
-      }
+    if (current_password && (!password || !password_confirmation)) {
+      return t("editProfilePage.validation.enterNewPassword");
     }
 
     if (password && !current_password) {
-      return "Please enter your current password first.";
+      return t("editProfilePage.validation.enterCurrentPassword");
     }
 
     if (password && password !== password_confirmation) {
-      return "Password confirmation does not match.";
+      return t("editProfilePage.validation.passwordMismatch");
     }
 
     return "";
@@ -83,21 +82,20 @@ const EditProfile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const validationError = validateForm();
     if (validationError) {
       setError(validationError);
       return;
     }
-
     mutate(form);
   };
 
   return (
     <section>
-      <h2 className="text-2xl font-bold text-myPurple mb-4">Edit Profile</h2>
+      <h2 className="text-2xl font-bold text-myPurple mb-4">
+        {t("editProfilePage.title")}
+      </h2>
 
-      {/* Top section — avatar + edit button */}
       <div className="flex items-center justify-between gap-4 flex-wrap mb-4">
         <div className="flex items-center gap-2">
           <Avatar name={form?.name} size="lg" />
@@ -111,7 +109,7 @@ const EditProfile = () => {
           className="py-1 px-4 bg-myGreen text-white rounded-lg cursor-pointer hover:brightness-90"
           onClick={() => setIsEditing((prev) => !prev)}
         >
-          {isEditing ? "Cancel" : "Edit"}
+          {isEditing ? t("editProfilePage.cancel") : t("editProfilePage.edit")}
         </button>
       </div>
 
@@ -122,7 +120,7 @@ const EditProfile = () => {
         {/* NAME */}
         <div className="grid grid-cols-5 p-2 border-b border-gray-300">
           <label htmlFor="name" className="lg:text-lg font-semibold col-span-2">
-            Name
+            {t("editProfilePage.name")}
           </label>
           <input
             id="name"
@@ -140,7 +138,7 @@ const EditProfile = () => {
             htmlFor="email"
             className="lg:text-lg font-semibold col-span-2"
           >
-            Email
+            {t("editProfilePage.email")}
           </label>
           <input
             id="email"
@@ -158,7 +156,7 @@ const EditProfile = () => {
             htmlFor="phone"
             className="lg:text-lg font-semibold col-span-2"
           >
-            Mobile Number
+            {t("editProfilePage.mobileNumber")}
           </label>
           <input
             id="phone"
@@ -176,7 +174,7 @@ const EditProfile = () => {
             htmlFor="location"
             className="lg:text-lg font-semibold col-span-2"
           >
-            Location
+            {t("editProfilePage.location")}
           </label>
           <input
             id="location"
@@ -194,9 +192,8 @@ const EditProfile = () => {
             htmlFor="current_password"
             className="lg:text-lg font-semibold col-span-2"
           >
-            Current Password
+            {t("editProfilePage.currentPassword")}
           </label>
-
           <input
             id="current_password"
             type={showPassword.current_password ? "text" : "password"}
@@ -205,10 +202,9 @@ const EditProfile = () => {
             value={form.current_password}
             onChange={handleChange}
           />
-
           {isEditing && (
             <span
-              className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-xl"
+              className="absolute end-4 top-1/2 -translate-y-1/2 cursor-pointer text-xl"
               onClick={() =>
                 setShowPassword((prev) => ({
                   ...prev,
@@ -231,7 +227,7 @@ const EditProfile = () => {
             htmlFor="password"
             className="lg:text-lg font-semibold col-span-2"
           >
-            New Password
+            {t("editProfilePage.newPassword")}
           </label>
           <input
             id="password"
@@ -243,7 +239,7 @@ const EditProfile = () => {
           />
           {isEditing && (
             <span
-              className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-xl"
+              className="absolute end-4 top-1/2 -translate-y-1/2 cursor-pointer text-xl"
               onClick={() =>
                 setShowPassword((prev) => ({
                   ...prev,
@@ -262,7 +258,7 @@ const EditProfile = () => {
             htmlFor="password_confirmation"
             className="lg:text-lg font-semibold col-span-2"
           >
-            Confirm New Password
+            {t("editProfilePage.confirmNewPassword")}
           </label>
           <input
             id="password_confirmation"
@@ -274,7 +270,7 @@ const EditProfile = () => {
           />
           {isEditing && (
             <span
-              className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-xl"
+              className="absolute end-4 top-1/2 -translate-y-1/2 cursor-pointer text-xl"
               onClick={() =>
                 setShowPassword((prev) => ({
                   ...prev,
@@ -293,7 +289,9 @@ const EditProfile = () => {
 
         {isEditing && (
           <div className="my-6 w-fit">
-            <FormBtn title={isPending ? "Saving..." : "Save Changes"} />
+            <FormBtn
+              title={isPending ? "Saving..." : t("editProfilePage.saveChanges")}
+            />
           </div>
         )}
 

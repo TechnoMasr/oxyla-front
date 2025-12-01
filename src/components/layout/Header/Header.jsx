@@ -9,6 +9,7 @@ import NavBarMobile from "./NavBar/NavBarMobile";
 import { useDispatch } from "react-redux";
 import { fetchSetting } from "../../../store/setting/setting";
 import { getProfileAct } from "../../../store/profile/profileSlice";
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
   const [activeNav, setActiveNav] = useState(false);
@@ -30,11 +31,13 @@ const Header = () => {
     dispatch(getProfileAct());
   }, [dispatch]);
 
+  const { t } = useTranslation();
+
   const linksList = [
-    { name: "home", path: "/" },
-    { name: "about Us", path: "/about-us" },
-    { name: "Products", path: "/services" },
-    { name: "contact", path: "/contact-us" },
+    { name: t("Header.home"), path: "/" },
+    { name: t("Header.aboutUs"), path: "/about-us" },
+    { name: t("Header.products"), path: "/services" },
+    { name: t("Header.contact"), path: "/contact-us" },
   ];
 
   return (

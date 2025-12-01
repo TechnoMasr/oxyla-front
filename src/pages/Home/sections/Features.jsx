@@ -2,10 +2,10 @@ const Features = ({ data }) => {
   return (
     <section className="sectionPadding container">
       <hgroup className="flex flex-wrap justify-between gap-4 mb-6 lg:mb-12">
-        <h2 className="text-lg font-bold">
+        <h2 className="text-2xl font-bold uppercase">
           {data?.titles?.home_section3_title}
         </h2>
-        <p className="text-sm max-w-lg">
+        <p className="max-w-lg uppercase">
           {data?.titles?.home_section3_description}
         </p>
       </hgroup>
@@ -21,7 +21,9 @@ const Features = ({ data }) => {
               alt={feature.description}
               className="w-8 h-8 object-contain"
             />
-            <p className="font-semibold">{feature.description}</p>
+            <p className="font-semibold uppercase text-lg">
+              {feature.description}
+            </p>
           </li>
         ))}
       </ul>
