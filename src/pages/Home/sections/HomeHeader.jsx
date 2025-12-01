@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import logo from "../../../assets/images/oxela-home-logo/logo-full.png";
+import LanguageSwitcher from "../../../components/common/LanguageSwitcher";
 
 const HomeHeader = ({ setOpenMenu }) => {
   const { t } = useTranslation();
@@ -12,9 +13,8 @@ const HomeHeader = ({ setOpenMenu }) => {
       />
 
       <div className="absolute z-20 top-4 end-4 flex items-center gap-4">
-        <button className="px-2 py-1 bg-white text-black rounded-full">
-          English
-        </button>
+        <LanguageSwitcher home />
+
         <button
           onClick={() => setOpenMenu(true)}
           className="px-2 py-1 text-white font-bold text-2xl cursor-pointer uppercase"

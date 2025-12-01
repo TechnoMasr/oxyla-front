@@ -1,45 +1,42 @@
-import { motion, useAnimation } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 const AnimatedSentence = ({ text }) => {
-  const words = text ? text.split(" ") : [];
-  const wordRefs = useRef([]);
-
-  // Single animation controller for all words
-  const controls = useAnimation();
+  const ref = useRef();
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    wordRefs.current.forEach((word) => {
-      if (!word) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
 
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            controls.start({ color: "#000000", transition: { duration: 1 } });
-          } else {
-            controls.start({ color: "#8d8d8d", transition: { duration: 1 } });
-          }
-        },
-        { threshold: 0.7 }
-      );
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
 
-      observer.observe(word);
-
-      return () => observer.disconnect();
-    });
-  }, [words, controls]);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <p className="font-bold text-2xl lg:text-4xl leading-snug flex flex-wrap gap-2">
-      {words.map((word, index) => (
-        <motion.span
+    <p
+      ref={ref}
+      className="font-bold text-2xl lg:text-4xl leading-snug flex flex-wrap gap-2"
+    >
+      {text?.split(" ").map((word, index) => (
+        <span
           key={index}
-          ref={(el) => (wordRefs.current[index] = el)}
-          animate={controls}
-          initial={{ color: "#8d8d8d" }}
+          className={`transition-colors duration-500 ${
+            isVisible ? "text-black" : "text-stone-400"
+          }`}
+          style={{ transitionDelay: `${index * 100}ms` }}
         >
           {word}
-        </motion.span>
+        </span>
       ))}
     </p>
   );

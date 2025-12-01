@@ -8,6 +8,10 @@ const Services = ({ data }) => {
           {data?.home_section2_title}
         </h2>
 
+        {/* <p className="font-bold text-2xl lg:text-4xl leading-snug flex flex-wrap gap-2">
+          {data?.home_section2_description}
+        </p> */}
+
         <AnimatedSentence text={data?.home_section2_description} />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">

@@ -2,15 +2,23 @@ import { Link } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const HomeMenu = ({ openMenu, setOpenMenu }) => {
   const { t } = useTranslation();
+  const { lang } = useSelector((state) => state.language);
+  const { profile } = useSelector((state) => state.profile);
 
   const Links = [
     { id: 1, title: t("HomeMenu.links.home"), link: "/" },
     { id: 2, title: t("HomeMenu.links.about"), link: "/about-us" },
     { id: 3, title: t("HomeMenu.links.rooms"), link: "/services" },
     { id: 4, title: t("HomeMenu.links.contact"), link: "/contact-us" },
+    {
+      id: 5,
+      title: profile ? t("HomeMenu.links.profile") : t("HomeMenu.links.signin"),
+      link: profile ? "/profile" : "/signin",
+    },
   ];
 
   const onClose = () => {
@@ -43,12 +51,14 @@ const HomeMenu = ({ openMenu, setOpenMenu }) => {
                 damping: 20,
                 stiffness: 200,
               }}
-              style={{ transformOrigin: "top right" }}
+              style={{
+                transformOrigin: lang === "ar" ? "top left" : "top right",
+              }}
               className="bg-white w-full h-full p-4 flex flex-col items-center justify-center relative overflow-hidden"
             >
               <span
                 onClick={onClose}
-                className="absolute top-4 end-4 text-2xl cursor-pointer w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition"
+                className="absolute top-4 right-4 text-2xl cursor-pointer w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition"
               >
                 <IoClose />
               </span>

@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeLanguage } from "../../store/languageSlice/languageSlice";
 import LoadingModal from "../Loading/LoadingModal";
 import { CiGlobe } from "react-icons/ci";
+import { MdKeyboardArrowDown } from "react-icons/md";
 
 import flagAR from "../../assets/icons/flag-ar.png";
 import flagEN from "../../assets/icons/flag-en.png";
 
-const LanguageSwitcher = () => {
+const LanguageSwitcher = ({ home = false }) => {
   const dispatch = useDispatch();
   const { lang } = useSelector((state) => state.language);
 
@@ -30,9 +31,18 @@ const LanguageSwitcher = () => {
   return (
     <>
       <div className="dropdown dropdown-end">
-        <div tabIndex={0} className="cursor-pointer text-2xl text-myPurple">
-          <CiGlobe />
-        </div>
+        {home ? (
+          <div
+            tabIndex={0}
+            className="px-2 py-1 bg-white text-black rounded-full cursor-pointer flex items-center gap-1"
+          >
+            {lang === "ar" ? "العربية" : "English"} <MdKeyboardArrowDown />
+          </div>
+        ) : (
+          <div tabIndex={0} className="cursor-pointer text-2xl text-myPurple">
+            <CiGlobe />
+          </div>
+        )}
 
         <ul
           tabIndex={0}
@@ -40,11 +50,11 @@ const LanguageSwitcher = () => {
         >
           <li onClick={() => handleSelect("ar")}>
             <button
-              className={`flex items-center gap-2 ${
-                lang === "ar" ? "font-bold bg-myPurple text-white" : ""
+              className={`flex items-center gap-2 font-semibold text-lg ${
+                lang === "ar" ? "font-bold bg-myBlue text-white" : ""
               }`}
             >
-              <img src={flagAR} alt="Arabic" className="w-8 rounded" />
+              <img src={flagAR} alt="Arabic" className="w-6 rounded" />
               <p>العربية</p>
             </button>
           </li>
@@ -52,10 +62,10 @@ const LanguageSwitcher = () => {
           <li onClick={() => handleSelect("en")}>
             <button
               className={`flex items-center gap-2 ${
-                lang === "en" ? "font-bold bg-myPurple text-white" : ""
+                lang === "en" ? "font-bold bg-myBlue text-white" : ""
               }`}
             >
-              <img src={flagEN} alt="English" className="w-8 rounded" />
+              <img src={flagEN} alt="English" className="w-6 rounded" />
               <p>English</p>
             </button>
           </li>

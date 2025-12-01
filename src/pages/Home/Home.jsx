@@ -1,5 +1,5 @@
 import HomeLoader from "./HomeLoader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Hero from "./sections/Hero/Hero";
 import Services from "./sections/Services";
 import Features from "./sections/Features";
@@ -13,15 +13,24 @@ import HomeMenu from "./sections/HomeMenu";
 import Footer from "../../components/layout/Footer/Footer";
 import { getHome } from "../../services/homeServices";
 import { useQuery } from "@tanstack/react-query";
+import { useDispatch } from "react-redux";
+import { fetchSetting } from "../../store/setting/setting";
+import { getProfileAct } from "../../store/profile/profileSlice";
 
 const Home = () => {
-  const [showLoader, setShowLoader] = useState(false);
+  const [showLoader, setShowLoader] = useState(true);
   const [openMenu, setOpenMenu] = useState(false);
 
   const { data: homeData, isLoading } = useQuery({
     queryKey: ["homeData"],
     queryFn: getHome,
   });
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchSetting());
+    dispatch(getProfileAct());
+  }, [dispatch]);
 
   return (
     <article>
