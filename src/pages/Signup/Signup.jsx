@@ -3,8 +3,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import "react-phone-input-2/lib/style.css";
 
 import AuthCard from "../../components/form/AuthCard";
 import MainInput from "../../components/form/MainInput";
@@ -12,23 +12,26 @@ import FormBtn from "../../components/form/FormBtn";
 import FormError from "../../components/form/FormError";
 import googleIcon from "../../assets/icons/google-icon.png";
 import { registerUser } from "../../services/authServices";
-import SuccessModal from "../../components/modals/SuccessModal";
+import PhoneInputComponent from "../../components/form/PhoneInputComponent";
+import { getProfileAct } from "../../store/profile/profileSlice";
+import { useDispatch } from "react-redux";
 
 const Signup = () => {
   const { t } = useTranslation();
-  const [successModal, setSuccessModal] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  // ---------------- VALIDATION SCHEMA ----------------
   const signupSchema = yup.object().shape({
     name: yup.string().required(t("signup.nameRequired")),
     email: yup
       .string()
-      .required(t("signup.emailRequired"))
-      .test("emailOrPhone", t("signup.emailOrPhoneInvalid"), (value) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const phoneRegex = /^[0-9]{8,15}$/;
-        return emailRegex.test(value) || phoneRegex.test(value);
-      }),
+      .email(t("signup.emailInvalid"))
+      .required(t("signup.emailRequired")),
+    phone: yup
+      .string()
+      .required(t("signup.phoneRequired"))
+      .min(8, t("signup.phoneInvalid")),
     password: yup
       .string()
       .required(t("signup.passwordRequired"))
@@ -39,34 +42,40 @@ const Signup = () => {
       .oneOf([yup.ref("password")], t("signup.passwordsMustMatch")),
   });
 
+  // ---------------- FORM ----------------
   const {
     register,
     handleSubmit,
+    setValue,
     reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(signupSchema),
   });
 
+  // ---------------- API MUTATION ----------------
   const { mutate, isPending, error } = useMutation({
     mutationFn: (formData) => registerUser(formData),
     onSuccess: () => {
-      setSuccessModal(true);
+      navigate("/profile/appointment", { replace: true });
+      dispatch(getProfileAct());
       reset();
     },
   });
 
-  const onSubmit = (data) => mutate(data);
-
-  const handleCloseModal = () => {
-    setSuccessModal(false);
-    navigate("/signin");
+  const onSubmit = (data) => {
+    mutate({
+      ...data,
+      phone: data.phone, // e.g. +20123456789
+    });
   };
 
+  // ---------------- UI ----------------
   return (
     <section className="container pagePadding">
       <AuthCard title={t("signup.title")}>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          {/* NAME */}
           <MainInput
             id="name"
             label={t("signup.name")}
@@ -75,27 +84,39 @@ const Signup = () => {
             error={errors.name?.message}
           />
 
+          {/* EMAIL */}
           <MainInput
             id="email"
-            label={t("signup.emailPhone")}
-            placeholder={t("signup.emailPhone")}
+            label={t("signup.email")}
+            placeholder={t("signup.email")}
             register={register("email")}
             error={errors.email?.message}
           />
 
+          {/* PHONE */}
+          <PhoneInputComponent
+            label="Phone"
+            id="phone"
+            placeholder="Enter phone number"
+            setValue={setValue}
+            error={errors.phone?.message}
+          />
+
+          {/* PASSWORD */}
           <MainInput
             id="password"
-            label={t("signup.password")}
             type="password"
+            label={t("signup.password")}
             placeholder={t("signup.password")}
             register={register("password")}
             error={errors.password?.message}
           />
 
+          {/* CONFIRM PASSWORD */}
           <MainInput
             id="password_confirmation"
-            label={t("signup.confirmPassword")}
             type="password"
+            label={t("signup.confirmPassword")}
             placeholder={t("signup.confirmPassword")}
             register={register("password_confirmation")}
             error={errors.password_confirmation?.message}
@@ -126,14 +147,6 @@ const Signup = () => {
           <FormError errorMsg={error?.response?.data?.message} />
         </form>
       </AuthCard>
-
-      <SuccessModal
-        openModal={successModal}
-        onClose={handleCloseModal}
-        msg={t("signup.successMsg")}
-        onConfirm={handleCloseModal}
-        btnText={t("signup.ok")}
-      />
     </section>
   );
 };

@@ -6,7 +6,7 @@ const LoadingModal = ({ openModal }) => {
 
   return createPortal(
     <dialog className={`modal modal-open`}>
-      <div className="modal-box" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-box py-16" onClick={(e) => e.stopPropagation()}>
         <Loader />
       </div>
     </dialog>,

@@ -24,10 +24,7 @@ const ContactForm = () => {
     inquiry_type: yup.string().required(t("ContactForm.errors.inquiry_type")),
     subject: yup.string().required(t("ContactForm.errors.subject")),
     message: yup.string().required(t("ContactForm.errors.message")),
-    file_path: yup
-      .mixed()
-      .nullable()
-      .required(t("ContactForm.errors.file_path")),
+    file_path: yup.mixed().nullable(),
     name: yup.string().required(t("ContactForm.errors.name")),
     email: yup
       .string()
@@ -56,8 +53,8 @@ const ContactForm = () => {
   const onSubmit = (data) => {
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
-      if (key === "file_path" && value?.[0]) {
-        formData.append(key, value[0]);
+      if (key === "file_path") {
+        formData.append(key, value?.[0] || "");
       } else {
         formData.append(key, value);
       }
@@ -84,7 +81,7 @@ const ContactForm = () => {
   ];
 
   return (
-    <section className="space-y-6">
+    <section className="space-y-6 w-full max-w-xl mx-auto">
       <hgroup>
         <h1 className="text-3xl lg:text-5xl font-bold mb-2">
           {t("ContactForm.getInTouch").split(" ")[0]}{" "}

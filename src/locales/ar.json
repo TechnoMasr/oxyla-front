@@ -34,7 +34,7 @@
   "Header": {
     "home": "الرئيسية",
     "aboutUs": "من نحن",
-    "products": "المنتجات",
+    "services": "الخدمات",
     "contact": "اتصل بنا",
     "logoAlt": "الشعار"
   },
@@ -54,7 +54,8 @@
     "selectTime": "اختر وقت جديد",
     "updateQuantity": "تحديث الكمية",
     "saveChanges": "حفظ التغييرات",
-    "updating": "جارٍ التحديث..."
+    "updating": "جارٍ التحديث...",
+    "itemUpdated": "تم تحديث العنصر"
   },
 
   "ConfirmModal": {
@@ -108,9 +109,9 @@
     "proceedToCheckout": "إتمام الدفع",
     "loading": "جاري التحميل ...",
     "orderConfirmed": "تم تأكيد الطلب",
-    "confirmDeleteMsg": "هل أنت متأكد أنك تريد حذف هذا العنصر؟",
-    "confirm": "تأكيد",
-    "removing": "جاري الحذف..."
+    "confirmOrderMsg": "هل تريد تأكيد هذا الطلب؟",
+    "confirm": "تأكيد",
+    "ordering": "جارٍ التأكيد..."
   },
 
   "ContactForm": {
@@ -321,7 +322,9 @@
     "ok": "حسناً",
     "emailRequired": "البريد الإلكتروني أو الهاتف مطلوب",
     "emailOrPhoneInvalid": "يجب أن يكون بريد إلكتروني أو رقم هاتف صالح",
-    "passwordRequired": "كلمة المرور مطلوبة"
+    "passwordRequired": "كلمة المرور مطلوبة",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف"
   },
 
   "signup": {
@@ -343,6 +346,11 @@
     "passwordRequired": "كلمة المرور مطلوبة",
     "passwordMin": "يجب أن تكون كلمة المرور 6 أحرف على الأقل",
     "confirmPasswordRequired": "يرجى تأكيد كلمة المرور",
-    "passwordsMustMatch": "كلمتا المرور غير متطابقتين"
+    "passwordsMustMatch": "كلمتا المرور غير متطابقتين",
+    "email": "البريد الإلكتروني",
+    "phone": "رقم الهاتف",
+    "emailInvalid": "يجب إدخال بريد إلكتروني صالح",
+    "phoneRequired": "رقم الهاتف مطلوب",
+    "phoneInvalid": "رقم الهاتف غير صالح"
   }
 }

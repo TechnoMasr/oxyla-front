@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { editItemInCart } from "../../services/cartServices";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const ChangeRoomModal = ({ openModal, onClose, item }) => {
   const { t } = useTranslation();
@@ -21,6 +22,8 @@ const ChangeRoomModal = ({ openModal, onClose, item }) => {
     mutationFn: (payload) => editItemInCart(payload),
     onSuccess: () => {
       queryClient.invalidateQueries(["cart"]);
+
+      toast.success(t("ChangeRoomModal.itemUpdated"));
       onClose();
     },
   });

@@ -17,7 +17,11 @@ const HeaderAction = ({ setActiveNav }) => {
 
   const profileList = [
     { name: t("headerActions.editProfile"), url: "", icon: <RiEdit2Line /> },
-    { name: t("headerActions.notifications"), url: "notifications", icon: <BsBell /> },
+    {
+      name: t("headerActions.notifications"),
+      url: "notifications",
+      icon: <BsBell />,
+    },
     {
       name: t("headerActions.appointment"),
       url: "appointment",
@@ -65,10 +69,16 @@ const HeaderAction = ({ setActiveNav }) => {
 
       <Link
         to="/cart"
-        className="text-2xl text-myPurple cursor-pointer"
+        className="text-2xl text-myPurple cursor-pointer relative"
         onClick={() => setActiveNav(false)}
       >
         <IoCartOutline />
+
+        {profile?.cart_items_count > 0 && (
+          <span className="absolute -top-1 -end-1 text-xs bg-myBlue text-white px-1 rounded-full">
+            {profile?.cart_items_count}
+          </span>
+        )}
       </Link>
     </div>
   );

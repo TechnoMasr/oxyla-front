@@ -20,7 +20,12 @@ export const removeFromCart = async (id) => {
   return data?.data || [];
 };
 
-export const confirmOrder = async () => {
-  const { data } = await api.post(`/cart/confirm-order`);
+export const applyCoupon = async (coupon_code) => {
+  const { data } = await api.post(`/cart/validate-coupon`, { coupon_code });
+  return data?.data || [];
+};
+
+export const confirmOrder = async ({ coupon_code }) => {
+  const { data } = await api.post(`/cart/confirm-order`, { coupon_code });
   return data?.data || [];
 };

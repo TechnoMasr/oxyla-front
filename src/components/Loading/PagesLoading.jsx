@@ -6,6 +6,41 @@ const PagesLoading = ({ show, onFinish }) => {
   const [progress, setProgress] = useState(0);
   const [visible, setVisible] = useState(show);
   const [logoSize, setLogoSize] = useState(120);
+  const [bubbles, setBubbles] = useState([]);
+
+  // إنشاء bubbles عشوائية
+  // إنشاء bubbles عشوائية بعيد عن مركز اللوغو
+  useEffect(() => {
+    const numBubbles = 25;
+    const logoRadius = logoSize / 2 + 50; // مساحة أمان حوالين اللوغو
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+
+    const newBubbles = [];
+
+    while (newBubbles.length < numBubbles) {
+      const size = Math.random() * 50 + 10;
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * window.innerHeight;
+
+      // نحسب المسافة من مركز اللوغو
+      const distance = Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2);
+
+      if (distance > logoRadius) {
+        newBubbles.push({
+          id: Math.random(),
+          size,
+          x,
+          y,
+          dx: (Math.random() - 0.5) * 50,
+          dy: (Math.random() - 0.5) * 50,
+          duration: Math.random() * 5 + 3,
+        });
+      }
+    }
+
+    setBubbles(newBubbles);
+  }, [logoSize]);
 
   useEffect(() => {
     setVisible(show);
@@ -15,9 +50,8 @@ const PagesLoading = ({ show, onFinish }) => {
     const updateLogoSize = () => {
       const width = window.innerWidth;
       if (width < 640) setLogoSize(100);
-      else if (width < 768) setLogoSize(150);
-      else if (width < 1024) setLogoSize(200);
-      else setLogoSize(250);
+      else if (width < 1024) setLogoSize(150);
+      else setLogoSize(200);
     };
     updateLogoSize();
     window.addEventListener("resize", updateLogoSize);
@@ -26,7 +60,7 @@ const PagesLoading = ({ show, onFinish }) => {
 
   useEffect(() => {
     let start = null;
-    const duration = 3000; // ← المدة الجديدة 3 ثواني
+    const duration = 3000;
 
     const animate = (timestamp) => {
       if (!start) start = timestamp;
@@ -37,8 +71,7 @@ const PagesLoading = ({ show, onFinish }) => {
       if (elapsed < duration) {
         requestAnimationFrame(animate);
       } else {
-        // بعد انتهاء التحميل
-        setTimeout(() => setVisible(false), 300); // يفضل تسيبه 300ms عشان exit animation
+        setTimeout(() => setVisible(false), 300);
       }
     };
 
@@ -46,27 +79,48 @@ const PagesLoading = ({ show, onFinish }) => {
   }, []);
 
   return (
-    <AnimatePresence
-      onExitComplete={onFinish} // ⬅️ هنا نستدعي onFinish بعد الأنميشن فعليًا
-    >
+    <AnimatePresence onExitComplete={onFinish}>
       {visible && (
         <motion.div
-          className="fixed inset-0 flex items-center justify-center bg-white z-[9999]"
+          className="fixed inset-0 flex items-center justify-center bg-white z-[9999] overflow-hidden"
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8 }}
         >
+          {/* Bubbles */}
+          {bubbles.map((bubble) => (
+            <motion.div
+              key={bubble.id}
+              className="absolute rounded-full bg-myBlue opacity-50"
+              style={{
+                width: bubble.size,
+                height: bubble.size,
+                left: bubble.x,
+                top: bubble.y,
+              }}
+              animate={{
+                x: [0, bubble.dx, -bubble.dx, 0],
+                y: [0, bubble.dy, -bubble.dy, 0],
+              }}
+              transition={{
+                duration: bubble.duration,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          ))}
+
           <motion.div
             className="relative flex items-center justify-center"
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 2, type: "spring" }}
           >
-            <motion.div className="w-[300px] h-[300px] lg:w-[600px] lg:h-[600px] rounded-full border-2 lg:border-4 border-dashed border-myBlue" />
+            <motion.div className="w-[300px] h-[300px] lg:w-[500px] lg:h-[500px] rounded-full border-2 lg:border-4 border-dashed border-myBlue" />
 
             <motion.div
-              className="absolute w-[300px] h-[300px] lg:w-[600px] lg:h-[600px] rounded-full"
+              className="absolute w-[300px] h-[300px] lg:w-[500px] lg:h-[500px] rounded-full"
               animate={{ rotate: 360 }}
               transition={{ duration: 5, ease: "linear", repeat: Infinity }}
             >
@@ -75,8 +129,8 @@ const PagesLoading = ({ show, onFinish }) => {
                   key={side}
                   className={`absolute top-1/2 ${
                     side === "left"
-                      ? " left-1/2 -translate-x-[170px] lg:-translate-x-[325px]"
-                      : "right-1/2 translate-x-[170px] lg:translate-x-[325px]"
+                      ? " left-1/2 -translate-x-[180px] lg:-translate-x-[280px]"
+                      : "right-1/2 translate-x-[180px] lg:translate-x-[280px]"
                   } -translate-y-1/2`}
                 >
                   <motion.div

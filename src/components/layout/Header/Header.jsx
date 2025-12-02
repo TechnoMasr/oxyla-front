@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { BiMenuAltRight } from "react-icons/bi";
 import { IoClose } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../../../assets/images/logo/logo.png";
 import NavBar from "./NavBar/NavBar";
 import HeaderAction from "./HeaderAction";
@@ -25,18 +25,25 @@ const Header = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const location = useLocation();
   const dispatch = useDispatch();
+
   useEffect(() => {
+    const isProfilePage = /^\/profile(\/|$)/.test(location.pathname);
+
+    if (!isProfilePage) {
+      dispatch(getProfileAct());
+    }
+
     dispatch(fetchSetting());
-    dispatch(getProfileAct());
-  }, [dispatch]);
+  }, [dispatch, location.pathname]);
 
   const { t } = useTranslation();
 
   const linksList = [
     { name: t("Header.home"), path: "/" },
     { name: t("Header.aboutUs"), path: "/about-us" },
-    { name: t("Header.products"), path: "/services" },
+    { name: t("Header.services"), path: "/services" },
     { name: t("Header.contact"), path: "/contact-us" },
   ];
 

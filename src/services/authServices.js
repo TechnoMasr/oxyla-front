@@ -13,6 +13,11 @@ export const loginUser = async (formData) => {
 
 export const registerUser = async (formData) => {
   const { data } = await api.post("/auth/register", formData);
+
+  if (data?.data?.token) {
+    Cookies.set("tokenOx", data?.data?.token);
+  }
+
   return data;
 };
 

@@ -9,6 +9,8 @@ import FormError from "../../../components/form/FormError.jsx";
 import { toast } from "react-toastify";
 import useProtectedAction from "../../../hooks/useProtectedAction.jsx";
 import { useTranslation } from "react-i18next";
+import { getProfileAct } from "../../../store/profile/profileSlice.js";
+import { useDispatch } from "react-redux";
 
 const DetailsSection = ({ data }) => {
   const { t } = useTranslation();
@@ -20,6 +22,7 @@ const DetailsSection = ({ data }) => {
   const { ProtectModalUI, checkAuthBefore } = useProtectedAction();
   const callyRef = useRef(null);
   const queryClient = useQueryClient();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const callyEl = callyRef.current;
@@ -41,6 +44,7 @@ const DetailsSection = ({ data }) => {
     mutationFn: addToCart,
     onSuccess: () => {
       queryClient.invalidateQueries(["cart"]);
+      dispatch(getProfileAct());
       toast.success(t("detailsSection.addToCart"));
       setErrorMessage("");
       setQuantity(1);
@@ -212,7 +216,7 @@ const DetailsSection = ({ data }) => {
           </button>
         </div>
 
-        <FormError errorMsg={errorMessage || error?.data?.response?.message} />
+        <FormError errorMsg={errorMessage || error?.response?.data?.message} />
       </section>
     </>
   );

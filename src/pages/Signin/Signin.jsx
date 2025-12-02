@@ -3,73 +3,129 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import AuthCard from "../../components/form/AuthCard";
 import MainInput from "../../components/form/MainInput";
+import PhoneInputComponent from "../../components/form/PhoneInputComponent";
 import FormBtn from "../../components/form/FormBtn";
 import FormError from "../../components/form/FormError";
 import googleIcon from "../../assets/icons/google-icon.png";
 import { loginUser } from "../../services/authServices";
-import SuccessModal from "../../components/modals/SuccessModal";
 import { getProfileAct } from "../../store/profile/profileSlice";
-import { useDispatch } from "react-redux";
 
 const Signin = () => {
   const { t } = useTranslation();
-  const [successModal, setSuccessModal] = useState(false);
+  const [method, setMethod] = useState("email");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // ---------------- VALIDATION ----------------
   const signinSchema = yup.object().shape({
     email: yup
       .string()
-      .required(t("signin.emailRequired"))
-      .test("emailOrPhone", t("signin.emailOrPhoneInvalid"), (value) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const phoneRegex = /^[0-9]{8,15}$/;
-        return emailRegex.test(value) || phoneRegex.test(value);
+      .nullable()
+      .when([], {
+        is: () => method === "email",
+        then: (schema) =>
+          schema
+            .required(t("signin.emailRequired"))
+            .email(t("signin.emailInvalid")),
+      }),
+    phone: yup
+      .string()
+      .nullable()
+      .when([], {
+        is: () => method === "phone",
+        then: (schema) =>
+          schema
+            .required(t("signin.phoneRequired"))
+            .min(8, t("signin.phoneInvalid")),
       }),
     password: yup.string().required(t("signin.passwordRequired")),
   });
 
+  // ---------------- FORM ----------------
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(signinSchema),
+    defaultValues: {
+      email: "",
+      phone: "",
+      password: "",
+    },
   });
 
+  // ---------------- API ----------------
   const { mutate, isPending, error } = useMutation({
     mutationFn: (formData) => loginUser(formData),
     onSuccess: () => {
-      setSuccessModal(true);
+      navigate("/profile/appointment", { replace: true });
+      dispatch(getProfileAct());
       reset();
     },
   });
 
-  const onSubmit = (data) => mutate(data);
-
-  const handleCloseModal = () => {
-    setSuccessModal(false);
-    navigate("/", { replace: true });
-    dispatch(getProfileAct());
+  const onSubmit = (data) => {
+    if (method === "email") data.phone = null;
+    if (method === "phone") data.email = null;
+    mutate(data);
   };
 
   return (
     <section className="container pagePadding">
       <AuthCard title={t("signin.title")}>
+        {/* --- Switch buttons --- */}
+        <div className="flex gap-2 mb-4">
+          <button
+            type="button"
+            className={`flex-1 py-2 rounded-lg ${
+              method === "email"
+                ? "bg-myGreen text-white"
+                : "bg-gray-200 text-black hover:brightness-85 cursor-pointer"
+            }`}
+            onClick={() => setMethod("email")}
+          >
+            {t("signin.email")}
+          </button>
+          <button
+            type="button"
+            className={`flex-1 py-2 rounded-lg ${
+              method === "phone"
+                ? "bg-myGreen text-white"
+                : "bg-gray-200 text-black hover:brightness-85 cursor-pointer"
+            }`}
+            onClick={() => setMethod("phone")}
+          >
+            {t("signin.phone")}
+          </button>
+        </div>
+
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <MainInput
-            id="email"
-            label={t("signin.emailPhone")}
-            placeholder={t("signin.emailPhone")}
-            register={register("email")}
-            error={errors.email?.message}
-          />
+          {method === "email" ? (
+            <MainInput
+              id="email"
+              label={t("signin.email")}
+              placeholder={t("signin.email")}
+              register={register("email")}
+              error={errors.email?.message}
+            />
+          ) : (
+            <PhoneInputComponent
+              label={t("signin.phone")}
+              id="phone"
+              placeholder={t("signin.phone")}
+              setValue={setValue}
+              error={errors.phone?.message}
+            />
+          )}
 
           <MainInput
             id="password"
@@ -112,14 +168,6 @@ const Signin = () => {
           <FormError errorMsg={error?.response?.data?.message} />
         </form>
       </AuthCard>
-
-      <SuccessModal
-        openModal={successModal}
-        onClose={handleCloseModal}
-        msg={t("signin.successMsg")}
-        onConfirm={handleCloseModal}
-        btnText={t("signin.ok")}
-      />
     </section>
   );
 };

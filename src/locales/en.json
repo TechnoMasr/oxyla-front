@@ -34,7 +34,7 @@
   "Header": {
     "home": "Home",
     "aboutUs": "About Us",
-    "products": "Products",
+    "services": "Services",
     "contact": "Contact",
     "logoAlt": "Logo"
   },
@@ -54,7 +54,8 @@
     "selectTime": "Select New Time",
     "updateQuantity": "Update Quantity",
     "saveChanges": "Save Changes",
-    "updating": "Updating..."
+    "updating": "Updating...",
+    "itemUpdated": "Item updated"
   },
 
   "ConfirmModal": {
@@ -108,9 +109,9 @@
     "proceedToCheckout": "Proceed to Checkout",
     "loading": "Loading ...",
     "orderConfirmed": "Order Confirmed",
-    "confirmDeleteMsg": "Are you sure you want to delete this item ?",
+    "confirmOrderMsg": "Are you sure you want to confirm this order?",
     "confirm": "Confirm",
-    "removing": "Removing..."
+    "ordering": "Ordering..."
   },
 
   "ContactForm": {
@@ -319,9 +320,13 @@
     "signUp": "Sign up",
     "successMsg": "Signed in successfully",
     "ok": "OK",
-    "emailRequired": "Email or phone is required",
-    "emailOrPhoneInvalid": "Must be a valid email or phone",
-    "passwordRequired": "Password is required"
+    "emailRequired": "Email is required",
+    "emailOrPhoneInvalid": "Must be a valid email",
+    "phoneRequired": "Phone is required",
+    "phoneOrPhoneInvalid": "Must be a valid phone",
+    "passwordRequired": "Password is required",
+    "email": "Email",
+    "phone": "Phone"
   },
 
   "signup": {
@@ -343,6 +348,11 @@
     "passwordRequired": "Password is required",
     "passwordMin": "Password must be at least 6 characters",
     "confirmPasswordRequired": "Please confirm your password",
-    "passwordsMustMatch": "Passwords must match"
+    "passwordsMustMatch": "Passwords must match",
+    "email": "Email",
+    "phone": "Phone Number",
+    "emailInvalid": "Email must be valid",
+    "phoneRequired": "Phone number is required",
+    "phoneInvalid": "Invalid phone number"
   }
 }

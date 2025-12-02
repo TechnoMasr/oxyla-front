@@ -2,27 +2,46 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { renderStars } from "../../utils/renderStars";
 import { CiLocationOn } from "react-icons/ci";
 import { IoHeart, IoHeartOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toggleWishList } from "../../services/wishListServices";
 import useProtectedAction from "../../hooks/useProtectedAction";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
 
 const ServicesCard = ({ service }) => {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
-
   const { ProtectModalUI, checkAuthBefore } = useProtectedAction();
+
+  const navigate = useNavigate();
+
+  const [isFavorited, setIsFavorited] = useState(
+    service?.favorites_count ? true : false
+  );
 
   const toggleMutation = useMutation({
     mutationFn: (payload) => toggleWishList(payload),
     onSuccess: () => {
       queryClient.invalidateQueries(["wishlist"]);
     },
+    onError: () => {
+      // لو في خطأ، نرجع الحالة القديمة
+      setIsFavorited((prev) => !prev);
+    },
   });
 
-  const handleToggle = () => {
+  const handleToggle = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     checkAuthBefore(() => {
-      toggleMutation.mutate({ item_type: "service", item_id: service.id });
+      // تغير الحالة فورًا في الواجهة
+      setIsFavorited((prev) => !prev);
+
+      toggleMutation.mutate({
+        item_type: "service",
+        item_id: service.id,
+      });
     });
   };
 
@@ -31,6 +50,7 @@ const ServicesCard = ({ service }) => {
       {ProtectModalUI}
 
       <div
+        onClick={() => navigate(`/services/${service.id}`)}
         key={service.id}
         className="flex flex-col lg:flex-row rounded-2xl overflow-hidden shadow-lg border border-gray-200"
       >
@@ -78,7 +98,7 @@ const ServicesCard = ({ service }) => {
 
           <div className="flex items-center justify-between gap-4">
             <span className="text-3xl cursor-pointer" onClick={handleToggle}>
-              {service?.favorites_count ? (
+              {isFavorited ? (
                 <IoHeart className="text-red-500" />
               ) : (
                 <IoHeartOutline />

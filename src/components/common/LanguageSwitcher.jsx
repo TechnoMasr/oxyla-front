@@ -18,40 +18,49 @@ const LanguageSwitcher = ({ home = false }) => {
     document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
   }, [lang]);
 
-  const handleSelect = (newLang) => {
+  const changeLangWithLoading = (newLang) => {
     if (newLang !== lang) {
       dispatch(changeLanguage(newLang));
       setOpenLoading(true);
-
-      // قفل اللودينج بعد وقت بسيط
-      setTimeout(() => setOpenLoading(false), 700);
     }
   };
 
+  // ---------------------------
+  // 🌟 في حالة الهوم: Toggle Button
+  // ---------------------------
+  if (home) {
+    return (
+      <>
+        <div
+          onClick={() => changeLangWithLoading(lang === "ar" ? "en" : "ar")}
+          className="px-3 py-1 bg-white text-black rounded-full cursor-pointer flex items-center gap-2 shadow-sm"
+        >
+          <span>{lang === "en" ? "العربية" : "English"}</span>
+        </div>
+
+        <LoadingModal openModal={openLoading} />
+      </>
+    );
+  }
+
+  // ---------------------------
+  // 🌟 غير كده: Dropdown العادي
+  // ---------------------------
   return (
     <>
       <div className="dropdown dropdown-end">
-        {home ? (
-          <div
-            tabIndex={0}
-            className="px-2 py-1 bg-white text-black rounded-full cursor-pointer flex items-center gap-1"
-          >
-            {lang === "ar" ? "العربية" : "English"} <MdKeyboardArrowDown />
-          </div>
-        ) : (
-          <div tabIndex={0} className="cursor-pointer text-2xl text-myPurple">
-            <CiGlobe />
-          </div>
-        )}
+        <div tabIndex={0} className="cursor-pointer text-2xl text-myPurple">
+          <CiGlobe />
+        </div>
 
         <ul
           tabIndex={0}
           className="dropdown-content menu bg-base-100 rounded-box z-1 w-max p-2 shadow-lg space-y-1"
         >
-          <li onClick={() => handleSelect("ar")}>
+          <li onClick={() => changeLangWithLoading("ar")}>
             <button
-              className={`flex items-center gap-2 font-semibold text-lg ${
-                lang === "ar" ? "font-bold bg-myBlue text-white" : ""
+              className={`flex items-center gap-2 font-semibold ${
+                lang === "ar" ? "bg-myPurple text-white" : ""
               }`}
             >
               <img src={flagAR} alt="Arabic" className="w-6 rounded" />
@@ -59,10 +68,10 @@ const LanguageSwitcher = ({ home = false }) => {
             </button>
           </li>
 
-          <li onClick={() => handleSelect("en")}>
+          <li onClick={() => changeLangWithLoading("en")}>
             <button
               className={`flex items-center gap-2 ${
-                lang === "en" ? "font-bold bg-myBlue text-white" : ""
+                lang === "en" ? "bg-myPurple text-white" : ""
               }`}
             >
               <img src={flagEN} alt="English" className="w-6 rounded" />

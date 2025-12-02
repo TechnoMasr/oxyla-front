@@ -10,6 +10,8 @@ import { removeFromCart } from "../../services/cartServices";
 import { renderStars } from "../../utils/renderStars";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { getProfileAct } from "../../store/profile/profileSlice";
+import { useDispatch } from "react-redux";
 
 const CartCard = ({ item, orders = false }) => {
   const { t } = useTranslation(); // Hook for i18next
@@ -19,11 +21,15 @@ const CartCard = ({ item, orders = false }) => {
 
   const queryClient = useQueryClient();
 
+  const dispatch = useDispatch();
+
   // Delete Mutation
   const { mutate: removeMutate, isPending } = useMutation({
     mutationFn: () => removeFromCart(item.id),
     onSuccess: () => {
       queryClient.invalidateQueries(["cart"]);
+      dispatch(getProfileAct());
+
       setOpenDelete(false);
       toast.success(t("CartCard.itemRemoved"));
     },
@@ -42,7 +48,7 @@ const CartCard = ({ item, orders = false }) => {
       <div className="space-y-2 flex-1">
         <div className="text-lg font-semibold flex justify-between gap-4 w-full">
           <h3 className="flex-1">{item.service?.name}</h3>
-          <p>{item.price} $</p>
+          {orders && <p>{item.price} $</p>}
         </div>
 
         <p className="text-xs text-gray-500 flex items-center gap-1">

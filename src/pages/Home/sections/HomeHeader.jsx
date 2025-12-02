@@ -17,7 +17,7 @@ const HomeHeader = ({ setOpenMenu }) => {
 
         <button
           onClick={() => setOpenMenu(true)}
-          className="px-2 py-1 text-white font-bold text-2xl cursor-pointer uppercase"
+          className="px-2 py-1 text-white font-bold text-2xl cursor-pointer uppercase text-shadow"
         >
           {t("Menu")}
         </button>
