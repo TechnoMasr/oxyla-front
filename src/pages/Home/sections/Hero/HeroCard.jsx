@@ -34,7 +34,7 @@ const HeroCard = ({ item, index }) => {
           to={item?.button_url || "/services"}
           className="px-4 py-2 text-xl text-white border font-semibold rounded flex items-center gap-2"
         >
-          {item?.button_text} <GoArrowUpRight />
+          {item?.button_text} <GoArrowUpRight  className="rtl:-rotate-90"/>
         </Link>
       </div>
     </motion.div>

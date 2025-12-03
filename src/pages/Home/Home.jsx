@@ -18,7 +18,7 @@ import { fetchSetting } from "../../store/setting/setting";
 import { getProfileAct } from "../../store/profile/profileSlice";
 
 const Home = () => {
-  const [showLoader, setShowLoader] = useState(true);
+  const [showLoader, setShowLoader] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
 
   const { data: homeData, isLoading } = useQuery({

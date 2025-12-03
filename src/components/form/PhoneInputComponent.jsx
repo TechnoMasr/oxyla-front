@@ -30,21 +30,23 @@ const PhoneInputComponent = ({
         </label>
       )}
 
-      <PhoneInput
-        country={country}
-        value={phoneValue}
-        onChange={(value) => {
-          setPhoneValue(value);
-          setValue && setValue("phone", "+" + value); // RHF
-        }}
-        containerClass="w-full" // يعطي الـ wrapper full width
-        inputClass={`w-full ${commonInputClasses}`} // يعطي الـ input نفسه full width
-        disabled={disabled}
-        placeholder={placeholder}
-        inputProps={{
-          id,
-        }}
-      />
+      <div dir="ltr">
+        <PhoneInput
+          country={country}
+          value={phoneValue}
+          onChange={(value) => {
+            setPhoneValue(value);
+            setValue && setValue("phone", "+" + value); // RHF
+          }}
+          containerClass="w-full" // يعطي الـ wrapper full width
+          inputClass={`w-full ${commonInputClasses}`} // يعطي الـ input نفسه full width
+          disabled={disabled}
+          placeholder={placeholder}
+          inputProps={{
+            id,
+          }}
+        />
+      </div>
 
       {error && (
         <p className="mt-2 flex items-center gap-1 text-sm text-red-600">

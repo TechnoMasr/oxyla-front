@@ -4,13 +4,12 @@ import { HiMiniCalendarDateRange } from "react-icons/hi2";
 import { LuPlus, LuMinus } from "react-icons/lu";
 import { addToCart } from "../../../services/cartServices.js";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import "cally";
 import FormError from "../../../components/form/FormError.jsx";
 import { toast } from "react-toastify";
 import useProtectedAction from "../../../hooks/useProtectedAction.jsx";
 import { useTranslation } from "react-i18next";
 import { getProfileAct } from "../../../store/profile/profileSlice.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const DetailsSection = ({ data }) => {
   const { t } = useTranslation();
@@ -20,18 +19,8 @@ const DetailsSection = ({ data }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const { ProtectModalUI, checkAuthBefore } = useProtectedAction();
-  const callyRef = useRef(null);
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    const callyEl = callyRef.current;
-    if (callyEl) {
-      const handleChange = (e) => setSelectedDate(e.target.value);
-      callyEl.addEventListener("change", handleChange);
-      return () => callyEl.removeEventListener("change", handleChange);
-    }
-  }, []);
 
   const increase = () => setQuantity((q) => q + 1);
   const decrease = () => setQuantity((q) => (q > 1 ? q - 1 : 1));
@@ -94,99 +83,70 @@ const DetailsSection = ({ data }) => {
         {/* DATE PICKER */}
         <div className="flex items-center gap-2">
           <HiMiniCalendarDateRange className="text-3xl text-myGreen" />
-          <div>
-            <button
-              popoverTarget="cally-popover1"
-              id="cally1"
-              style={{ anchorName: "--cally1" }}
-              className="px-2 py-1 border border-gray-500 rounded-md hover:bg-gray-100 transition cursor-pointer"
-            >
-              {selectedDate ? selectedDate : t("detailsSection.pickDate")}
-            </button>
-
-            <div
-              popover="auto"
-              id="cally-popover1"
-              className="dropdown bg-base-100 rounded-box shadow-xl"
-              style={{ positionAnchor: "--cally1" }}
-            >
-              <calendar-date ref={callyRef} class="cally">
-                <svg
-                  aria-label="Previous"
-                  slot="previous"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  className="fill-current size-4"
-                >
-                  <path d="M15.75 19.5 8.25 12l7.5-7.5"></path>
-                </svg>
-                <svg
-                  aria-label="Next"
-                  slot="next"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  className="fill-current size-4"
-                >
-                  <path d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
-                </svg>
-                <calendar-month></calendar-month>
-              </calendar-date>
-            </div>
-          </div>
+          <input
+            type="date"
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+            className="px-2 py-1 border border-gray-500 rounded-md hover:bg-gray-100 transition cursor-pointer"
+          />
         </div>
 
         {/* TIME SELECTION */}
-        <div>
-          <p className="text-lg mb-1 font-semibold">
-            {t("detailsSection.appointmentsAvailable")}
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {data?.times?.map((time) => (
-              <label
-                key={time.id}
-                className={`border rounded-lg px-1 py-0.5 cursor-pointer transition text-sm font-medium ${
-                  time.id === selectedTime
-                    ? "bg-myGreen text-white border-myGreen"
-                    : "bg-white text-gray-600 hover:bg-gray-100"
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="available_time"
-                  value={time.id}
-                  checked={selectedTime === time.id}
-                  onChange={() => setSelectedTime(time.id)}
-                  className="hidden"
-                />
-                {time.from_time}
-              </label>
-            ))}
+        {data?.times.length > 0 && (
+          <div>
+            <p className="text-lg mb-1 font-semibold">
+              {t("detailsSection.appointmentsAvailable")}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {data?.times?.map((time) => (
+                <label
+                  key={time.id}
+                  className={`border rounded-lg px-1 py-0.5 cursor-pointer transition text-sm font-medium ${
+                    time.id === selectedTime
+                      ? "bg-myGreen text-white border-myGreen"
+                      : "bg-white text-gray-600 hover:bg-gray-100"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="available_time"
+                    value={time.id}
+                    checked={selectedTime === time.id}
+                    onChange={() => setSelectedTime(time.id)}
+                    className="hidden"
+                  />
+                  {time.from_time}
+                </label>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* FEATURES */}
-        <div>
-          <p className="text-lg mb-1 font-semibold">
-            {t("detailsSection.includedInSession")}
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {data?.features?.map((item) => (
-              <div
-                key={item.id}
-                className="flex flex-col items-center gap-1 text-gray-600"
-              >
-                <span className="w-12 h-12 overflow-hidden border-2 rounded-full">
-                  <img
-                    src={item.image_url}
-                    alt={item.name}
-                    className="w-full h-full object-cover"
-                  />
-                </span>
-                <p className="text-sm">{item.name}</p>
-              </div>
-            ))}
+        {data?.features.length > 0 && (
+          <div>
+            <p className="text-lg mb-1 font-semibold">
+              {t("detailsSection.includedInSession")}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {data?.features?.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex flex-col items-center gap-1 text-gray-600"
+                >
+                  <span className="w-12 h-12 overflow-hidden border-2 rounded-full">
+                    <img
+                      src={item.image_url}
+                      alt={item.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </span>
+                  <p className="text-sm">{item.name}</p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* QUANTITY + ADD TO CART */}
         <div className="flex items-end gap-4">

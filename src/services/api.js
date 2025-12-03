@@ -5,12 +5,6 @@ import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import Cookies from "js-cookie";
 
-let getState;
-
-export const injectStore = (_store) => {
-  getState = _store.getState;
-};
-
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -66,10 +60,8 @@ api.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     }
 
-    if (getState) {
-      const lang = getState().language?.lang || "en";
-      config.headers.lang = lang;
-    }
+    const lang = localStorage.getItem("lang") || "en";
+    config.headers.lang = lang;
 
     return config;
   },

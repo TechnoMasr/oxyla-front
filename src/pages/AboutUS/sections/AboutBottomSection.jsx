@@ -58,6 +58,7 @@ const AboutBottomSection = ({ data }) => {
 
       <div className="md:col-span-2 aspect-square mb-2 rounded-2xl overflow-hidden relative">
         <Swiper
+          dir={lang === "ar" ? "rtl" : "ltr"}
           modules={[Pagination]}
           pagination={{
             clickable: true,

@@ -1,13 +1,17 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { useSelector } from "react-redux";
 
 const Story = ({ data }) => {
+  const { lang } = useSelector((state) => state.language);
+
   return (
     <section className="sectionPadding bg-gray-100">
       <div className="container space-y-4 lg:space-y-8">
         <h2 className="text-2xl font-bold uppercase">{data?.titles}</h2>
 
         <Swiper
+          dir={lang === "ar" ? "rtl" : "ltr"}
           spaceBetween={20}
           slidesPerView={1}
           breakpoints={{

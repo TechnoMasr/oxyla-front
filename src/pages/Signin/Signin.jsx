@@ -145,7 +145,7 @@ const Signin = () => {
 
           <FormBtn title={t("signin.signIn")} loading={isPending} />
 
-          <div className="divider">{t("signin.or")}</div>
+          {/* <div className="divider">{t("signin.or")}</div>
 
           <button
             type="button"
@@ -153,7 +153,7 @@ const Signin = () => {
           >
             <img src={googleIcon} alt="google icon" />
             <span>{t("signin.signInWithGoogle")}</span>
-          </button>
+          </button> */}
 
           <p className="text-sm text-gray-600 text-center">
             {t("signin.dontHaveAccount")}{" "}

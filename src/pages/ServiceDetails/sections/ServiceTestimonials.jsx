@@ -4,14 +4,19 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { renderStars } from "../../../utils/renderStars";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const ServiceTestimonials = ({ data }) => {
   const { t } = useTranslation();
+  const { lang } = useSelector((state) => state.language);
   return (
     <section className="my-12">
-      <h2 className="text-3xl font-bold text-center mb-8">{t("Testimonials")}</h2>
+      <h2 className="text-3xl font-bold text-center mb-8">
+        {t("Testimonials")}
+      </h2>
 
       <Swiper
+        dir={lang === "ar" ? "rtl" : "ltr"}
         modules={[Pagination, Autoplay]}
         pagination={{
           clickable: true,
@@ -51,7 +56,7 @@ const ServiceTestimonials = ({ data }) => {
               </div>
 
               <div className="p-4 pt-6 relative">
-                <div className="flex gap-1 bg-white py-1 px-2 rounded absolute start-1/2 -top-3 -translate-x-1/2">
+                <div className="flex gap-1 bg-white py-1 px-2 rounded absolute left-1/2 -top-3 -translate-x-1/2">
                   {renderStars(item.rating)}
                 </div>
 

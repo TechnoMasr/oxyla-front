@@ -5,15 +5,18 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+import { useSelector } from "react-redux";
 
 const ImagesSlider = ({ images }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const { lang } = useSelector((state) => state.language);
 
   return (
     <div className="lg:col-span-2 order-1 lg:order-2 relative">
       {/* ✅ السلايدر الرئيسي */}
       <Swiper
+        dir={lang === "ar" ? "rtl" : "ltr"}
         loop={true}
         spaceBetween={10}
         navigation={true}
@@ -39,6 +42,7 @@ const ImagesSlider = ({ images }) => {
 
       {/* ✅ الصور المصغّرة */}
       <Swiper
+        dir={lang === "ar" ? "rtl" : "ltr"}
         onSwiper={setThumbsSwiper}
         loop={true}
         spaceBetween={10}
