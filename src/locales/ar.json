@@ -280,7 +280,8 @@
     "noNotifications": "لا توجد إشعارات.",
     "viewLink": "عرض",
     "newMessage": "رسالة جديدة",
-    "messageFrom": "لديك رسالة جديدة من John Doe"
+    "messageFrom": "لديك رسالة جديدة من John Doe",
+    "view": "عرض"
   },
 
   "wishlistPage": {

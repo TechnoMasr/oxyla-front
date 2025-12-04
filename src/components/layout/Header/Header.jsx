@@ -29,11 +29,11 @@ const Header = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const isProfilePage = /^\/profile(\/|$)/.test(location.pathname);
+    // const isProfilePage = /^\/profile(\/|$)/.test(location.pathname);
 
-    if (!isProfilePage) {
-      dispatch(getProfileAct());
-    }
+    // if (!isProfilePage) {
+    // }
+    dispatch(getProfileAct());
 
     dispatch(fetchSetting());
   }, [dispatch, location.pathname]);

@@ -280,7 +280,8 @@
     "noNotifications": "No notifications found.",
     "viewLink": "View",
     "newMessage": "New Message",
-    "messageFrom": "You have a new message from John Doe"
+    "messageFrom": "You have a new message from John Doe",
+    "view": "View"
   },
 
   "wishlistPage": {
