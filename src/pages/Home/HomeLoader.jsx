@@ -41,6 +41,7 @@ const HomeLoader = ({ show, onFinish }) => {
             dir="ltr"
           >
             <img
+              loading="lazy"
               src={logo5}
               alt="logo"
               className="w-full absolute top-0 left-0 bg-white z-10"

@@ -37,7 +37,7 @@ const HeaderAction = ({ setActiveNav }) => {
 
       {profile ? (
         <div className="dropdown dropdown-end">
-          <div tabIndex={0} className="cursor-pointer text-2xl text-myPurple">
+          <div tabIndex={0} className="cursor-pointer text-3xl text-myPurple">
             <FiUser />
           </div>
           <ul
@@ -60,7 +60,7 @@ const HeaderAction = ({ setActiveNav }) => {
       ) : (
         <Link
           to="/signin"
-          className="text-2xl text-myPurple cursor-pointer"
+          className="text-3xl text-myPurple cursor-pointer"
           onClick={() => setActiveNav(false)}
         >
           <MdLogin title={t("headerActions.login")} />
@@ -69,7 +69,7 @@ const HeaderAction = ({ setActiveNav }) => {
 
       <Link
         to="/cart"
-        className="text-2xl text-myPurple cursor-pointer relative"
+        className="text-3xl text-myPurple cursor-pointer relative"
         onClick={() => setActiveNav(false)}
       >
         <IoCartOutline />

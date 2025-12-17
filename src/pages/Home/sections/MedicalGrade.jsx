@@ -18,6 +18,7 @@ const MedicalGrade = ({ data }) => {
           >
             <div className="w-full lg:max-w-sm h-72 lg:h-96 overflow-hidden rounded-xl bg-gray-100">
               <img
+                loading="lazy"
                 src={feature.image}
                 alt={feature.title}
                 className="w-full h-full object-cover"

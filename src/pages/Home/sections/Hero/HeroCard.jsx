@@ -11,12 +11,14 @@ const HeroCard = ({ item, index }) => {
       className="overflow-hidden group relative"
     >
       <img
+        loading="lazy"
         src={item?.mobile_image}
         alt={item?.title}
         className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 md:hidden"
       />
 
       <img
+        loading="lazy"
         src={item?.web_image}
         alt={item?.title}
         className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 hidden md:block"
@@ -34,7 +36,7 @@ const HeroCard = ({ item, index }) => {
           to={item?.button_url || "/services"}
           className="px-4 py-2 text-xl text-white border font-semibold rounded flex items-center gap-2"
         >
-          {item?.button_text} <GoArrowUpRight  className="rtl:-rotate-90"/>
+          {item?.button_text} <GoArrowUpRight className="rtl:-rotate-90" />
         </Link>
       </div>
     </motion.div>

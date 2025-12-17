@@ -24,7 +24,7 @@ const Footer = () => {
   return (
     <footer className="container sectionPadding">
       <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
-        <img src={logo} alt="Logo" className="w-32" />
+        <img loading="lazy" src={logo} alt="Logo" className="w-32" />
 
         <ul className="flex flex-wrap justify-center gap-4">
           {pageLinks.map((link, index) => (

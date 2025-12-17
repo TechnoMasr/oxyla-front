@@ -18,7 +18,12 @@ export default function Avatar({ name, img, size = "md", active = false }) {
       bg-gradient-to-bl from-myGreen via-myBlue to-myPurple overflow-hidden ${sizes[size]}`}
     >
       {img ? (
-        <img src={img} alt={name} className="w-full h-full object-cover" />
+        <img
+          loading="lazy"
+          src={img}
+          alt={name}
+          className="w-full h-full object-cover"
+        />
       ) : (
         <span>{getInitials(name)}</span>
       )}

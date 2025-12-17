@@ -39,6 +39,7 @@ const CartCard = ({ item, orders = false }) => {
     <div className="flex items-center gap-4 py-4 not-last:border-b border-gray-200">
       <div className="w-26 h-26 sm:w-32 sm:h-32 overflow-hidden">
         <img
+          loading="lazy"
           src={item.service?.image_url}
           alt={item.service?.name}
           className="w-full h-full object-cover"

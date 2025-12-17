@@ -17,6 +17,7 @@ const Features = ({ data }) => {
             className="space-y-4 bg-gray-100 p-4 rounded-xl shadow-lg"
           >
             <img
+              loading="lazy"
               src={feature.icon}
               alt={feature.description}
               className="w-8 h-8 object-contain"

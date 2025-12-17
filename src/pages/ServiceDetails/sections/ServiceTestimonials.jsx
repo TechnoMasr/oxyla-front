@@ -43,6 +43,7 @@ const ServiceTestimonials = ({ data }) => {
               <div className="flex items-center gap-2 bg-stone-200 p-4 pb-6">
                 <span className="h-18 w-18 overflow-hidden rounded-lg">
                   <img
+                    loading="lazy"
                     src={item.image_url}
                     alt={item.name}
                     className="w-full h-full object-contain"

@@ -7,6 +7,7 @@ const HomeHeader = ({ setOpenMenu }) => {
   return (
     <>
       <img
+        loading="lazy"
         src={logo}
         alt="Oxyla Logo"
         className="absolute z-20 top-4 start-4 w-28"

@@ -130,7 +130,7 @@ const Signup = () => {
             type="button"
             className="w-full border border-gray-300 rounded-lg flex items-center justify-center gap-4 py-2 cursor-pointer hover:bg-gray-100 transition"
           >
-            <img src={googleIcon} alt="google icon" />
+            <img loading="lazy" src={googleIcon} alt="google icon" />
             <span>{t("signup.signInWithGoogle")}</span>
           </button> */}
 

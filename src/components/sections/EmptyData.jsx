@@ -10,7 +10,12 @@ const EmptyData = ({ page = false }) => {
         page ? "h-screen" : ""
       }`}
     >
-      <img src={emptyIcon} alt="No Data" className="w-32 lg:w-40" />
+      <img
+        loading="lazy"
+        src={emptyIcon}
+        alt="No Data"
+        className="w-32 lg:w-40"
+      />
 
       <p className="text-center text-gray-600 text-lg lg:text-2xl font-semibold">
         {t("noData")}

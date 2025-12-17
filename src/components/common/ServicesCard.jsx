@@ -56,6 +56,7 @@ const ServicesCard = ({ service }) => {
       >
         <div className="w-full h-[200px] lg:w-1/2 lg:min-h-full">
           <img
+            loading="lazy"
             src={service.image_url}
             alt={service.name}
             className="w-full h-full object-cover"

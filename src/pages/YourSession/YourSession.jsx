@@ -14,6 +14,7 @@ const YourSession = () => {
         {/* Session Card */}
         <div className="flex flex-col sm:flex-row gap-6 mb-6">
           <img
+            loading="lazy"
             src={bookImg}
             alt="Oxylla Relax Capsule"
             className="w-full sm:w-48 h-58 sm:h-36 object-cover rounded-lg"
@@ -34,6 +35,7 @@ const YourSession = () => {
         <div className="mb-6">
           <div className="relative h-40 w-full rounded-lg overflow-hidden shadow-sm">
             <img
+              loading="lazy"
               src={mapImg}
               alt="Map"
               className="w-full h-full object-cover"
@@ -67,7 +69,7 @@ const YourSession = () => {
 
         {/* Barcode */}
         <div className="mt-6">
-          <img src={barImg} alt="Barcode" className="mx-auto" />
+          <img loading="lazy" src={barImg} alt="Barcode" className="mx-auto" />
           <p className="text-center text-gray-500 text-sm mt-2">
             06158310-5427-471d-af1f-bd9029b
           </p>

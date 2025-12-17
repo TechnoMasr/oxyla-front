@@ -136,6 +136,7 @@ const DetailsSection = ({ data }) => {
                 >
                   <span className="w-12 h-12 overflow-hidden border-2 rounded-full">
                     <img
+                      loading="lazy"
                       src={item.image_url}
                       alt={item.name}
                       className="w-full h-full object-cover"

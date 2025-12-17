@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 const NavBarMobile = ({ activeNav, setOpenLinks, links }) => {
   return (
     <nav
-      className={`flex lg:hidden flex-col gap-1 w-full overflow-hidden transition-all duration-500 ease-in-out ${
+      className={`flex lg:hidden flex-col gap-2 w-full overflow-hidden transition-all duration-500 ease-in-out ${
         activeNav ? "max-h-screen pt-2" : "max-h-0"
       }`}
     >

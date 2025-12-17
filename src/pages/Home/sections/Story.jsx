@@ -25,6 +25,7 @@ const Story = ({ data }) => {
               <div className="bg-white rounded-xl shadow-lg flex flex-col justify-between overflow-hidden">
                 <div className="w-full h-48 overflow-hidden rounded-xl">
                   <img
+                    loading="lazy"
                     src={item.image_url}
                     alt={item.name}
                     className="w-full h-full object-cover"

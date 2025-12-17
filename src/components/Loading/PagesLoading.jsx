@@ -9,32 +9,32 @@ const PagesLoading = ({ show, onFinish }) => {
   const [bubbles, setBubbles] = useState([]);
 
   // إنشاء bubbles عشوائية
-  // إنشاء bubbles عشوائية بعيد عن مركز اللوغو
   useEffect(() => {
-    const numBubbles = 25;
-    const logoRadius = logoSize / 2 + 50; // مساحة أمان حوالين اللوغو
+    const numBubbles = 35;
+    const logoRadius = logoSize / 2 + 60;
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
 
     const newBubbles = [];
 
     while (newBubbles.length < numBubbles) {
-      const size = Math.random() * 50 + 10;
+      const size = Math.random() * 50 + 15;
       const x = Math.random() * window.innerWidth;
       const y = Math.random() * window.innerHeight;
 
-      // نحسب المسافة من مركز اللوغو
-      const distance = Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2);
-
+      const distance = Math.hypot(x - centerX, y - centerY);
       if (distance > logoRadius) {
         newBubbles.push({
           id: Math.random(),
           size,
           x,
           y,
-          dx: (Math.random() - 0.5) * 50,
-          dy: (Math.random() - 0.5) * 50,
-          duration: Math.random() * 5 + 3,
+          startZ: -800 - Math.random() * 400, // بعيدة جدًا
+          endZ: Math.random() * 200 - 100, // قريبة
+          dx: (Math.random() - 0.5) * 100,
+          dy: (Math.random() - 0.5) * 100,
+          floatDuration: Math.random() * 6 + 5,
+          delay: Math.random() * 1.8, // دخول واحدة واحدة
         });
       }
     }
@@ -49,7 +49,7 @@ const PagesLoading = ({ show, onFinish }) => {
   useEffect(() => {
     const updateLogoSize = () => {
       const width = window.innerWidth;
-      if (width < 640) setLogoSize(100);
+      if (width < 640) setLogoSize(120);
       else if (width < 1024) setLogoSize(150);
       else setLogoSize(200);
     };
@@ -60,7 +60,7 @@ const PagesLoading = ({ show, onFinish }) => {
 
   useEffect(() => {
     let start = null;
-    const duration = 3000;
+    const duration = 5000;
 
     const animate = (timestamp) => {
       if (!start) start = timestamp;
@@ -83,6 +83,10 @@ const PagesLoading = ({ show, onFinish }) => {
       {visible && (
         <motion.div
           className="fixed inset-0 flex items-center justify-center bg-white z-[9999] overflow-hidden"
+          style={{
+            perspective: "1400px",
+            transformStyle: "preserve-3d",
+          }}
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -92,19 +96,39 @@ const PagesLoading = ({ show, onFinish }) => {
           {bubbles.map((bubble) => (
             <motion.div
               key={bubble.id}
-              className="absolute rounded-full bg-myBlue opacity-50"
+              className="absolute rounded-full"
               style={{
                 width: bubble.size,
                 height: bubble.size,
                 left: bubble.x,
                 top: bubble.y,
+                background:
+                  "radial-gradient(circle at 30% 30%, #ffffffdd, var(--color-myBlue))",
+                boxShadow: "0 25px 45px rgba(0,0,0,0.3)",
+                transformStyle: "preserve-3d",
               }}
+              /* 1️⃣ من العمق */
+              initial={{
+                z: bubble.startZ,
+                scale: 0.2,
+                opacity: 0,
+                filter: "blur(8px)",
+              }}
+              /* 2️⃣ دخول + قرب */
               animate={{
+                z: bubble.endZ,
+                scale: 1,
+                opacity: 0.65,
+                filter: "blur(0px)",
                 x: [0, bubble.dx, -bubble.dx, 0],
                 y: [0, bubble.dy, -bubble.dy, 0],
               }}
               transition={{
-                duration: bubble.duration,
+                z: { duration: 3, ease: "easeOut", delay: bubble.delay },
+                scale: { duration: 2.5, delay: bubble.delay },
+                opacity: { duration: 2, delay: bubble.delay },
+                filter: { duration: 2, delay: bubble.delay },
+                duration: bubble.floatDuration,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
@@ -156,10 +180,18 @@ const PagesLoading = ({ show, onFinish }) => {
           <motion.div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden"
             initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1.5, ease: "easeOut", delay: 0.5 }}
+            animate={{ scale: [1, 1.2, 1], opacity: 1 }} // opacity ثابت بعد الظهور
+            transition={{
+              scale: { duration: 1.5, ease: "easeInOut", repeat: Infinity },
+              opacity: { duration: 1, ease: "easeOut" },
+            }}
           >
-            <img src={logo} alt="logo" style={{ width: logoSize }} />
+            <img
+              loading="lazy"
+              src={logo}
+              alt="logo"
+              style={{ width: logoSize }}
+            />
           </motion.div>
         </motion.div>
       )}

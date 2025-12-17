@@ -9,6 +9,7 @@ const FAQS = ({ data }) => {
         {/* Image section */}
         <div className="hidden lg:block w-full aspect-square rounded-xl shadow-lg overflow-hidden lg:col-span-5">
           <img
+            loading="lazy"
             src={data?.image}
             alt={data?.titles}
             className="w-full h-full object-cover"

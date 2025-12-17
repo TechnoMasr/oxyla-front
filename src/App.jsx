@@ -8,14 +8,14 @@ import { ToastContainer } from "react-toastify";
 
 function App() {
   const { pathname } = useLocation();
-  const [showLoader, setShowLoader] = useState(false);
+  const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
   useEffect(() => {
-    setShowLoader(false);
+    setShowLoader(true);
   }, [pathname]);
 
   return (

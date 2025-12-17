@@ -5,11 +5,14 @@ const Loader = () => {
   const { t } = useTranslation();
   return (
     <div className="flex flex-col items-center">
-      <img src={logoImg} alt="Logo" className="w-18 md:w-22 animate-bounce" />
+      <img
+        loading="lazy"
+        src={logoImg}
+        alt="Logo"
+        className="w-18 md:w-22 animate-bounce"
+      />
 
-      <h2 className="font-bold text-myBlue-2 mt-4">
-        {t("loading")} ...
-      </h2>
+      <h2 className="font-bold text-myBlue-2 mt-4">{t("loading")} ...</h2>
     </div>
   );
 };
