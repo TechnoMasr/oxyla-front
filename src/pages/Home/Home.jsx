@@ -18,7 +18,6 @@ import { fetchSetting } from "../../store/setting/setting";
 import { getProfileAct } from "../../store/profile/profileSlice";
 
 const Home = () => {
-  const [showLoader, setShowLoader] = useState(true);
   const [openMenu, setOpenMenu] = useState(false);
 
   const { data: homeData, isLoading } = useQuery({
@@ -34,24 +33,20 @@ const Home = () => {
 
   return (
     <article>
-      <HomeLoader show={showLoader} onFinish={() => setShowLoader(false)} />
+      <HomeLoader />
 
-      {!showLoader && (
-        <>
-          <HomeHeader setOpenMenu={setOpenMenu} />
-          <HomeMenu openMenu={openMenu} setOpenMenu={setOpenMenu} />
+      <HomeHeader setOpenMenu={setOpenMenu} />
+      <HomeMenu openMenu={openMenu} setOpenMenu={setOpenMenu} />
 
-          <Hero data={homeData?.sliders} />
-          <Services data={homeData?.section2} />
-          <Features data={homeData?.section3} />
-          <Rooms data={homeData?.section4} />
-          <MedicalGrade data={homeData?.section5} />
-          <Story data={homeData?.section6} />
-          <FAQS data={homeData?.section7} />
-          <Banner data={homeData?.section8} />
-          <Footer />
-        </>
-      )}
+      <Hero data={homeData?.sliders} />
+      <Services data={homeData?.section2} />
+      <Features data={homeData?.section3} />
+      <Rooms data={homeData?.section4} />
+      <MedicalGrade data={homeData?.section5} />
+      <Story data={homeData?.section6} />
+      <FAQS data={homeData?.section7} />
+      <Banner data={homeData?.section8} />
+      <Footer />
     </article>
   );
 };

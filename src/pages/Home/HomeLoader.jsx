@@ -6,23 +6,24 @@ import logo3 from "../../assets/images/oxela-home-logo/3.png";
 import logo4 from "../../assets/images/oxela-home-logo/4.png";
 import logo5 from "../../assets/images/oxela-home-logo/5.png";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-const HomeLoader = ({ show, onFinish }) => {
+const HomeLoader = () => {
+  const [showLoader, setShowLoader] = useState(true);
   const logos = [logo1, logo2, logo3, logo4];
   const text = "Breath . Renew . Heal";
 
   useEffect(() => {
-    if (show) {
+    if (showLoader) {
       setTimeout(() => {
-        onFinish();
+        setShowLoader(false);
       }, 5000);
     }
-  }, [show, onFinish]);
+  }, [showLoader]);
 
   return (
     <AnimatePresence>
-      {show && (
+      {showLoader && (
         <motion.section
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}

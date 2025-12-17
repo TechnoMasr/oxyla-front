@@ -6,12 +6,12 @@ const Banner = ({ data }) => {
     <section className="sectionPadding p-4 w-full max-w-6xl mx-auto">
       <div className="bg-gradient-to-r from-[#1894DA] to-[#1BABBE] rounded-2xl shadow-lg">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-4 p-8 lg:py-16">
-          <div className="text-center lg:text-start text-white">
+          <div className="text-center lg:text-start text-white flex-1">
             <h2 className="text-xl lg:text-3xl font-bold uppercase mb-4">
               {data?.titles}
             </h2>
             <div dangerouslySetInnerHTML={{ __html: data?.description }} className="text-lg" />
-          </div>
+          </div> 
 
           <Link
             to={data?.btn_url}

@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "./components/layout/Header/Header";
 import Footer from "./components/layout/Footer/Footer";
@@ -8,33 +8,20 @@ import { ToastContainer } from "react-toastify";
 
 function App() {
   const { pathname } = useLocation();
-  const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  useEffect(() => {
-    setShowLoader(true);
-  }, [pathname]);
-
   return (
     <main>
-      <PagesLoading
-        key={pathname}
-        show={showLoader}
-        onFinish={() => setShowLoader(false)}
-      />
+      <PagesLoading />
 
-      {!showLoader && (
-        <>
-          <Header />
-          <div className="min-h-[100dvh]">
-            <Outlet />
-          </div>
-          <Footer />
-        </>
-      )}
+      <Header />
+      <div className="min-h-[100dvh]">
+        <Outlet />
+      </div>
+      <Footer />
 
       <ToastContainer />
     </main>

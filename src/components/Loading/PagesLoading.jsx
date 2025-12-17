@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "../../assets/images/logo/logo.png";
+import { useLocation } from "react-router-dom";
 
-const PagesLoading = ({ show, onFinish }) => {
+const PagesLoading = () => {
   const [progress, setProgress] = useState(0);
-  const [visible, setVisible] = useState(show);
+  const [visible, setVisible] = useState(true);
   const [logoSize, setLogoSize] = useState(120);
   const [bubbles, setBubbles] = useState([]);
+  const { pathname } = useLocation();
 
   // إنشاء bubbles عشوائية
   useEffect(() => {
@@ -43,8 +45,8 @@ const PagesLoading = ({ show, onFinish }) => {
   }, [logoSize]);
 
   useEffect(() => {
-    setVisible(show);
-  }, [show]);
+    setVisible(true);
+  }, [pathname]);
 
   useEffect(() => {
     const updateLogoSize = () => {
@@ -60,26 +62,34 @@ const PagesLoading = ({ show, onFinish }) => {
 
   useEffect(() => {
     let start = null;
-    const duration = 5000;
+    const duration = 5000; // ممكن أقل شوية
+
+    setProgress(0);
+    setVisible(true);
 
     const animate = (timestamp) => {
       if (!start) start = timestamp;
       const elapsed = timestamp - start;
-      const progressValue = Math.min((elapsed / duration) * 100, 100);
-      setProgress(Math.floor(progressValue));
+      const value = Math.min((elapsed / duration) * 100, 100);
+
+      setProgress(Math.floor(value));
 
       if (elapsed < duration) {
         requestAnimationFrame(animate);
       } else {
-        setTimeout(() => setVisible(false), 300);
+        setTimeout(() => setVisible(false), 400);
       }
     };
 
     requestAnimationFrame(animate);
-  }, []);
+
+    return () => {
+      start = null;
+    };
+  }, [pathname]);
 
   return (
-    <AnimatePresence onExitComplete={onFinish}>
+    <AnimatePresence onExitComplete={() => setVisible(false)}>
       {visible && (
         <motion.div
           className="fixed inset-0 flex items-center justify-center bg-white z-[9999] overflow-hidden"
