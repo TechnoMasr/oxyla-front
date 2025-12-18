@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { logoutAct } from "../../../store/profile/profileSlice";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import Cookies from "js-cookie";
 
 const Logout = () => {
   const { t } = useTranslation();

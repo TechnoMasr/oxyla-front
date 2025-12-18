@@ -1,4 +1,5 @@
 import api from "./api";
+import Cookies from "js-cookie";
 
 export const addToCart = async (payload) => {
   const { data } = await api.post("/cart/add-booking-to-cart", payload);
@@ -11,6 +12,7 @@ export const getCart = async () => {
 };
 
 export const getCartCount = async () => {
+  if (!Cookies.get("tokenOx")) return null;
   const { data } = await api.get("/cart/get-cart-items-count");
   return data.data || 0;
 };

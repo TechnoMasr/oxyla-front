@@ -1,45 +1,32 @@
-import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import PublicRoute from "../components/ProtectedRoutes/PublicRoute";
 import ProtectedRoute from "../components/ProtectedRoutes/ProtectedRoute";
 import VerifiedEmail from "../pages/VerifiedEmail/VerifiedEmail";
 import VerifiedEmailRoute from "../components/ProtectedRoutes/VerifiedEmailRoute";
+import OxylaLoading from "../components/Loading/OxylaLoading";
 
-const Home = React.lazy(() => import("../pages/Home/Home"));
-const AboutUS = React.lazy(() => import("../pages/AboutUS/AboutUS"));
-const ContactUS = React.lazy(() => import("../pages/ContactUS/ContactUS"));
-const ServicesPage = React.lazy(() =>
-  import("../pages/ServicesPage/ServicesPage")
-);
-const ServiceDetails = React.lazy(() =>
-  import("../pages/ServiceDetails/ServiceDetails")
-);
-const Cart = React.lazy(() => import("../pages/Cart/Cart"));
-const Payment = React.lazy(() => import("../pages/Payment/Payment"));
-const YourSession = React.lazy(() =>
-  import("../pages/YourSession/YourSession")
-);
-const Profile = React.lazy(() => import("../pages/Profile/Profile"));
-const EditProfile = React.lazy(() =>
-  import("../pages/Profile/sections/EditProfile")
-);
-const Notifications = React.lazy(() =>
-  import("../pages/Profile/sections/Notifications")
-);
-const Appointment = React.lazy(() =>
-  import("../pages/Profile/sections/Appointment")
-);
-const Wishlist = React.lazy(() => import("../pages/Profile/sections/Wishlist"));
-const Logout = React.lazy(() => import("../pages/Profile/sections/Logout"));
+import Home from "../pages/Home/Home";
+import AboutUS from "../pages/AboutUS/AboutUS";
+import ContactUS from "../pages/ContactUS/ContactUS";
+import ServicesPage from "../pages/ServicesPage/ServicesPage";
+import ServiceDetails from "../pages/ServiceDetails/ServiceDetails";
+import Cart from "../pages/Cart/Cart";
+import Payment from "../pages/Payment/Payment";
+import YourSession from "../pages/YourSession/YourSession";
+import Profile from "../pages/Profile/Profile";
 
-const Signin = React.lazy(() => import("../pages/Signin/Signin"));
-const Signup = React.lazy(() => import("../pages/Signup/Signup"));
-const ForgotPassword = React.lazy(() =>
-  import("../pages/ForgotPassword/ForgotPassword")
-);
+import EditProfile from "../pages/Profile/sections/EditProfile";
+import Notifications from "../pages/Profile/sections/Notifications";
+import Appointment from "../pages/Profile/sections/Appointment";
+import Wishlist from "../pages/Profile/sections/Wishlist";
+import Logout from "../pages/Profile/sections/Logout";
 
-const NotFound = React.lazy(() => import("../pages/NotFound/NotFound"));
+import Signin from "../pages/Signin/Signin";
+import Signup from "../pages/Signup/Signup";
+import ForgotPassword from "../pages/ForgotPassword/ForgotPassword";
+
+import NotFound from "../pages/NotFound/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -50,30 +37,74 @@ const router = createBrowserRouter([
   {
     element: <App />, // ← layout للصفحات التانية
     children: [
-      { path: "services", element: <ServicesPage /> },
-      { path: "services/:id", element: <ServiceDetails /> },
+      {
+        path: "services",
+        element: (
+          <OxylaLoading>
+            <ServicesPage />
+          </OxylaLoading>
+        ),
+      },
+      {
+        path: "services/:id",
+        element: (
+          <OxylaLoading>
+            <ServiceDetails />
+          </OxylaLoading>
+        ),
+      },
       {
         path: "cart",
         element: (
           <ProtectedRoute>
             <VerifiedEmailRoute>
-              <Cart />
+              <OxylaLoading>
+                <Cart />
+              </OxylaLoading>
             </VerifiedEmailRoute>
           </ProtectedRoute>
         ),
       },
-      { path: "payment", element: <Payment /> },
-      { path: "your-session", element: <YourSession /> },
-      { path: "about-us", element: <AboutUS /> },
-      { path: "contact-us", element: <ContactUS /> },
+      {
+        path: "payment",
+        element: (
+          <OxylaLoading>
+            <Payment />
+          </OxylaLoading>
+        ),
+      },
+      {
+        path: "your-session",
+        element: (
+          <OxylaLoading>
+            <YourSession />
+          </OxylaLoading>
+        ),
+      },
+      {
+        path: "about-us",
+        element: (
+          <OxylaLoading>
+            <AboutUS />
+          </OxylaLoading>
+        ),
+      },
+      {
+        path: "contact-us",
+        element: (
+          <OxylaLoading>
+            <ContactUS />
+          </OxylaLoading>
+        ),
+      },
 
       {
         path: "profile",
         element: (
           <ProtectedRoute>
-            {/* <VerifiedEmailRoute> */}
-            <Profile />
-            {/* </VerifiedEmailRoute> */}
+            <OxylaLoading>
+              <Profile />
+            </OxylaLoading>
           </ProtectedRoute>
         ),
         children: [
@@ -89,7 +120,9 @@ const router = createBrowserRouter([
         path: "signin",
         element: (
           <PublicRoute>
-            <Signin />
+            <OxylaLoading>
+              <Signin />
+            </OxylaLoading>
           </PublicRoute>
         ),
       },
@@ -97,7 +130,9 @@ const router = createBrowserRouter([
         path: "signup",
         element: (
           <PublicRoute>
-            <Signup />
+            <OxylaLoading>
+              <Signup />
+            </OxylaLoading>
           </PublicRoute>
         ),
       },
@@ -105,13 +140,19 @@ const router = createBrowserRouter([
         path: "forgot-password",
         element: (
           <PublicRoute>
-            <ForgotPassword />
+            <OxylaLoading>
+              <ForgotPassword />
+            </OxylaLoading>
           </PublicRoute>
         ),
       },
       {
         path: "verify-email",
-        element: <VerifiedEmail />,
+        element: (
+          <OxylaLoading>
+            <VerifiedEmail />
+          </OxylaLoading>
+        ),
       },
     ],
   },

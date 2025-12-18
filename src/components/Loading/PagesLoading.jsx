@@ -62,7 +62,7 @@ const PagesLoading = () => {
 
   useEffect(() => {
     let start = null;
-    const duration = 5000; // ممكن أقل شوية
+    const duration = 4000; // ممكن أقل شوية
 
     setProgress(0);
     setVisible(true);

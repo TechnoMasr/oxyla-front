@@ -33,7 +33,7 @@ const LanguageSwitcher = ({ home = false }) => {
       <>
         <div
           onClick={() => changeLangWithLoading(lang === "ar" ? "en" : "ar")}
-          className="px-3 py-1 bg-white text-black rounded-full cursor-pointer flex items-center gap-2 shadow-sm"
+          className="px-3 py-1 bg-white text-black rounded-full cursor-pointer flex items-center gap-2 shadow-sm rtl:font-[Manrope] ltr:font-[Cairo]"
         >
           <span>{lang === "en" ? "العربية" : "English"}</span>
         </div>
@@ -47,7 +47,7 @@ const LanguageSwitcher = ({ home = false }) => {
     <>
       <div
         onClick={() => changeLangWithLoading(lang === "ar" ? "en" : "ar")}
-        className="px-2 py-1 text-sm bg-white text-myPurple border border-myPurple rounded-full cursor-pointer flex items-center gap-1 shadow-sm font-[Cairo]"
+        className="px-2 py-1 text-sm bg-white text-myPurple border border-myPurple rounded-full cursor-pointer flex items-center gap-1 shadow-sm rtl:font-[Manrope] ltr:font-[Cairo]"
       >
         {lang === "en" ? "العربية" : "English"} <CiGlobe className="text-xl" />
       </div>

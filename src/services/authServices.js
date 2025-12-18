@@ -28,6 +28,8 @@ export const logoutUser = async () => {
 };
 
 export const getProfile = async () => {
+  if (!Cookies.get("tokenOx")) return null;
+
   const { data } = await api.get("/profile");
 
   if (data?.data?.token) {

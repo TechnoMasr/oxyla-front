@@ -15,7 +15,7 @@ function App() {
 
   return (
     <main>
-      <PagesLoading />
+      {/* <PagesLoading /> */}
 
       <Header />
       <div className="min-h-[100dvh]">
