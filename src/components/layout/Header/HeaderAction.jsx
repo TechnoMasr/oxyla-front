@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 
 const HeaderAction = ({ setActiveNav }) => {
   const { t } = useTranslation();
-  const { profile } = useSelector((state) => state.profile);
+  const { profile, cartCount } = useSelector((state) => state.profile);
 
   const profileList = [
     { name: t("headerActions.editProfile"), url: "", icon: <RiEdit2Line /> },
@@ -74,9 +74,9 @@ const HeaderAction = ({ setActiveNav }) => {
       >
         <IoCartOutline />
 
-        {profile?.cart_items_count > 0 && (
+        {cartCount > 0 && (
           <span className="absolute -top-1 -end-1 text-xs bg-myBlue text-white px-1 rounded-full">
-            {profile?.cart_items_count}
+            {cartCount}
           </span>
         )}
       </Link>

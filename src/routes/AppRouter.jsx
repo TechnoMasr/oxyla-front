@@ -3,6 +3,8 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import PublicRoute from "../components/ProtectedRoutes/PublicRoute";
 import ProtectedRoute from "../components/ProtectedRoutes/ProtectedRoute";
+import VerifiedEmail from "../pages/VerifiedEmail/VerifiedEmail";
+import VerifiedEmailRoute from "../components/ProtectedRoutes/VerifiedEmailRoute";
 
 const Home = React.lazy(() => import("../pages/Home/Home"));
 const AboutUS = React.lazy(() => import("../pages/AboutUS/AboutUS"));
@@ -54,7 +56,9 @@ const router = createBrowserRouter([
         path: "cart",
         element: (
           <ProtectedRoute>
-            <Cart />
+            <VerifiedEmailRoute>
+              <Cart />
+            </VerifiedEmailRoute>
           </ProtectedRoute>
         ),
       },
@@ -67,7 +71,9 @@ const router = createBrowserRouter([
         path: "profile",
         element: (
           <ProtectedRoute>
+            {/* <VerifiedEmailRoute> */}
             <Profile />
+            {/* </VerifiedEmailRoute> */}
           </ProtectedRoute>
         ),
         children: [
@@ -102,6 +108,10 @@ const router = createBrowserRouter([
             <ForgotPassword />
           </PublicRoute>
         ),
+      },
+      {
+        path: "verify-email",
+        element: <VerifiedEmail />,
       },
     ],
   },

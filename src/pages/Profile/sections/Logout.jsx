@@ -10,11 +10,8 @@ const Logout = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    dispatch(logoutAct())
-      .unwrap()
-      .then(() => {
-        navigate("/", { replace: true });
-      });
+    dispatch(logoutAct());
+    navigate("/", { replace: true });
   };
 
   return (

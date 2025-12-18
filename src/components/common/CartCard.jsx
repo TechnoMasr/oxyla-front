@@ -10,7 +10,7 @@ import { removeFromCart } from "../../services/cartServices";
 import { renderStars } from "../../utils/renderStars";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
-import { getProfileAct } from "../../store/profile/profileSlice";
+import { getCartCountAct } from "../../store/profile/profileSlice";
 import { useDispatch } from "react-redux";
 
 const CartCard = ({ item, orders = false }) => {
@@ -28,7 +28,7 @@ const CartCard = ({ item, orders = false }) => {
     mutationFn: () => removeFromCart(item.id),
     onSuccess: () => {
       queryClient.invalidateQueries(["cart"]);
-      dispatch(getProfileAct());
+      dispatch(getCartCountAct());
 
       setOpenDelete(false);
       toast.success(t("CartCard.itemRemoved"));

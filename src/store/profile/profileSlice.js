@@ -1,10 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getProfile, logoutUser } from "../../services/authServices";
+import { getCartCount } from "../../services/cartServices";
 
 const initialState = {
   profile: null,
   loading: false,
   error: null,
+  cartCount: 0,
 };
 
 export const getProfileAct = createAsyncThunk(
@@ -37,6 +39,20 @@ export const logoutAct = createAsyncThunk(
   }
 );
 
+export const getCartCountAct = createAsyncThunk(
+  "profile/getCartCountAct",
+  async (_, { rejectWithValue }) => {
+    try {
+      const data = await getCartCount();
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(
+        error?.response?.data?.message || "Failed to load profile"
+      );
+    }
+  }
+);
 
 const profileSlice = createSlice({
   name: "profile",
@@ -65,6 +81,12 @@ const profileSlice = createSlice({
       .addCase(logoutAct.fulfilled, (state) => {
         state.loading = false;
         state.profile = null;
+      })
+
+      // cart count
+      .addCase(getCartCountAct.fulfilled, (state, action) => {
+        state.loading = false;
+        state.cartCount = action.payload;
       });
   },
 });

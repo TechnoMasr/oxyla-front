@@ -57,9 +57,12 @@ const Signup = () => {
   const { mutate, isPending, error } = useMutation({
     mutationFn: (formData) => registerUser(formData),
     onSuccess: () => {
-      navigate("/profile/appointment", { replace: true });
-      dispatch(getProfileAct());
       reset();
+      dispatch(getProfileAct())
+        .unwrap()
+        .then(() => {
+          navigate("/verify-email", { replace: true });
+        });
     },
   });
 

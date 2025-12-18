@@ -8,7 +8,10 @@ import HeaderAction from "./HeaderAction";
 import NavBarMobile from "./NavBar/NavBarMobile";
 import { useDispatch } from "react-redux";
 import { fetchSetting } from "../../../store/setting/setting";
-import { getProfileAct } from "../../../store/profile/profileSlice";
+import {
+  getCartCountAct,
+  getProfileAct,
+} from "../../../store/profile/profileSlice";
 import { useTranslation } from "react-i18next";
 
 const Header = () => {
@@ -29,13 +32,12 @@ const Header = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // const isProfilePage = /^\/profile(\/|$)/.test(location.pathname);
-
-    // if (!isProfilePage) {
-    // }
     dispatch(getProfileAct());
-
     dispatch(fetchSetting());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getCartCountAct());
   }, [dispatch, location.pathname]);
 
   const { t } = useTranslation();

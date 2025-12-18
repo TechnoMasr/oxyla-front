@@ -10,6 +10,11 @@ export const getCart = async () => {
   return data?.data || [];
 };
 
+export const getCartCount = async () => {
+  const { data } = await api.get("/cart/get-cart-items-count");
+  return data.data || 0;
+};
+
 export const editItemInCart = async (payload) => {
   const { data } = await api.post(`/cart/update-booking-cart`, payload);
   return data?.data || [];

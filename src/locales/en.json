@@ -84,6 +84,11 @@
     "message": "You are already logged in. You cannot access this page while logged in.",
     "confirm": "Go to Home"
   },
+  "VerifiedEmailRoute": {
+    "title": "You are not verified",
+    "message": "You need to verify your email to access this page. Would you like to go to the verification page now?",
+    "confirm": "Go to Verification"
+  },
 
   "Protected": {
     "loginRequired": "Login Required",
@@ -355,5 +360,42 @@
     "emailInvalid": "Email must be valid",
     "phoneRequired": "Phone number is required",
     "phoneInvalid": "Invalid phone number"
+  },
+
+  "verifyEmailPage": {
+    "title": "Verify Email",
+    "notLoggedIn": {
+      "title": "You are not logged in",
+      "message": "You need to be logged in to access this page. Would you like to go to the login page now?",
+      "confirm": "Go to Login"
+    },
+    "alreadyVerified": {
+      "title": "You are already verified",
+      "message": "You are already verified. You cannot access this page while verified.",
+      "confirm": "Go to Home"
+    }
+  },
+
+  "otp2": {
+    "onlyNumbers": "OTP must contain only numbers.",
+    "enterAllDigits": "Please enter all digits of the OTP.",
+    "invalid": "Invalid OTP, please try again.",
+    "checkBtn": "Check",
+
+    "sentToEmail": "We have sent a verification code to your email",
+    "changeEmail": "Change Email?",
+    "resendIn": "Resend code in:",
+    "resendCode": "Resend Code"
+  },
+
+  "changeEmail": {
+    "title": "Change your email",
+    "newEmail": "New Email",
+    "placeholder": "Enter your email",
+    "loading": "Loading...",
+    "changeBtn": "Change",
+    "backToOtp": "Back to OTP",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Please enter a valid email"
   }
 }

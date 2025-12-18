@@ -113,7 +113,7 @@ const PagesLoading = () => {
                 left: bubble.x,
                 top: bubble.y,
                 background:
-                  "radial-gradient(circle at 30% 30%, #ffffffdd, var(--color-myBlue))",
+                  "radial-gradient(circle at 30% 30%, #ffffffdd, var(--color-myPurple))",
                 boxShadow: "0 25px 45px rgba(0,0,0,0.3)",
                 transformStyle: "preserve-3d",
               }}
