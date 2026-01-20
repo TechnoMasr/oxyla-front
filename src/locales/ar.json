@@ -117,7 +117,10 @@
     "orderConfirmed": "تم تأكيد الطلب",
     "confirmOrderMsg": "هل تريد تأكيد هذا الطلب؟",
     "confirm": "تأكيد",
-    "ordering": "جارٍ التأكيد..."
+    "ordering": "جارٍ التأكيد...",
+    "paymentMethod": "طريقة الدفع",
+    "cash": "الدفع كاش",
+    "online": "الدفع اونلاين"
   },
 
   "ContactForm": {

@@ -32,7 +32,10 @@ export const applyCoupon = async (coupon_code) => {
   return data?.data || [];
 };
 
-export const confirmOrder = async ({ coupon_code }) => {
-  const { data } = await api.post(`/cart/confirm-order`, { coupon_code });
+export const confirmOrder = async ({ coupon_code, payment_method }) => {
+  const { data } = await api.post(`/cart/confirm-order`, {
+    coupon_code,
+    payment_method,
+  });
   return data?.data || [];
 };

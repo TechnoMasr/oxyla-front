@@ -1,5 +1,6 @@
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
+import FormError from "../form/FormError";
 
 const ConfirmModal = ({
   openModal,
@@ -8,6 +9,7 @@ const ConfirmModal = ({
   btnText = "Confirm",
   confirmMsg,
   disabled = false,
+  error,
 }) => {
   const { t } = useTranslation();
   if (!openModal) return null;
@@ -28,9 +30,11 @@ const ConfirmModal = ({
             {btnText}
           </button>
         </div>
+
+        <FormError errorMsg={error?.response?.data?.message} />
       </div>
     </dialog>,
-    document.body
+    document.body,
   );
 };
 

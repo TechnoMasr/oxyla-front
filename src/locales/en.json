@@ -116,7 +116,10 @@
     "orderConfirmed": "Order Confirmed",
     "confirmOrderMsg": "Are you sure you want to confirm this order?",
     "confirm": "Confirm",
-    "ordering": "Ordering..."
+    "ordering": "Ordering...",
+    "paymentMethod": "Payment Method",
+    "cash": "Cash on Delivery",
+    "online": "Online Payment"
   },
 
   "ContactForm": {

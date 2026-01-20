@@ -12,6 +12,7 @@ const OrderSummary = ({ data }) => {
   const { t } = useTranslation();
   const [openDelete, setOpenDelete] = useState(false);
   const queryClient = useQueryClient();
+  const [paymentMethod, setPaymentMethod] = useState("cash");
   const [priceData, setPriceData] = useState({
     price: 0,
     discount: 0,
@@ -21,13 +22,17 @@ const OrderSummary = ({ data }) => {
 
   const dispatch = useDispatch();
 
-  const { mutate, isPending } = useMutation({
+  const { mutate, isPending, error } = useMutation({
     mutationFn: confirmOrder,
-    onSuccess: () => {
+    onSuccess: (res) => {
       queryClient.invalidateQueries(["cart"]);
       dispatch(getProfileAct());
       setOpenDelete(false);
       toast.success(t("OrderSummary.orderConfirmed"));
+
+      if (paymentMethod === "online" && res?.redirect_url) {
+        window.location.href = res.redirect_url;
+      }
     },
   });
 
@@ -75,6 +80,35 @@ const OrderSummary = ({ data }) => {
         {/* Coupon Input */}
         <CouponCode setPriceData={setPriceData} priceData={priceData} />
 
+        {/* Payment Method */}
+        <div className="space-y-2">
+          <h3 className="text-lg font-semibold mb-2">
+            {t("OrderSummary.paymentMethod")}
+          </h3>
+
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="radio"
+              name="payment"
+              value="cash"
+              checked={paymentMethod === "cash"}
+              onChange={() => setPaymentMethod("cash")}
+            />
+            <span className="text-sm">{t("OrderSummary.cash")}</span>
+          </label>
+
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="radio"
+              name="payment"
+              value="online"
+              checked={paymentMethod === "online"}
+              onChange={() => setPaymentMethod("online")}
+            />
+            <span className="text-sm">{t("OrderSummary.online")}</span>
+          </label>
+        </div>
+
         {/* Checkout Button */}
         <button
           onClick={() => setOpenDelete(true)}
@@ -93,11 +127,17 @@ const OrderSummary = ({ data }) => {
         openModal={openDelete}
         onClose={() => setOpenDelete(false)}
         confirmMsg={t("OrderSummary.confirmOrderMsg")}
-        onConfirm={() => mutate(priceData.coupon_code)}
+        onConfirm={() =>
+          mutate({
+            coupon_code: priceData.coupon_code,
+            payment_method: paymentMethod,
+          })
+        }
         disabled={isPending}
         btnText={
           isPending ? t("OrderSummary.ordering") : t("OrderSummary.confirm")
         }
+        error={error}
       />
     </aside>
   );
