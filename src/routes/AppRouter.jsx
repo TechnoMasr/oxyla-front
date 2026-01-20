@@ -66,7 +66,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "payment",
+        path: "payment/:status?",
         element: (
           <OxylaLoading>
             <Payment />
