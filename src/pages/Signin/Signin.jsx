@@ -12,7 +12,6 @@ import MainInput from "../../components/form/MainInput";
 import PhoneInputComponent from "../../components/form/PhoneInputComponent";
 import FormBtn from "../../components/form/FormBtn";
 import FormError from "../../components/form/FormError";
-import googleIcon from "../../assets/icons/google-icon.png";
 import { loginUser } from "../../services/authServices";
 import { getProfileAct } from "../../store/profile/profileSlice";
 

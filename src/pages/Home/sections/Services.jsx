@@ -1,16 +1,14 @@
 import AnimatedSentence from "./AnimatedSentence";
 
 const Services = ({ data }) => {
+  if (!data || data.length === 0) return null;
+
   return (
     <section className="sectionPadding bg-gray-100">
       <div className="container space-y-4 lg:space-y-8">
         <h2 className="font-bold text-lg lg:text-2xl uppercase">
           {data?.home_section2_title}
         </h2>
-
-        {/* <p className="font-bold text-2xl lg:text-4xl leading-snug flex flex-wrap gap-2">
-          {data?.home_section2_description}
-        </p> */}
 
         <AnimatedSentence text={data?.home_section2_description} />
 

@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { getWishList } from "../../../services/wishListServices";
-import LoadingSection from "../../../components/Loading/LoadingSection";
 import EmptyData from "../../../components/sections/EmptyData";
 import WishListCard from "../../../components/common/WishListCard";
+import AppointmentPageSkeleton from "../../../components/Loading/SkeletonLoading/AppointmentPageSkeleton";
 
 const Wishlist = () => {
   const { t } = useTranslation();
@@ -12,8 +12,7 @@ const Wishlist = () => {
     queryFn: getWishList,
   });
 
-  if (isLoading) return <LoadingSection />;
-
+  if (isLoading) return <AppointmentPageSkeleton />;
   return (
     <section>
       <h2 className="text-2xl font-bold text-myPurple mb-4">
@@ -23,13 +22,13 @@ const Wishlist = () => {
         </span>
       </h2>
 
-      {wishlist?.length === 0 && <EmptyData />}
-
       <div>
         {wishlist?.map((item) => (
           <WishListCard key={item.id} item={item} />
         ))}
       </div>
+
+      {wishlist?.length === 0 && <EmptyData />}
     </section>
   );
 };

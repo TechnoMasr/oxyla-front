@@ -1,4 +1,6 @@
 const MedicalGrade = ({ data }) => {
+  if (!data || data.length === 0) return null;
+
   return (
     <section className="sectionPadding container">
       <hgroup className="flex flex-wrap justify-between gap-4 mb-6 lg:mb-12">

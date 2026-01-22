@@ -2,6 +2,8 @@ import { GoArrowUpRight } from "react-icons/go";
 import { Link } from "react-router-dom";
 
 const Banner = ({ data }) => {
+  if (!data || data.length === 0) return null;
+
   return (
     <section className="sectionPadding container">
       <div className="bg-gradient-to-r from-[#1894DA] to-[#1BABBE] rounded-2xl shadow-lg w-full max-w-6xl mx-auto">

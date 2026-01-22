@@ -8,10 +8,13 @@ import FormError from "../../../components/form/FormError";
 import { updateProfile } from "../../../services/authServices";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
+import EditProfilePageSkeleton from "../../../components/Loading/SkeletonLoading/EditProfilePageSkeleton";
 
 const EditProfile = () => {
   const { t } = useTranslation();
-  const { profile } = useSelector((state) => state.profile);
+  const { profile, loading } = useSelector((state) => state.profile);
+
+  if (loading) return <EditProfilePageSkeleton />;
 
   const [showPassword, setShowPassword] = useState({
     current_password: false,
@@ -57,7 +60,8 @@ const EditProfile = () => {
     },
     onError: (err) => {
       setError(
-        err?.response?.data?.message || t("editProfilePage.errorSomethingWrong")
+        err?.response?.data?.message ||
+          t("editProfilePage.errorSomethingWrong"),
       );
     },
   });

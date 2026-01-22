@@ -8,6 +8,9 @@ import { useSelector } from "react-redux";
 const Rooms = ({ data }) => {
   const { t } = useTranslation();
   const { lang } = useSelector((state) => state.language);
+
+  if (!data || data.length === 0) return null;
+
   return (
     <section className="sectionPadding bg-gray-100">
       <div className="container space-y-4 lg:space-y-8">

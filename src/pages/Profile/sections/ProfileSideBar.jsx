@@ -6,24 +6,34 @@ import { TbLogout2 } from "react-icons/tb";
 import { IoClose } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { openModal } from "../../../store/modals/modalsSlice";
 
 const ProfileSideBar = ({ isOpen, handleClose }) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   const profileList = [
-    { name: t("profileSideBar.editProfile"), url: "", icon: <RiEdit2Line /> },
+    {
+      name: t("profileSideBar.editProfile"),
+      url: "/profile",
+      icon: <RiEdit2Line />,
+    },
     {
       name: t("profileSideBar.notifications"),
-      url: "notifications",
+      url: "/profile/notifications",
       icon: <BsBell />,
     },
     {
       name: t("profileSideBar.appointment"),
-      url: "appointment",
+      url: "/profile/appointment",
       icon: <PiCalendarMinus />,
     },
-    { name: t("profileSideBar.wishlist"), url: "wishlist", icon: <FiHeart /> },
-    { name: t("profileSideBar.logout"), url: "logout", icon: <TbLogout2 /> },
+    {
+      name: t("profileSideBar.wishlist"),
+      url: "/profile/wishlist",
+      icon: <FiHeart />,
+    },
   ];
 
   return (
@@ -55,7 +65,7 @@ const ProfileSideBar = ({ isOpen, handleClose }) => {
           {profileList.map((item) => (
             <NavLink
               key={item.name}
-              to={`/profile/${item.url}`}
+              to={`${item.url}`}
               end
               onClick={handleClose}
               className={({ isActive }) =>
@@ -70,6 +80,16 @@ const ProfileSideBar = ({ isOpen, handleClose }) => {
               <p className="capitalize">{item.name}</p>
             </NavLink>
           ))}
+
+          <button
+            onClick={() => {
+              dispatch(openModal("logoutModal"));
+            }}
+            className={`flex gap-3 px-3 py-2 rounded-md transition items-center bg-red-700 text-white cursor-pointer`}
+          >
+            <span className="text-xl">{<TbLogout2 />}</span>
+            <p className="capitalize">{t("profileSideBar.logout")}</p>
+          </button>
         </nav>
       </aside>
     </>

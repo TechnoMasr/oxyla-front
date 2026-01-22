@@ -16,7 +16,7 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     // ✅ إضافة التوكن لو موجود
-    const token = Cookies.get("tokenOx");
+    const token = Cookies.get("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -26,7 +26,7 @@ api.interceptors.request.use(
 
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 export default api;

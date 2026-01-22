@@ -3,8 +3,9 @@ import { RxMixerHorizontal } from "react-icons/rx";
 import FiltersSideBar from "./FiltersSideBar";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import SearchFiltersSkeleton from "../../../components/Loading/SkeletonLoading/SearchFiltersSkeleton";
 
-const Filters = ({ categories }) => {
+const Filters = ({ categories = [], isLoading }) => {
   const [active, setActive] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState(searchParams.get("query") || "");
@@ -38,6 +39,8 @@ const Filters = ({ categories }) => {
 
     return () => clearTimeout(timeout); // تنظيف الـ timeout عند تغيّر القيمة
   }, [search, active, FiltersBtns, setSearchParams]);
+
+  if (isLoading) return <SearchFiltersSkeleton />;
 
   return (
     <section>

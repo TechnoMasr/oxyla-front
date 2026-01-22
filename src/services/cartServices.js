@@ -12,7 +12,7 @@ export const getCart = async () => {
 };
 
 export const getCartCount = async () => {
-  if (!Cookies.get("tokenOx")) return null;
+  if (!Cookies.get("token")) return null;
   const { data } = await api.get("/cart/get-cart-items-count");
   return data.data || 0;
 };

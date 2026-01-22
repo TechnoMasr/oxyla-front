@@ -2,8 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import CartList from "./sections/CartList";
 import OrderSummary from "./sections/OrderSummary";
 import { getCart } from "../../services/cartServices";
-import LoadingPage from "../../components/Loading/LoadingPage";
 import { useTranslation } from "react-i18next";
+import CartPageSkeleton from "../../components/Loading/SkeletonLoading/CartPageSkeleton";
 
 const Cart = () => {
   const { t } = useTranslation();
@@ -13,7 +13,7 @@ const Cart = () => {
     queryFn: getCart,
   });
 
-  if (isLoading) return <LoadingPage />;
+  if (isLoading) return <CartPageSkeleton />;
 
   return (
     <article className={`container pagePadding`}>

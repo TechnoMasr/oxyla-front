@@ -4,7 +4,8 @@ import { getCartCount } from "../../services/cartServices";
 
 const initialState = {
   profile: null,
-  loading: false,
+  loading: true,
+  logOutLoading: false,
   error: null,
   cartCount: 0,
 };
@@ -18,10 +19,10 @@ export const getProfileAct = createAsyncThunk(
       return data;
     } catch (error) {
       return rejectWithValue(
-        error?.response?.data?.message || "Failed to load profile"
+        error?.response?.data?.message || "Failed to load profile",
       );
     }
-  }
+  },
 );
 
 export const logoutAct = createAsyncThunk(
@@ -33,10 +34,10 @@ export const logoutAct = createAsyncThunk(
       return data;
     } catch (error) {
       return rejectWithValue(
-        error?.response?.data?.message || "Failed to load profile"
+        error?.response?.data?.message || "Failed to load profile",
       );
     }
-  }
+  },
 );
 
 export const getCartCountAct = createAsyncThunk(
@@ -48,16 +49,19 @@ export const getCartCountAct = createAsyncThunk(
       return data;
     } catch (error) {
       return rejectWithValue(
-        error?.response?.data?.message || "Failed to load profile"
+        error?.response?.data?.message || "Failed to load profile",
       );
     }
-  }
+  },
 );
 
 const profileSlice = createSlice({
   name: "profile",
   initialState,
   reducers: {
+    addProfile: (state, action) => {
+      state.profile = action.payload;
+    },
     clearProfile: (state) => {
       state.profile = null;
     },
@@ -78,18 +82,25 @@ const profileSlice = createSlice({
       })
 
       // log out
+      .addCase(logoutAct.pending, (state) => {
+        state.logOutLoading = true;
+        state.error = null;
+      })
       .addCase(logoutAct.fulfilled, (state) => {
-        state.loading = false;
+        state.logOutLoading = false;
         state.profile = null;
+      })
+      .addCase(logoutAct.rejected, (state, action) => {
+        state.logOutLoading = false;
+        state.error = action.payload;
       })
 
       // cart count
       .addCase(getCartCountAct.fulfilled, (state, action) => {
-        state.loading = false;
         state.cartCount = action.payload;
       });
   },
 });
 
-export const { clearProfile } = profileSlice.actions;
+export const { clearProfile, addProfile } = profileSlice.actions;
 export default profileSlice.reducer;

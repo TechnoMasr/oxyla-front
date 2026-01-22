@@ -2,8 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { getBookings } from "../../../services/bookingServices";
 import EmptyData from "../../../components/sections/EmptyData";
 import CartCard from "../../../components/common/CartCard";
-import LoadingSection from "../../../components/Loading/LoadingSection";
 import { useTranslation } from "react-i18next";
+import AppointmentPageSkeleton from "../../../components/Loading/SkeletonLoading/AppointmentPageSkeleton";
 
 const Appointment = () => {
   const { t } = useTranslation();
@@ -13,7 +13,7 @@ const Appointment = () => {
     queryFn: getBookings,
   });
 
-  if (isLoading) return <LoadingSection />;
+  if (isLoading) return <AppointmentPageSkeleton />;
 
   return (
     <section>
@@ -24,15 +24,15 @@ const Appointment = () => {
         </span>
       </h2>
 
-      {orders?.length === 0 && (
-        <EmptyData text={t("Appointment.noReservations")} />
-      )}
-
       <div>
         {orders?.map((item) => (
           <CartCard key={item.id} item={item} orders />
         ))}
       </div>
+
+      {orders?.length === 0 && (
+        <EmptyData text={t("Appointment.noReservations")} />
+      )}
     </section>
   );
 };

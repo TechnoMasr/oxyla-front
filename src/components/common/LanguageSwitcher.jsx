@@ -3,10 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeLanguage } from "../../store/languageSlice/languageSlice";
 import LoadingModal from "../Loading/LoadingModal";
 import { CiGlobe } from "react-icons/ci";
-import { MdKeyboardArrowDown } from "react-icons/md";
-
-import flagAR from "../../assets/icons/flag-ar.png";
-import flagEN from "../../assets/icons/flag-en.png";
 
 const LanguageSwitcher = ({ home = false }) => {
   const dispatch = useDispatch();
@@ -55,48 +51,6 @@ const LanguageSwitcher = ({ home = false }) => {
       <LoadingModal openModal={openLoading} />
     </>
   );
-
-  // ---------------------------
-  // 🌟 غير كده: Dropdown العادي
-  // ---------------------------
-  //   return (
-  //     <>
-  //       <div className="dropdown dropdown-end">
-  //         <div tabIndex={0} className="cursor-pointer text-3xl text-myPurple">
-  //           <CiGlobe />
-  //         </div>
-
-  //         <ul
-  //           tabIndex={0}
-  //           className="dropdown-content menu bg-base-100 rounded-box z-1 w-max p-2 shadow-lg space-y-1"
-  //         >
-  //           <li onClick={() => changeLangWithLoading("ar")}>
-  //             <button
-  //               className={`flex items-center gap-2 font-semibold ${
-  //                 lang === "ar" ? "bg-myPurple text-white" : ""
-  //               }`}
-  //             >
-  //               <img loading="lazy" src={flagAR} alt="Arabic" className="w-6 rounded" />
-  //               <p>العربية</p>
-  //             </button>
-  //           </li>
-
-  //           <li onClick={() => changeLangWithLoading("en")}>
-  //             <button
-  //               className={`flex items-center gap-2 ${
-  //                 lang === "en" ? "bg-myPurple text-white" : ""
-  //               }`}
-  //             >
-  //               <img loading="lazy" src={flagEN} alt="English" className="w-6 rounded" />
-  //               <p>English</p>
-  //             </button>
-  //           </li>
-  //         </ul>
-  //       </div>
-
-  //       <LoadingModal openModal={openLoading} />
-  //     </>
-  //   );
 };
 
 export default LanguageSwitcher;

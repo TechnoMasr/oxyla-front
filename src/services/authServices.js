@@ -5,7 +5,7 @@ export const loginUser = async (formData) => {
   const { data } = await api.post("/auth/login", formData);
 
   if (data?.data?.token) {
-    Cookies.set("tokenOx", data?.data?.token);
+    Cookies.set("token", data?.data?.token);
   }
 
   return data?.data;
@@ -15,7 +15,7 @@ export const registerUser = async (formData) => {
   const { data } = await api.post("/auth/register", formData);
 
   if (data?.data?.token) {
-    Cookies.set("tokenOx", data?.data?.token);
+    Cookies.set("token", data?.data?.token);
   }
 
   return data;
@@ -23,17 +23,17 @@ export const registerUser = async (formData) => {
 
 export const logoutUser = async () => {
   const { data } = await api.post("/auth/logout");
-  Cookies.remove("tokenOx");
+  Cookies.remove("token");
   return data;
 };
 
 export const getProfile = async () => {
-  if (!Cookies.get("tokenOx")) return null;
+  if (!Cookies.get("token")) return null;
 
   const { data } = await api.get("/profile");
 
   if (data?.data?.token) {
-    Cookies.set("tokenOx", data?.data?.token);
+    Cookies.set("token", data?.data?.token);
   }
 
   return data?.data || null;
@@ -43,7 +43,7 @@ export const updateProfile = async (formData) => {
   const { data } = await api.post("/profile", formData);
 
   if (data?.data?.token) {
-    Cookies.set("tokenOx", data?.data?.token);
+    Cookies.set("token", data?.data?.token);
   }
 
   return data?.data;

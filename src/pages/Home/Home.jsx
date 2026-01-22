@@ -16,6 +16,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { fetchSetting } from "../../store/setting/setting";
 import { getProfileAct } from "../../store/profile/profileSlice";
+import SkeletonHome from "../../components/Loading/SkeletonLoading/SkeletonHome";
 
 const Home = () => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -31,23 +32,27 @@ const Home = () => {
     dispatch(getProfileAct());
   }, [dispatch]);
 
+  if (isLoading) return <SkeletonHome />;
+
   return (
-    <article>
-      <HomeLoader />
+    <main>
+      <article className={`min-h-dvh`}>
+        <HomeLoader />
 
-      <HomeHeader setOpenMenu={setOpenMenu} />
-      <HomeMenu openMenu={openMenu} setOpenMenu={setOpenMenu} />
+        <HomeHeader setOpenMenu={setOpenMenu} />
+        <HomeMenu openMenu={openMenu} setOpenMenu={setOpenMenu} />
 
-      <Hero data={homeData?.sliders} />
-      <Services data={homeData?.section2} />
-      <Features data={homeData?.section3} />
-      <Rooms data={homeData?.section4} />
-      <MedicalGrade data={homeData?.section5} />
-      <Story data={homeData?.section6} />
-      <FAQS data={homeData?.section7} />
-      <Banner data={homeData?.section8} />
+        <Hero data={homeData?.sliders} />
+        <Services data={homeData?.section2} />
+        <Features data={homeData?.section3} />
+        <Rooms data={homeData?.section4} />
+        <MedicalGrade data={homeData?.section5} />
+        <Story data={homeData?.section6} />
+        <FAQS data={homeData?.section7} />
+        <Banner data={homeData?.section8} />
+      </article>
       <Footer />
-    </article>
+    </main>
   );
 };
 

@@ -10,7 +10,6 @@ import AuthCard from "../../components/form/AuthCard";
 import MainInput from "../../components/form/MainInput";
 import FormBtn from "../../components/form/FormBtn";
 import FormError from "../../components/form/FormError";
-import googleIcon from "../../assets/icons/google-icon.png";
 import { registerUser } from "../../services/authServices";
 import PhoneInputComponent from "../../components/form/PhoneInputComponent";
 import { getProfileAct } from "../../store/profile/profileSlice";
@@ -126,16 +125,6 @@ const Signup = () => {
           />
 
           <FormBtn title={t("signup.signUp")} loading={isPending} />
-
-          {/* <div className="divider">{t("signup.or")}</div>
-
-          <button
-            type="button"
-            className="w-full border border-gray-300 rounded-lg flex items-center justify-center gap-4 py-2 cursor-pointer hover:bg-gray-100 transition"
-          >
-            <img loading="lazy" src={googleIcon} alt="google icon" />
-            <span>{t("signup.signInWithGoogle")}</span>
-          </button> */}
 
           <p className="text-sm text-gray-600 text-center">
             {t("signup.alreadyHaveAccount")}{" "}

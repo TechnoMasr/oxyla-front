@@ -14,14 +14,14 @@ const ServicesPage = () => {
     queryFn: () => getServices(categorySlug, query),
   });
 
-  const { data: categories } = useQuery({
+  const { data: categories, isLoading: isLoadingCategories } = useQuery({
     queryKey: ["categories"],
     queryFn: getCategories,
   });
 
   return (
     <article className="container pagePadding space-y-4 lg:space-y-8">
-      <Filters categories={categories} />
+      <Filters categories={categories} isLoading={isLoadingCategories} />
       <Services services={service?.data} isLoading={isLoading} />
     </article>
   );

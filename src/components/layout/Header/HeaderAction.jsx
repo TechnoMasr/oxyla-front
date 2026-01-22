@@ -1,6 +1,6 @@
 import { FiUser } from "react-icons/fi";
 import { IoCartOutline } from "react-icons/io5";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { BsBell } from "react-icons/bs";
 import { FiHeart } from "react-icons/fi";
@@ -10,10 +10,12 @@ import { TbLogout2 } from "react-icons/tb";
 import { MdLogin } from "react-icons/md";
 import LanguageSwitcher from "../../common/LanguageSwitcher";
 import { useTranslation } from "react-i18next";
+import { openModal } from "../../../store/modals/modalsSlice";
 
 const HeaderAction = ({ setActiveNav }) => {
   const { t } = useTranslation();
   const { profile, cartCount } = useSelector((state) => state.profile);
+  const dispatch = useDispatch();
 
   const profileList = [
     { name: t("headerActions.editProfile"), url: "", icon: <RiEdit2Line /> },
@@ -28,7 +30,6 @@ const HeaderAction = ({ setActiveNav }) => {
       icon: <PiCalendarMinus />,
     },
     { name: t("headerActions.wishlist"), url: "wishlist", icon: <FiHeart /> },
-    { name: t("headerActions.logout"), url: "logout", icon: <TbLogout2 /> },
   ];
 
   return (
@@ -55,6 +56,17 @@ const HeaderAction = ({ setActiveNav }) => {
                 </Link>
               </li>
             ))}
+
+            <li
+              onClick={() => {
+                dispatch(openModal("logoutModal"));
+              }}
+            >
+              <button className="flex gap-2 items-center bg-red-700 text-white">
+                <TbLogout2 />
+                <p>{t("headerActions.logout")}</p>
+              </button>
+            </li>
           </ul>
         </div>
       ) : (

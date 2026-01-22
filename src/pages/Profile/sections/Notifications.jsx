@@ -10,6 +10,8 @@ import {
   getUnreadNotifications,
   readNotification,
 } from "../../../services/notificationsServices";
+import EmptyData from "../../../components/sections/EmptyData";
+import NotificationsPageSkeleton from "../../../components/Loading/SkeletonLoading/NotificationsPageSkeleton";
 
 const Notifications = () => {
   const { t } = useTranslation();
@@ -37,15 +39,7 @@ const Notifications = () => {
     },
   });
 
-  if (isLoading) return <LoadingSection />;
-
-  /** 🟣 حساب عدد كل نوع */
-  // const counts = {
-  //   all: notifications?.length || 0,
-  //   alert: notifications?.filter((n) => n.category === "alert").length || 0,
-  //   newsletter:
-  //     notifications?.filter((n) => n.category === "newsletter").length || 0,
-  // };
+  if (isLoading) return <NotificationsPageSkeleton />;
 
   /** 🟣 عدد الإشعارات غير المقروءة */
   const unreadCount = unreadNotifications?.count || 0;
@@ -76,11 +70,6 @@ const Notifications = () => {
             }`}
           >
             {t(`notificationsPage.tabs.${tab}`)}
-
-            {/* 🔥 إظهار عدد كل تبويب */}
-            {/* <span className="px-2 py-0.5 bg-gray-200 rounded-full text-xs">
-              {counts[tab]}
-            </span> */}
 
             {/* 🔥 عدد غير المقروء فقط على تبويب All */}
             {tab === "all" && unreadCount > 0 && (
@@ -135,9 +124,7 @@ const Notifications = () => {
       ))}
 
       {filteredNotifications.length === 0 && (
-        <p className="text-center text-gray-500 mt-4">
-          {t("notificationsPage.noNotifications")}
-        </p>
+        <EmptyData text={t("notificationsPage.noNotifications")} />
       )}
     </section>
   );

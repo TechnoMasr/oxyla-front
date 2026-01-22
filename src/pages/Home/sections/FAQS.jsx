@@ -1,4 +1,6 @@
 const FAQS = ({ data }) => {
+  if (!data || data.length === 0) return null;
+
   return (
     <section className="sectionPadding container">
       <h2 className="text-2xl font-bold uppercase mb-6 lg:mb-12">

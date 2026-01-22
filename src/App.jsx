@@ -3,8 +3,10 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "./components/layout/Header/Header";
 import Footer from "./components/layout/Footer/Footer";
-import PagesLoading from "./components/Loading/PagesLoading";
 import { ToastContainer } from "react-toastify";
+import LogOutModal from "./components/modals/LogOutModal";
+import RequiredLoginModal from "./components/modals/RequiredLoginModal";
+import RequiredVerifyEmailModal from "./components/modals/RequiredVerifyEmailModal";
 
 function App() {
   const { pathname } = useLocation();
@@ -15,8 +17,6 @@ function App() {
 
   return (
     <main>
-      {/* <PagesLoading /> */}
-
       <Header />
       <div className="min-h-[100dvh]">
         <Outlet />
@@ -24,6 +24,11 @@ function App() {
       <Footer />
 
       <ToastContainer />
+
+      {/* modals */}
+      <LogOutModal />
+      <RequiredLoginModal />
+      <RequiredVerifyEmailModal />
     </main>
   );
 }

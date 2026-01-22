@@ -400,5 +400,39 @@
     "backToOtp": "Back to OTP",
     "emailRequired": "Email is required",
     "emailInvalid": "Please enter a valid email"
+  },
+
+  "ErrorPage": {
+    "title": "An unexpected error occurred",
+    "description": "There was a problem loading the page. Please try again later.",
+    "reload": "Reload page",
+    "goHome": "Go to Home"
+  },
+
+  "checkVerifiedEmailGuard": {
+    "title": "Your email is not verified!",
+    "description": "You need to verify your email to access this page.",
+    "button": "Verify your email"
+  },
+
+  "logOutModal": {
+    "logoutConfirm": "Are you sure you want to logout?",
+    "cancel": "Cancel",
+    "login": "Login",
+    "logout": "Logout"
+  },
+
+  "requiredLoginModal": {
+    "title": "Login Required",
+    "description": "You must login to continue",
+    "login": "Login",
+    "createAccount": "Create Account"
+  },
+
+  "requiredVerifyEmailModal": {
+    "title": "Your email is not verified!",
+    "description": "You must verify your email to access this page",
+    "goToVerify": "Verify Email",
+    "cancel": "Cancel"
   }
 }

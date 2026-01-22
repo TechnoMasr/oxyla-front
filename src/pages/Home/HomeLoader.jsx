@@ -9,7 +9,7 @@ import logo5 from "../../assets/images/oxela-home-logo/5.png";
 import { useEffect, useState } from "react";
 
 const HomeLoader = () => {
-  const [showLoader, setShowLoader] = useState(true);
+  const [showLoader, setShowLoader] = useState(false);
   const logos = [logo1, logo2, logo3, logo4];
   const text = "Breath . Renew . Heal";
 

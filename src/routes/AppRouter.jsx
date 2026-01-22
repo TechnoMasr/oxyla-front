@@ -1,9 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import PublicRoute from "../components/ProtectedRoutes/PublicRoute";
-import ProtectedRoute from "../components/ProtectedRoutes/ProtectedRoute";
 import VerifiedEmail from "../pages/VerifiedEmail/VerifiedEmail";
-import VerifiedEmailRoute from "../components/ProtectedRoutes/VerifiedEmailRoute";
 import OxylaLoading from "../components/Loading/OxylaLoading";
 
 import Home from "../pages/Home/Home";
@@ -13,7 +10,6 @@ import ServicesPage from "../pages/ServicesPage/ServicesPage";
 import ServiceDetails from "../pages/ServiceDetails/ServiceDetails";
 import Cart from "../pages/Cart/Cart";
 import Payment from "../pages/Payment/Payment";
-import YourSession from "../pages/YourSession/YourSession";
 import Profile from "../pages/Profile/Profile";
 
 import EditProfile from "../pages/Profile/sections/EditProfile";
@@ -27,15 +23,22 @@ import Signup from "../pages/Signup/Signup";
 import ForgotPassword from "../pages/ForgotPassword/ForgotPassword";
 
 import NotFound from "../pages/NotFound/NotFound";
+import AuthGuard from "../components/protectRoutes/AuthGuard";
+import CheckVerifiedEmailGuard from "../components/protectRoutes/CheckVerifiedEmailGuard";
+import VerifyEmailGuard from "../components/protectRoutes/VerifyEmailGuard";
+import ProtectedRoute from "../components/protectRoutes/ProtectedRoute";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    errorElement: <ErrorPage />,
     element: <Home />, // ← الهوم لوصفها خاص
   },
 
   {
     element: <App />, // ← layout للصفحات التانية
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "services",
@@ -53,34 +56,7 @@ const router = createBrowserRouter([
           </OxylaLoading>
         ),
       },
-      {
-        path: "cart",
-        element: (
-          <ProtectedRoute>
-            <VerifiedEmailRoute>
-              <OxylaLoading>
-                <Cart />
-              </OxylaLoading>
-            </VerifiedEmailRoute>
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "payment/:status?",
-        element: (
-          <OxylaLoading>
-            <Payment />
-          </OxylaLoading>
-        ),
-      },
-      {
-        path: "your-session",
-        element: (
-          <OxylaLoading>
-            <YourSession />
-          </OxylaLoading>
-        ),
-      },
+
       {
         path: "about-us",
         element: (
@@ -99,59 +75,84 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "profile",
-        element: (
-          <ProtectedRoute>
-            <OxylaLoading>
-              <Profile />
-            </OxylaLoading>
-          </ProtectedRoute>
-        ),
+        element: <ProtectedRoute />,
         children: [
-          { index: true, element: <EditProfile /> },
-          { path: "notifications", element: <Notifications /> },
-          { path: "appointment", element: <Appointment /> },
-          { path: "wishlist", element: <Wishlist /> },
-          { path: "logout", element: <Logout /> },
+          {
+            path: "profile",
+            element: (
+              <OxylaLoading>
+                <Profile />
+              </OxylaLoading>
+            ),
+            children: [
+              { index: true, element: <EditProfile /> },
+              { path: "notifications", element: <Notifications /> },
+              { path: "appointment", element: <Appointment /> },
+              { path: "wishlist", element: <Wishlist /> },
+              { path: "logout", element: <Logout /> },
+            ],
+          },
+          {
+            path: "payment/:status?",
+            element: (
+              <CheckVerifiedEmailGuard>
+                <OxylaLoading>
+                  <Payment />
+                </OxylaLoading>
+              </CheckVerifiedEmailGuard>
+            ),
+          },
+          {
+            path: "cart",
+            element: (
+              <CheckVerifiedEmailGuard>
+                <OxylaLoading>
+                  <Cart />
+                </OxylaLoading>
+              </CheckVerifiedEmailGuard>
+            ),
+          },
         ],
       },
 
       {
-        path: "signin",
-        element: (
-          <PublicRoute>
-            <OxylaLoading>
-              <Signin />
-            </OxylaLoading>
-          </PublicRoute>
-        ),
+        element: <AuthGuard />,
+        children: [
+          {
+            path: "signin",
+            element: (
+              <OxylaLoading>
+                <Signin />
+              </OxylaLoading>
+            ),
+          },
+          {
+            path: "signup",
+            element: (
+              <OxylaLoading>
+                <Signup />
+              </OxylaLoading>
+            ),
+          },
+          {
+            path: "forgot-password",
+            element: (
+              <OxylaLoading>
+                <ForgotPassword />
+              </OxylaLoading>
+            ),
+          },
+        ],
       },
-      {
-        path: "signup",
-        element: (
-          <PublicRoute>
-            <OxylaLoading>
-              <Signup />
-            </OxylaLoading>
-          </PublicRoute>
-        ),
-      },
-      {
-        path: "forgot-password",
-        element: (
-          <PublicRoute>
-            <OxylaLoading>
-              <ForgotPassword />
-            </OxylaLoading>
-          </PublicRoute>
-        ),
-      },
+
       {
         path: "verify-email",
         element: (
-          <OxylaLoading>
-            <VerifiedEmail />
-          </OxylaLoading>
+          <VerifyEmailGuard>
+            <OxylaLoading>
+              <VerifiedEmail />
+            </OxylaLoading>
+          </VerifyEmailGuard>
         ),
       },
     ],

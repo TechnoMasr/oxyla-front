@@ -1,25 +1,14 @@
-import emptyIcon from "../../assets/icons/folder-empty@3x.png";
 import { useTranslation } from "react-i18next";
+import { HiOutlineFolderOpen } from "react-icons/hi";
 
-const EmptyData = ({ page = false }) => {
+const EmptyData = ({ text }) => {
   const { t } = useTranslation();
 
   return (
-    <div
-      className={`flex flex-col items-center justify-center gap-4 p-4 ${
-        page ? "h-screen" : ""
-      }`}
-    >
-      <img
-        loading="lazy"
-        src={emptyIcon}
-        alt="No Data"
-        className="w-32 lg:w-40"
-      />
+    <div className="flex flex-col items-center justify-center gap-2 p-4 h-60">
+      <HiOutlineFolderOpen className="text-[150px] text-myBlue animate-pulse" />
 
-      <p className="text-center text-gray-600 text-lg lg:text-2xl font-semibold">
-        {t("noData")}
-      </p>
+      <p className="text-center text-lg font-semibold">{text || t("noData")}</p>
     </div>
   );
 };
