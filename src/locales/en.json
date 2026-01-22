@@ -314,7 +314,8 @@
     "numberOfPeople": "Number of People",
     "addToCart": "Add to Cart",
     "adding": "Adding...",
-    "selectDateTimeError": "Please select date and time before adding to cart."
+    "selectDateTimeError": "Please select date and time before adding to cart.",
+    "maxNumOfPeople": "Maximum Number of People"
   },
 
   "signin": {

@@ -7,7 +7,7 @@ const Loader = () => {
     <div className="flex flex-col items-center justify-center gap-4 min-h-[300px]">
       <div className="relative flex items-center justify-center mb-10">
         <div className="w-28 h-28 rounded-full bg-myPurple/20 animate-ping absolute"></div>
-        <div className="w-26 h-26 rounded-full bg-white flex items-center justify-center">
+        <div className="w-26 h-26 rounded-full bg-white flex items-center justify-center relative z-10">
           <img
             loading="lazy"
             src={logoImg}

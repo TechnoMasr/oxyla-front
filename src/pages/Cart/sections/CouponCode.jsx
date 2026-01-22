@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { applyCoupon } from "../../../services/cartServices";
 
-const CouponCode = ({ setPriceData, priceData }) => {
+const CouponCode = ({ setPriceData, priceData, disabled }) => {
   const { mutate, isPending, isError, error, data } = useMutation({
     mutationFn: applyCoupon,
     onSuccess: (data) => {
@@ -24,7 +24,14 @@ const CouponCode = ({ setPriceData, priceData }) => {
 
   return (
     <div className="flex flex-col gap-2">
-      <form className="flex gap-2" onSubmit={handleSubmit}>
+      <form
+        className="flex gap-2"
+        onSubmit={handleSubmit}
+        style={{
+          pointerEvents: disabled ? "none" : "",
+          opacity: disabled ? 0.6 : 1,
+        }}
+      >
         <input
           type="text"
           placeholder={"couponCode"}
@@ -42,6 +49,13 @@ const CouponCode = ({ setPriceData, priceData }) => {
           {isPending ? "Loading..." : "Apply"}
         </button>
       </form>
+
+      {/* Loading */}
+      {disabled && (
+        <p className="bg-gray-100 border border-gray-400 text-gray-700 p-1 rounded-full text-center">
+          you have already discount.
+        </p>
+      )}
 
       {/* Error handling */}
       {isError && (

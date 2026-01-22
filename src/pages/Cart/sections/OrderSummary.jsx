@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import CouponCode from "./CouponCode";
 import { useDispatch } from "react-redux";
 import { getProfileAct } from "../../../store/profile/profileSlice";
+import { IoCashOutline, IoCardOutline } from "react-icons/io5";
 
 const OrderSummary = ({ data }) => {
   const { t } = useTranslation();
@@ -16,6 +17,7 @@ const OrderSummary = ({ data }) => {
   const [priceData, setPriceData] = useState({
     price: 0,
     discount: 0,
+    coupon_amount: 0,
     total: 0,
     coupon_code: "",
   });
@@ -28,10 +30,11 @@ const OrderSummary = ({ data }) => {
       queryClient.invalidateQueries(["cart"]);
       dispatch(getProfileAct());
       setOpenDelete(false);
-      toast.success(t("OrderSummary.orderConfirmed"));
 
       if (paymentMethod === "online" && res?.redirect_url) {
         window.location.href = res.redirect_url;
+      } else {
+        toast.success(t("OrderSummary.orderConfirmed"));
       }
     },
   });
@@ -40,7 +43,11 @@ const OrderSummary = ({ data }) => {
     if (data?.total_price !== undefined) {
       setPriceData((prev) => ({
         ...prev,
-        price: data.total_price,
+        price: data.mainTotalBookings
+          ? data.mainTotalBookings
+          : data.total_price,
+        discount: data.discount,
+        coupon_amount: data.coupon_amount,
         total: data.total_price - prev.discount,
       }));
     }
@@ -59,11 +66,21 @@ const OrderSummary = ({ data }) => {
           <span className="font-medium">{priceData.price} $</span>
         </div>
 
-        {/* Coupon */}
+        {/* discount */}
         {priceData.discount > 0 && (
           <div className="flex justify-between text-gray-700">
+            <span>{t("OrderSummary.discount")}</span>
+            <span className="font-medium">
+              {`(${data.discountPercent}%)`} {priceData.discount} $
+            </span>
+          </div>
+        )}
+
+        {/* Coupon */}
+        {priceData.coupon_amount > 0 && (
+          <div className="flex justify-between text-gray-700">
             <span>{t("OrderSummary.couponApplied")}</span>
-            <span className="font-medium">{priceData.discount} $</span>
+            <span className="font-medium">{priceData.coupon_amount} $</span>
           </div>
         )}
 
@@ -78,35 +95,70 @@ const OrderSummary = ({ data }) => {
         </div>
 
         {/* Coupon Input */}
-        <CouponCode setPriceData={setPriceData} priceData={priceData} />
+        {
+          <CouponCode
+            setPriceData={setPriceData}
+            priceData={priceData}
+            disabled={data?.discount > 0}
+          />
+        }
 
+        {/* Payment Method */}
         {/* Payment Method */}
         <div className="space-y-2">
           <h3 className="text-lg font-semibold mb-2">
             {t("OrderSummary.paymentMethod")}
           </h3>
 
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input
-              type="radio"
-              name="payment"
-              value="cash"
-              checked={paymentMethod === "cash"}
-              onChange={() => setPaymentMethod("cash")}
-            />
-            <span className="text-sm">{t("OrderSummary.cash")}</span>
-          </label>
+          <div className="flex gap-3">
+            {/* Cash */}
+            <label
+              className={`flex-1 cursor-pointer rounded-xl border p-3 flex flex-col items-center gap-2 transition-all duration-200
+        ${
+          paymentMethod === "cash"
+            ? "border-myPurple bg-myPurple/10 shadow-md"
+            : "border-gray-200 bg-white hover:border-myPurple hover:shadow-sm"
+        }
+      `}
+            >
+              <input
+                type="radio"
+                name="payment"
+                value="cash"
+                checked={paymentMethod === "cash"}
+                onChange={() => setPaymentMethod("cash")}
+                className="hidden"
+              />
+              <IoCashOutline className="w-8 h-8" />
+              <span className="text-sm font-medium">
+                {t("OrderSummary.cash")}
+              </span>
+            </label>
 
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input
-              type="radio"
-              name="payment"
-              value="online"
-              checked={paymentMethod === "online"}
-              onChange={() => setPaymentMethod("online")}
-            />
-            <span className="text-sm">{t("OrderSummary.online")}</span>
-          </label>
+            {/* Online */}
+            <label
+              className={`flex-1 cursor-pointer rounded-xl border p-3 flex flex-col items-center gap-2 transition-all duration-200
+        ${
+          paymentMethod === "online"
+            ? "border-myPurple bg-myPurple/10 shadow-md"
+            : "border-gray-200 bg-white hover:border-myPurple hover:shadow-sm"
+        }
+      `}
+            >
+              <input
+                type="radio"
+                name="payment"
+                value="online"
+                checked={paymentMethod === "online"}
+                onChange={() => setPaymentMethod("online")}
+                className="hidden"
+              />
+              <IoCardOutline className="w-8 h-8" />
+              <span className="text-sm font-medium">
+                {t("OrderSummary.online")}
+              </span>
+            </label>
+          </div>
         </div>
 
         {/* Checkout Button */}

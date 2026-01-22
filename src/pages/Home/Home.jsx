@@ -32,8 +32,6 @@ const Home = () => {
     dispatch(getProfileAct());
   }, [dispatch]);
 
-  if (isLoading) return <SkeletonHome />;
-
   return (
     <main>
       <article className={`min-h-dvh`}>
@@ -42,14 +40,20 @@ const Home = () => {
         <HomeHeader setOpenMenu={setOpenMenu} />
         <HomeMenu openMenu={openMenu} setOpenMenu={setOpenMenu} />
 
-        <Hero data={homeData?.sliders} />
-        <Services data={homeData?.section2} />
-        <Features data={homeData?.section3} />
-        <Rooms data={homeData?.section4} />
-        <MedicalGrade data={homeData?.section5} />
-        <Story data={homeData?.section6} />
-        <FAQS data={homeData?.section7} />
-        <Banner data={homeData?.section8} />
+        {isLoading ? (
+          <SkeletonHome />
+        ) : (
+          <>
+            <Hero data={homeData?.sliders} />
+            <Services data={homeData?.section2} />
+            <Features data={homeData?.section3} />
+            <Rooms data={homeData?.section4} />
+            <MedicalGrade data={homeData?.section5} />
+            <Story data={homeData?.section6} />
+            <FAQS data={homeData?.section7} />
+            <Banner data={homeData?.section8} />
+          </>
+        )}
       </article>
       <Footer />
     </main>

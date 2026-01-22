@@ -5,8 +5,8 @@ const LoadingModal = ({ openModal }) => {
   if (!openModal) return null;
 
   return createPortal(
-    <dialog className={`modal modal-open`}>
-      <div className="modal-box py-16" onClick={(e) => e.stopPropagation()}>
+    <dialog className={`modal modal-open backdrop-blur-2xl bg-black/90`}>
+      <div className="flex justify-center items-center" onClick={(e) => e.stopPropagation()}>
         <Loader />
       </div>
     </dialog>,

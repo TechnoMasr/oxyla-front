@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import LogOutModal from "./components/modals/LogOutModal";
 import RequiredLoginModal from "./components/modals/RequiredLoginModal";
 import RequiredVerifyEmailModal from "./components/modals/RequiredVerifyEmailModal";
+import DiscountBanner from "./components/sections/DiscountBanner";
 
 function App() {
   const { pathname } = useLocation();
@@ -24,6 +25,7 @@ function App() {
       <Footer />
 
       <ToastContainer />
+      <DiscountBanner />
 
       {/* modals */}
       <LogOutModal />

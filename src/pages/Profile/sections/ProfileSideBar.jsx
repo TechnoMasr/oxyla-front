@@ -85,7 +85,7 @@ const ProfileSideBar = ({ isOpen, handleClose }) => {
             onClick={() => {
               dispatch(openModal("logoutModal"));
             }}
-            className={`flex gap-3 px-3 py-2 rounded-md transition items-center bg-red-700 text-white cursor-pointer`}
+            className={`flex gap-3 px-3 py-2 rounded-md transition items-center bg-red-700/80 text-white cursor-pointer`}
           >
             <span className="text-xl">{<TbLogout2 />}</span>
             <p className="capitalize">{t("profileSideBar.logout")}</p>

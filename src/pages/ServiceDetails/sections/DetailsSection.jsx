@@ -175,6 +175,10 @@ const DetailsSection = ({ data }) => {
         </button>
       </div>
 
+      <p>
+        {t("detailsSection.maxNumOfPeople")}: {data?.max_num_of_people}
+      </p>
+
       <FormError errorMsg={errorMessage || error?.response?.data?.message} />
     </section>
   );

@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 
 const OxylaLoading = ({ children }) => {
   const [progress, setProgress] = useState(0);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
   const [logoSize, setLogoSize] = useState(120);
   const [bubbles, setBubbles] = useState([]);
   const { pathname } = useLocation();
@@ -45,7 +45,7 @@ const OxylaLoading = ({ children }) => {
   }, [logoSize]);
 
   useEffect(() => {
-    setVisible(false);
+    setVisible(true);
   }, [pathname]);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const OxylaLoading = ({ children }) => {
     const duration = 4000; // ممكن أقل شوية
 
     setProgress(0);
-    setVisible(false);
+    setVisible(true);
 
     const animate = (timestamp) => {
       if (!start) start = timestamp;

@@ -30,7 +30,7 @@ const RequiredLoginModal = () => {
   return createPortal(
     <dialog className={`modal modal-open`} onClick={onClose}>
       <div
-        className="modal-box space-y-4 text-center sm:max-w-md"
+        className="modal-box space-y-4 text-center "
         onClick={(e) => e.stopPropagation()}
       >
         <img

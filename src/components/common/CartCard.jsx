@@ -48,7 +48,10 @@ const CartCard = ({ item, orders = false }) => {
 
       <div className="space-y-2 flex-1">
         <div className="text-lg font-semibold flex justify-between gap-4 w-full">
-          <h3 className="flex-1">{item.service?.name}</h3>
+          <h3 className="flex-1 flex flex-wrap items-center gap-1">
+            {item.service?.name}{" "}
+            <span className="font-normal">{item.quantity > 1 && `(x${item.quantity})`}</span>
+          </h3>
           {orders && <p>{item.price} $</p>}
         </div>
 
