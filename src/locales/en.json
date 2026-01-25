@@ -311,9 +311,10 @@
     "home": "Home",
     "pickDate": "Pick a date",
     "appointmentsAvailable": "Appointments available",
+    "serviceAdded": "service added to cart",
     "includedInSession": "Included in Your Session",
     "numberOfPeople": "Number of People",
-    "addToCart": "service added to cart",
+    "addToCart": "Add to Cart",
     "adding": "Adding...",
     "selectDateTimeError": "Please select date and time before adding to cart.",
     "maxNumOfPeople": "Maximum Number of People"

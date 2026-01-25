@@ -312,9 +312,10 @@
     "home": "الرئيسية",
     "pickDate": "اختر التاريخ",
     "appointmentsAvailable": "المواعيد المتاحة",
+    "serviceAdded": "تمت اضافة الخدمة إلى السلة",
     "includedInSession": "متضمن في جلستك",
     "numberOfPeople": "عدد الأشخاص",
-    "addToCart": "تمت اضافة الخدمة إلى السلة",
+    "addToCart": "اضافة الى السلة",
     "adding": "جارٍ الإضافة...",
     "selectDateTimeError": "يرجى اختيار التاريخ والوقت قبل إضافة الخدمة إلى السلة.",
     "maxNumOfPeople": "الحد الأقصى لعدد الأشخاص"

@@ -35,7 +35,7 @@ const DetailsSection = ({ data }) => {
     onSuccess: () => {
       queryClient.invalidateQueries(["cart"]);
       dispatch(getCartCountAct());
-      toast.success(t("detailsSection.addToCart"));
+      toast.success(t("detailsSection.serviceAdded"));
       setErrorMessage("");
       setQuantity(1);
       setSelectedDate("");
