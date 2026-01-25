@@ -14,7 +14,7 @@ import { getCartCountAct } from "../../store/profile/profileSlice";
 import { useDispatch } from "react-redux";
 
 const CartCard = ({ item, orders = false }) => {
-  const { t } = useTranslation(); // Hook for i18next
+  const { t } = useTranslation(); 
   const [openDelete, setOpenDelete] = useState(false);
   const [openChange, setOpenChange] = useState(false);
   const [openRate, setOpenRate] = useState(false);

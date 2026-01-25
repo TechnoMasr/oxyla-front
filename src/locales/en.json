@@ -107,7 +107,8 @@
     "discount": "Discount",
     "shipping": "Shipping",
     "free": "Free",
-    "couponApplied": "Coupon Applied",
+    "coupon": "Coupon Applied",
+    "couponApplied": "Coupon Value",
     "total": "TOTAL",
     "scheduledSessionDate": "Scheduled Session Date",
     "couponCode": "Coupon Code",
@@ -312,7 +313,7 @@
     "appointmentsAvailable": "Appointments available",
     "includedInSession": "Included in Your Session",
     "numberOfPeople": "Number of People",
-    "addToCart": "Add to Cart",
+    "addToCart": "service added to cart",
     "adding": "Adding...",
     "selectDateTimeError": "Please select date and time before adding to cart.",
     "maxNumOfPeople": "Maximum Number of People"
@@ -435,5 +436,41 @@
     "description": "You must verify your email to access this page",
     "goToVerify": "Verify Email",
     "cancel": "Cancel"
+  },
+
+  "payment": {
+    "success": {
+      "title": "Payment Successful",
+      "description": "Thank you! Your payment has been confirmed successfully."
+    },
+    "failed": {
+      "title": "Payment Failed",
+      "description": "Something went wrong during the payment process. Please try again."
+    },
+    "unknown": {
+      "title": "Unknown Status",
+      "description": "Please check the payment link or try again later."
+    },
+    "actions": {
+      "retry": "Try Again",
+      "orders": "Go to Orders",
+      "home": "Back to Home"
+    }
+  },
+
+  "discountBanner": {
+    "discount": "{{discount}}% discount",
+    "text": "on your first order!",
+    "cta": "Order now",
+    "close": "Close"
+  },
+
+  "coupon": {
+    "placeholder": "Enter coupon code",
+    "apply": "Apply",
+    "loading": "Applying...",
+    "alreadyApplied": "You already have a discount.",
+    "invalid": "Invalid coupon code",
+    "success": "Coupon applied successfully!"
   }
 }

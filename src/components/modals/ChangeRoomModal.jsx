@@ -54,6 +54,7 @@ const ChangeRoomModal = ({ openModal, onClose, item }) => {
           <input
             type="date"
             value={selectedDate}
+            min={new Date().toISOString().split("T")[0]}
             onChange={(e) => setSelectedDate(e.target.value)}
             className="w-full px-3 py-2 border border-gray-500 rounded-md
                     bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-myGreen"
@@ -114,7 +115,7 @@ const ChangeRoomModal = ({ openModal, onClose, item }) => {
         </button>
       </div>
     </dialog>,
-    document.body
+    document.body,
   );
 };
 

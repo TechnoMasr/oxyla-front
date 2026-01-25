@@ -6,7 +6,7 @@ const LoadingModal = ({ openModal }) => {
 
   return createPortal(
     <dialog className={`modal modal-open backdrop-blur-2xl bg-black/90`}>
-      <div className="flex justify-center items-center" onClick={(e) => e.stopPropagation()}>
+      <div className="flex justify-center items-center text-white" onClick={(e) => e.stopPropagation()}>
         <Loader />
       </div>
     </dialog>,

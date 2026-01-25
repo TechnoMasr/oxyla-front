@@ -1,24 +1,30 @@
 import { useMutation } from "@tanstack/react-query";
 import { applyCoupon } from "../../../services/cartServices";
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
-const CouponCode = ({ setPriceData, priceData, disabled }) => {
-  const { mutate, isPending, isError, error, data } = useMutation({
+const CouponCode = ({ setPriceData, priceData, discount }) => {
+  const { t } = useTranslation();
+
+  const { mutate, isPending, isError, error } = useMutation({
     mutationFn: applyCoupon,
     onSuccess: (data) => {
       setPriceData((prev) => ({
         ...prev,
         price: data?.subtotal,
-        discount: data?.discount,
+        coupon_code: "",
+        coupon: priceData?.coupon_code,
+        coupon_amount: data?.discount,
         total: data?.total_after_discount,
       }));
+
+      toast.success(t("coupon.success"));
     },
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!priceData.coupon_code.trim()) return;
-
     mutate(priceData.coupon_code);
   };
 
@@ -28,13 +34,13 @@ const CouponCode = ({ setPriceData, priceData, disabled }) => {
         className="flex gap-2"
         onSubmit={handleSubmit}
         style={{
-          pointerEvents: disabled ? "none" : "",
-          opacity: disabled ? 0.6 : 1,
+          pointerEvents: discount ? "none" : "",
+          opacity: discount ? 0.6 : 1,
         }}
       >
         <input
           type="text"
-          placeholder={"couponCode"}
+          placeholder={t("coupon.placeholder")}
           className="w-full border border-gray-300 rounded-lg p-2 text-sm focus:outline-none focus:border-myGreen"
           value={priceData.coupon_code}
           onChange={(e) =>
@@ -46,29 +52,22 @@ const CouponCode = ({ setPriceData, priceData, disabled }) => {
           className="bg-myGreen text-white px-4 py-2 rounded-lg cursor-pointer hover:brightness-90"
           disabled={isPending}
         >
-          {isPending ? "Loading..." : "Apply"}
+          {isPending ? t("coupon.loading") : t("coupon.apply")}
         </button>
       </form>
 
-      {/* Loading */}
-      {disabled && (
+      {/* Already has discount */}
+      {discount && (
         <p className="bg-gray-100 border border-gray-400 text-gray-700 p-1 rounded-full text-center">
-          you have already discount.
+          {t("coupon.alreadyApplied")}
         </p>
       )}
 
-      {/* Error handling */}
+      {/* Error */}
       {isError && (
         <div className="bg-red-100 border border-red-400 text-red-700 p-2 rounded text-center">
-          {error?.response?.data?.message || "Invalid coupon"}
+          {error?.response?.data?.message || t("coupon.invalid")}
         </div>
-      )}
-
-      {/* Success message */}
-      {data && (
-        <p className="bg-green-100 border border-green-400 text-green-700 p-2 rounded text-center">
-          Coupon applied successfully!
-        </p>
       )}
     </div>
   );

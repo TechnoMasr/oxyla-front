@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 const ServiceTestimonials = ({ data }) => {
   const { t } = useTranslation();
   const { lang } = useSelector((state) => state.language);
+
+  if (!data || data.length === 0) return null;
   return (
     <section className="my-12">
       <h2 className="text-3xl font-bold text-center mb-8">

@@ -17,6 +17,7 @@ const OrderSummary = ({ data }) => {
   const [priceData, setPriceData] = useState({
     price: 0,
     discount: 0,
+    coupon: "",
     coupon_amount: 0,
     total: 0,
     coupon_code: "",
@@ -47,8 +48,9 @@ const OrderSummary = ({ data }) => {
           ? data.mainTotalBookings
           : data.total_price,
         discount: data.discount,
+        coupon: data.coupon_code,
         coupon_amount: data.coupon_amount,
-        total: data.total_price - prev.discount,
+        total: data.total_price,
       }));
     }
   }, [data]);
@@ -77,6 +79,14 @@ const OrderSummary = ({ data }) => {
         )}
 
         {/* Coupon */}
+        {priceData?.coupon?.length > 0 && (
+          <div className="flex justify-between text-gray-700">
+            <span>{t("OrderSummary.coupon")}</span>
+            <span className="font-medium">{priceData.coupon}</span>
+          </div>
+        )}
+
+        {/* Coupon Applied */}
         {priceData.coupon_amount > 0 && (
           <div className="flex justify-between text-gray-700">
             <span>{t("OrderSummary.couponApplied")}</span>
@@ -99,7 +109,7 @@ const OrderSummary = ({ data }) => {
           <CouponCode
             setPriceData={setPriceData}
             priceData={priceData}
-            disabled={data?.discount > 0}
+            discount={data?.discountPercent && data?.discountPercent > 0}
           />
         }
 

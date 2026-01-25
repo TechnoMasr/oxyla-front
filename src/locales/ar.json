@@ -108,7 +108,8 @@
     "discount": "الخصم",
     "shipping": "الشحن",
     "free": "مجاني",
-    "couponApplied": "الكوبون المطبق",
+    "coupon": "الكوبون المطبق",
+    "couponApplied": "قيمة الكوبون",
     "total": "الإجمالي",
     "scheduledSessionDate": "تاريخ الجلسة المجدولة",
     "couponCode": "كود الكوبون",
@@ -313,7 +314,7 @@
     "appointmentsAvailable": "المواعيد المتاحة",
     "includedInSession": "متضمن في جلستك",
     "numberOfPeople": "عدد الأشخاص",
-    "addToCart": "أضف إلى السلة",
+    "addToCart": "تمت اضافة الخدمة إلى السلة",
     "adding": "جارٍ الإضافة...",
     "selectDateTimeError": "يرجى اختيار التاريخ والوقت قبل إضافة الخدمة إلى السلة.",
     "maxNumOfPeople": "الحد الأقصى لعدد الأشخاص"
@@ -434,5 +435,41 @@
     "description": "يجب تفعيل بريدك الإلكتروني للوصول إلى هذه الصفحة",
     "goToVerify": "تفعيل البريد الإلكتروني",
     "cancel": "تراجع"
+  },
+
+  "payment": {
+    "success": {
+      "title": "تم الدفع بنجاح",
+      "description": "شكراً لك! تم تأكيد عملية الدفع بنجاح."
+    },
+    "failed": {
+      "title": "فشلت عملية الدفع",
+      "description": "حدث خطأ أثناء عملية الدفع، يرجى المحاولة مرة أخرى."
+    },
+    "unknown": {
+      "title": "حالة غير معروفة",
+      "description": "الرجاء التأكد من رابط الدفع أو المحاولة لاحقاً."
+    },
+    "actions": {
+      "retry": "إعادة المحاولة",
+      "orders": "الذهاب إلى الطلبات",
+      "home": "الرجوع للرئيسية"
+    }
+  },
+
+  "discountBanner": {
+    "discount": "خصم {{discount}}%",
+    "text": "على أول طلب ليك!",
+    "cta": "اطلب الآن",
+    "close": "إغلاق"
+  },
+
+  "coupon": {
+    "placeholder": "أدخل كود الخصم",
+    "apply": "تطبيق",
+    "loading": "تحميل ...",
+    "alreadyApplied": "لديك خصم مُطبق بالفعل.",
+    "invalid": "كود الخصم غير صالح",
+    "success": "تم تطبيق كود الخصم بنجاح!"
   }
 }

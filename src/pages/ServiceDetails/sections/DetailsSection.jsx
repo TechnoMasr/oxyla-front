@@ -84,6 +84,7 @@ const DetailsSection = ({ data }) => {
         <input
           type="date"
           value={selectedDate}
+          min={new Date().toISOString().split("T")[0]}
           onChange={(e) => setSelectedDate(e.target.value)}
           className="px-2 py-1 border border-gray-500 rounded-md hover:bg-gray-100 transition cursor-pointer"
         />

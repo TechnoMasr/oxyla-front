@@ -7,14 +7,12 @@ import MainInput from "../../../components/form/MainInput";
 import FormError from "../../../components/form/FormError";
 import FormBtn from "../../../components/form/FormBtn";
 import { resetPassword } from "../../../services/forgotPasswordServices";
-import { useState } from "react";
-import SuccessModal from "../../../components/modals/SuccessModal";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const ResetPassword = ({ parentData, setParentData }) => {
   const { t } = useTranslation();
-  const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
 
   const schema = yup.object().shape({
@@ -25,15 +23,12 @@ const ResetPassword = ({ parentData, setParentData }) => {
       .required(t("resetPassword.errors.required"))
       .matches(
         /^(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).*$/,
-        t("resetPassword.errors.pattern")
+        t("resetPassword.errors.pattern"),
       ),
     password_confirmation: yup
       .string()
       .trim()
-      .oneOf(
-        [yup.ref("password"), null],
-        t("resetPassword.errors.match")
-      )
+      .oneOf([yup.ref("password"), null], t("resetPassword.errors.match"))
       .required(t("resetPassword.errors.confirmRequired")),
   });
 
@@ -57,7 +52,8 @@ const ResetPassword = ({ parentData, setParentData }) => {
         password: payload.password,
         password_confirmation: payload.password_confirmation,
       }));
-      setOpenModal(true);
+      toast.success(t("resetPassword.successMsg"));
+      navigate("/signin");
     },
     onError: (err) => {
       console.error("❌ Reset password error:", err);
@@ -80,12 +76,9 @@ const ResetPassword = ({ parentData, setParentData }) => {
   const strengthPercent = (strength / 4) * 100;
 
   const getStrengthLabel = () => {
-    if (strength <= 1)
-      return t("resetPassword.passwordStrength.weak");
-    if (strength === 2)
-      return t("resetPassword.passwordStrength.medium");
-    if (strength === 3)
-      return t("resetPassword.passwordStrength.strong");
+    if (strength <= 1) return t("resetPassword.passwordStrength.weak");
+    if (strength === 2) return t("resetPassword.passwordStrength.medium");
+    if (strength === 3) return t("resetPassword.passwordStrength.strong");
     return t("resetPassword.passwordStrength.veryStrong");
   };
 
@@ -109,8 +102,7 @@ const ResetPassword = ({ parentData, setParentData }) => {
 
   const displayError =
     (isError &&
-      (apiError?.response?.data?.message ||
-        t("resetPassword.apiError"))) ||
+      (apiError?.response?.data?.message || t("resetPassword.apiError"))) ||
     "";
 
   return (
@@ -139,10 +131,10 @@ const ResetPassword = ({ parentData, setParentData }) => {
                   strength <= 1
                     ? "text-red-600"
                     : strength === 2
-                    ? "text-yellow-600"
-                    : strength === 3
-                    ? "text-blue-600"
-                    : "text-green-600"
+                      ? "text-yellow-600"
+                      : strength === 3
+                        ? "text-blue-600"
+                        : "text-green-600"
                 }`}
               >
                 {getStrengthLabel()}
@@ -161,17 +153,7 @@ const ResetPassword = ({ parentData, setParentData }) => {
 
         <FormError errorMsg={displayError} />
 
-        <FormBtn
-          title={t("resetPassword.resetBtn")}
-          loading={isPending}
-        />
-
-        <SuccessModal
-          openModal={openModal}
-          msg={t("resetPassword.successMsg")}
-          btnText={t("resetPassword.goToSignin")}
-          onConfirm={() => navigate("/signin")}
-        />
+        <FormBtn title={t("resetPassword.resetBtn")} loading={isPending} />
       </form>
     </AuthCard>
   );

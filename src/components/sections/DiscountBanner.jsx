@@ -1,12 +1,14 @@
 import { useSelector } from "react-redux";
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const DiscountBanner = () => {
+  const { t } = useTranslation();
   const { profile } = useSelector((state) => state.profile);
-  const discountBanner = profile?.processed_orders_count === 0;
+  const { setting } = useSelector((state) => state.setting);
 
+  const discountBanner = profile?.processed_orders_count === 0;
   const [visible, setVisible] = useState(true);
 
   if (!discountBanner || !visible) return null;
@@ -16,20 +18,26 @@ const DiscountBanner = () => {
       <div className="flex items-center justify-between max-w-7xl mx-auto">
         <div className="flex items-center gap-4">
           <p className="text-sm md:text-base">
-            <span className="font-semibold">خصم 10%</span> على أول طلب ليك!
+            <span className="font-semibold">
+              {t("discountBanner.discount", {
+                discount: setting?.first_order_discount,
+              })}
+            </span>{" "}
+            {t("discountBanner.text")}
           </p>
 
           <Link
             to="/services"
             className="text-sm text-black font-semibold bg-white hover:bg-white/80 px-3 py-1 rounded-full transition"
           >
-            اطلب الان
+            {t("discountBanner.cta")}
           </Link>
         </div>
 
         <button
           onClick={() => setVisible(false)}
           className="w-6 h-6 flex items-center justify-center rounded-full text-xl cursor-pointer hover:bg-white/20 transition"
+          aria-label={t("discountBanner.close")}
         >
           &times;
         </button>

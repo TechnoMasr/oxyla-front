@@ -6,17 +6,15 @@ import * as yup from "yup";
 import FormBtn from "../../../components/form/FormBtn";
 import FormError from "../../../components/form/FormError";
 import MainInput from "../../../components/form/MainInput";
-import SuccessModal from "../../../components/modals/SuccessModal";
-import { useState } from "react";
 import { LiaFaxSolid } from "react-icons/lia";
 import { TbPhoneCall } from "react-icons/tb";
 import { HiOutlineMailOpen } from "react-icons/hi";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const ContactForm = () => {
   const { t } = useTranslation();
-  const [successModal, setSuccessModal] = useState(false);
 
   const { setting } = useSelector((state) => state.setting);
 
@@ -45,7 +43,7 @@ const ContactForm = () => {
   const { mutate, isPending, error } = useMutation({
     mutationFn: (formData) => sendContactUs(formData),
     onSuccess: () => {
-      setSuccessModal(true);
+      toast.success(t("ContactForm.messageSent"));
       reset();
     },
   });
@@ -179,17 +177,9 @@ const ContactForm = () => {
                   <p className="text-myPurple">{item.value}</p>
                 </div>
               </div>
-            )
+            ),
         )}
       </div>
-
-      <SuccessModal
-        openModal={successModal}
-        onClose={() => setSuccessModal(false)}
-        msg={t("ContactForm.messageSent")}
-        onConfirm={() => setSuccessModal(false)}
-        btnText={t("ContactForm.ok")}
-      />
     </section>
   );
 };

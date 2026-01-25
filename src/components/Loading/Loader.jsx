@@ -17,7 +17,7 @@ const Loader = () => {
         </div>
       </div>
 
-      <h2 className="text-lg font-semibold text-myBlue-2">{t("loading")}</h2>
+      <h2 className="text-lg font-semibold">{t("loading")}</h2>
     </div>
   );
 };
