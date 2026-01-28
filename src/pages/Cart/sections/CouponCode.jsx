@@ -65,7 +65,7 @@ const CouponCode = ({ setPriceData, priceData, discount }) => {
 
       {/* Error */}
       {isError && (
-        <div className="bg-red-100 border border-red-400 text-red-700 p-2 rounded text-center">
+        <div className="bg-red-100 border border-red-400 text-red-700 p-2 rounded text-center wrap-break-word">
           {error?.response?.data?.message || t("coupon.invalid")}
         </div>
       )}

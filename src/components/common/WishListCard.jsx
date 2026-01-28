@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { toggleWishList } from "../../services/wishListServices";
 import { useTranslation } from "react-i18next";
+import currencyIcon from "../../assets/icons/sar-icon.svg";
 
 const WishListCard = ({ item }) => {
   const queryClient = useQueryClient();
@@ -34,7 +35,10 @@ const WishListCard = ({ item }) => {
       <div className="space-y-2 flex-1">
         <div className="text-lg font-semibold flex justify-between gap-4 w-full">
           <h3 className="flex-1">{item.name}</h3>
-          <p>{item.price} $</p>
+          <p className="flex items-center gap-1">
+            {item.price}{" "}
+            <img src={currencyIcon} alt="currency-icon" className="w-4" />
+          </p>
         </div>
 
         <p className="text-xs text-gray-500 flex items-center gap-1">

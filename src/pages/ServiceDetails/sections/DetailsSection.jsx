@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { getCartCountAct } from "../../../store/profile/profileSlice.js";
 import { useDispatch } from "react-redux";
 import useRequireAuth from "../../../hooks/useRequireAuth.js";
+import currencyIcon from "../../../assets/icons/sar-icon.svg";
 
 const DetailsSection = ({ data }) => {
   const { t } = useTranslation();
@@ -69,7 +70,10 @@ const DetailsSection = ({ data }) => {
       <h1 className="text-2xl font-bold">{data?.name}</h1>
 
       <div className="flex items-center justify-between gap-2">
-        <span className="font-bold text-xl">{data?.price} $</span>
+        <span className="font-bold text-xl flex items-center gap-1">
+          {data?.price}{" "}
+          <img src={currencyIcon} alt="currency-icon" className="w-4" />
+        </span>
         <div className="flex items-center gap-1">
           <div className="flex gap-1">{renderStars(data?.rate)}</div>
           <p className="text-gray-500">({data?.rate})</p>

@@ -8,6 +8,7 @@ import CouponCode from "./CouponCode";
 import { useDispatch } from "react-redux";
 import { getProfileAct } from "../../../store/profile/profileSlice";
 import { IoCashOutline, IoCardOutline } from "react-icons/io5";
+import currencyIcon from "../../../assets/icons/sar-icon.svg";
 
 const OrderSummary = ({ data }) => {
   const { t } = useTranslation();
@@ -65,15 +66,19 @@ const OrderSummary = ({ data }) => {
         {/* Price */}
         <div className="flex justify-between text-gray-700">
           <span>{t("OrderSummary.price")}</span>
-          <span className="font-medium">{priceData.price} $</span>
+          <span className="font-medium flex items-center gap-1">
+            {priceData.price}{" "}
+            <img src={currencyIcon} alt="currency-icon" className="w-4" />
+          </span>
         </div>
 
         {/* discount */}
         {priceData.discount > 0 && (
           <div className="flex justify-between text-gray-700">
             <span>{t("OrderSummary.discount")}</span>
-            <span className="font-medium">
-              {`(${data.discountPercent}%)`} {priceData.discount} $
+            <span className="font-medium flex items-center gap-1">
+              {`(${data.discountPercent}%)`} {priceData.discount}{" "}
+              <img src={currencyIcon} alt="currency-icon" className="w-4" />
             </span>
           </div>
         )}
@@ -90,7 +95,10 @@ const OrderSummary = ({ data }) => {
         {priceData.coupon_amount > 0 && (
           <div className="flex justify-between text-gray-700">
             <span>{t("OrderSummary.couponApplied")}</span>
-            <span className="font-medium">{priceData.coupon_amount} $</span>
+            <span className="font-medium flex items-center gap-1">
+              {priceData.coupon_amount}{" "}
+              <img src={currencyIcon} alt="currency-icon" className="w-4" />
+            </span>
           </div>
         )}
 
@@ -101,7 +109,10 @@ const OrderSummary = ({ data }) => {
           <span className="font-semibold text-lg">
             {t("OrderSummary.total")}
           </span>
-          <span className="font-bold text-lg">{priceData.total} $</span>
+          <span className="font-bold text-lg flex items-center gap-1">
+            {priceData.total}{" "}
+            <img src={currencyIcon} alt="currency-icon" className="w-4" />
+          </span>
         </div>
 
         {/* Coupon Input */}

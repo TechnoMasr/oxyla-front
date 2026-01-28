@@ -1,4 +1,5 @@
 import { useState } from "react";
+import currencyIcon from "../../../assets/icons/sar-icon.svg";
 
 const locationsList = [
   { id: 1, name: "Riyadh" },
@@ -79,7 +80,11 @@ const FiltersSideBar = () => {
 
               {/* ✅ عرض القيمة الحالية */}
               <div className="mt-3 text-center font-semibold">
-                Selected Price: <span className="text-green-600">${price}</span>
+                Selected Price:{" "}
+                <span className="text-green-600 flex items-center gap-1">
+                  {price}{" "}
+                  <img src={currencyIcon} alt="currency-icon" className="w-4" />
+                </span>
               </div>
             </div>
           </div>

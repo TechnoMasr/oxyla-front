@@ -7,6 +7,7 @@ import { toggleWishList } from "../../services/wishListServices";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import useRequireAuth from "../../hooks/useRequireAuth";
+import currencyIcon from "../../assets/icons/sar-icon.svg";
 
 const ServicesCard = ({ service }) => {
   const queryClient = useQueryClient();
@@ -15,7 +16,7 @@ const ServicesCard = ({ service }) => {
 
   const navigate = useNavigate();
 
-  const [isFavorited, setIsFavorited] = useState(
+  const [isFavourite, setIsFavourite] = useState(
     service?.favorites_count ? true : false,
   );
 
@@ -26,7 +27,7 @@ const ServicesCard = ({ service }) => {
     },
     onError: () => {
       // لو في خطأ، نرجع الحالة القديمة
-      setIsFavorited((prev) => !prev);
+      setIsFavourite((prev) => !prev);
     },
   });
 
@@ -36,7 +37,7 @@ const ServicesCard = ({ service }) => {
 
     requireAuth(() => {
       // تغير الحالة فورًا في الواجهة
-      setIsFavorited((prev) => !prev);
+      setIsFavourite((prev) => !prev);
 
       toggleMutation.mutate({
         item_type: "service",
@@ -70,8 +71,9 @@ const ServicesCard = ({ service }) => {
           </p>
 
           <div>
-            <span className="text-sm font-bold">
-              {service.price} {t("currency")}
+            <span className="text-lg font-bold flex items-center gap-1">
+              {service.price}{" "}
+              <img src={currencyIcon} alt="currency-icon" className="w-4" />
             </span>
             <div className="flex gap-1">{renderStars(service.rate)}</div>
           </div>
@@ -96,7 +98,7 @@ const ServicesCard = ({ service }) => {
 
         <div className="flex items-center justify-between gap-4">
           <span className="text-3xl cursor-pointer" onClick={handleToggle}>
-            {isFavorited ? (
+            {isFavourite ? (
               <IoHeart className="text-red-500" />
             ) : (
               <IoHeartOutline />

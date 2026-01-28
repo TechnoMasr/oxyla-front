@@ -45,7 +45,7 @@ const Footer = () => {
               <a
                 href={link.url}
                 target="_blank"
-                className="text-xl hover:text-myBlue duration-200"
+                className="text-2xl hover:text-myBlue duration-200"
               >
                 {link.icon}
               </a>

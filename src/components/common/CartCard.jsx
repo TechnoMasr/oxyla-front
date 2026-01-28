@@ -12,9 +12,10 @@ import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { getCartCountAct } from "../../store/profile/profileSlice";
 import { useDispatch } from "react-redux";
+import currencyIcon from "../../assets/icons/sar-icon.svg";
 
 const CartCard = ({ item, orders = false }) => {
-  const { t } = useTranslation(); 
+  const { t } = useTranslation();
   const [openDelete, setOpenDelete] = useState(false);
   const [openChange, setOpenChange] = useState(false);
   const [openRate, setOpenRate] = useState(false);
@@ -50,9 +51,16 @@ const CartCard = ({ item, orders = false }) => {
         <div className="text-lg font-semibold flex justify-between gap-4 w-full">
           <h3 className="flex-1 flex flex-wrap items-center gap-1">
             {item.service?.name}{" "}
-            <span className="font-normal">{item.quantity > 1 && `(x${item.quantity})`}</span>
+            <span className="font-normal">
+              {item.quantity > 1 && `(x${item.quantity})`}
+            </span>
           </h3>
-          {orders && <p>{item.price} $</p>}
+          {orders && (
+            <p className="flex items-center gap-1">
+              {item.price}{" "}
+              <img src={currencyIcon} alt="currency-icon" className="w-4" />
+            </p>
+          )}
         </div>
 
         <p className="text-xs text-gray-500 flex items-center gap-1">
