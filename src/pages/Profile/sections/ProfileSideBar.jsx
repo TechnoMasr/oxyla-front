@@ -1,7 +1,3 @@
-import { BsBell } from "react-icons/bs";
-import { FiHeart } from "react-icons/fi";
-import { PiCalendarMinus } from "react-icons/pi";
-import { RiEdit2Line } from "react-icons/ri";
 import { TbLogout2 } from "react-icons/tb";
 import { IoClose } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
@@ -9,32 +5,9 @@ import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../../store/modals/modalsSlice";
 
-const ProfileSideBar = ({ isOpen, handleClose }) => {
+const ProfileSideBar = ({ isOpen, handleClose, links }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-
-  const profileList = [
-    {
-      name: t("profileSideBar.editProfile"),
-      url: "/profile",
-      icon: <RiEdit2Line />,
-    },
-    {
-      name: t("profileSideBar.notifications"),
-      url: "/profile/notifications",
-      icon: <BsBell />,
-    },
-    {
-      name: t("profileSideBar.appointment"),
-      url: "/profile/appointment",
-      icon: <PiCalendarMinus />,
-    },
-    {
-      name: t("profileSideBar.wishlist"),
-      url: "/profile/wishlist",
-      icon: <FiHeart />,
-    },
-  ];
 
   return (
     <>
@@ -46,8 +19,8 @@ const ProfileSideBar = ({ isOpen, handleClose }) => {
       )}
 
       <aside
-        className={`fixed lg:static top-0 left-0 h-full w-64 bg-white border-e border-gray-200 z-[101] lg:z-0 transform transition-transform duration-300
-        ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
+        className={`fixed lg:static top-0 start-0 h-full w-64 bg-white border-e border-gray-200 z-[101] lg:z-0 transform transition-transform duration-300
+        ${isOpen ? "translate-x-0 rtl:-translate-x-0" : "-translate-x-full rtl:translate-x-full"} lg:translate-x-0 rtl:lg:translate-x-0`}
       >
         <div className="flex items-center justify-between p-4 border-b mb-4 border-gray-200">
           <h3 className="text-xl font-bold text-myPurple">
@@ -62,7 +35,7 @@ const ProfileSideBar = ({ isOpen, handleClose }) => {
         </div>
 
         <nav className="flex flex-col gap-2 px-4">
-          {profileList.map((item) => (
+          {links.map((item) => (
             <NavLink
               key={item.name}
               to={`${item.url}`}

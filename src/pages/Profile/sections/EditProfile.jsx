@@ -95,11 +95,7 @@ const EditProfile = () => {
   };
 
   return (
-    <section>
-      <h2 className="text-2xl font-bold text-myPurple mb-4">
-        {t("editProfilePage.title")}
-      </h2>
-
+    <section className="mt-6">
       <div className="flex items-center justify-between gap-4 flex-wrap mb-4">
         <div className="flex items-center gap-2">
           <Avatar name={form?.name} size="lg" />
@@ -119,7 +115,7 @@ const EditProfile = () => {
 
       <form
         onSubmit={handleSubmit}
-        className={!isEditing && "bg-gray-100 pointer-events-none"}
+        className={`${!isEditing ? "bg-gray-100 pointer-events-none" : ""} p-2 rounded-xl`}
       >
         {/* NAME */}
         <div className="grid grid-cols-5 p-2 border-b border-gray-300">

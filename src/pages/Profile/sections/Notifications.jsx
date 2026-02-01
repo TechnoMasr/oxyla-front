@@ -53,11 +53,7 @@ const Notifications = () => {
   const handleRead = (id) => readMutation.mutate(id);
 
   return (
-    <section>
-      <h2 className="text-2xl font-bold text-myPurple mb-4">
-        {t("notificationsPage.title")}
-      </h2>
-
+    <section className="mt-6">
       {/* ⭐ التبويبات + الأرقام */}
       <div role="tablist" className="tabs tabs-border mb-4 flex gap-2">
         {["all", "alert", "newsletter"].map((tab) => (

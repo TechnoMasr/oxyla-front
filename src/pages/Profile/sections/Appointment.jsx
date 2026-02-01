@@ -17,12 +17,9 @@ const Appointment = () => {
 
   return (
     <section>
-      <h2 className="text-2xl font-bold text-myPurple mb-4">
-        {t("Appointment.title")}{" "}
-        <span className="text-gray-400 text-sm font-normal">
-          ({orders?.length} {t("Appointment.reservationCount")})
-        </span>
-      </h2>
+      <p className="text-gray-500 font-normal mb-2 mt-1">
+        ( {orders?.length} {t("Appointment.reservationCount")} )
+      </p>
 
       <div>
         {orders?.map((item) => (

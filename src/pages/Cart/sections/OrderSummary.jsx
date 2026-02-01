@@ -7,18 +7,17 @@ import { useTranslation } from "react-i18next";
 import CouponCode from "./CouponCode";
 import { useDispatch } from "react-redux";
 import { getProfileAct } from "../../../store/profile/profileSlice";
-import { IoCashOutline, IoCardOutline } from "react-icons/io5";
+// import { IoCashOutline, IoCardOutline } from "react-icons/io5";
 import currencyIcon from "../../../assets/icons/sar-icon.svg";
 
 const OrderSummary = ({ data }) => {
   const { t } = useTranslation();
   const [openDelete, setOpenDelete] = useState(false);
   const queryClient = useQueryClient();
-  const [paymentMethod, setPaymentMethod] = useState("cash");
+  // const [paymentMethod, setPaymentMethod] = useState("cash");
   const [priceData, setPriceData] = useState({
     price: 0,
     discount: 0,
-    coupon: "",
     coupon_amount: 0,
     total: 0,
     coupon_code: "",
@@ -33,7 +32,7 @@ const OrderSummary = ({ data }) => {
       dispatch(getProfileAct());
       setOpenDelete(false);
 
-      if (paymentMethod === "online" && res?.redirect_url) {
+      if (res?.redirect_url) {
         window.location.href = res.redirect_url;
       } else {
         toast.success(t("OrderSummary.orderConfirmed"));
@@ -49,20 +48,22 @@ const OrderSummary = ({ data }) => {
           ? data.mainTotalBookings
           : data.total_price,
         discount: data.discount,
-        coupon: data.coupon_code,
+        coupon_code: data.coupon_code,
         coupon_amount: data.coupon_amount,
-        total: data.total_price,
+        total: priceData.coupon_code
+          ? data.total_price - priceData.coupon_amount
+          : data.total_price,
       }));
     }
-  }, [data]);
+  }, [data, priceData]);
 
   return (
-    <aside className="border border-gray-200 rounded-xl p-4 lg:p-6 bg-white shadow-sm h-fit">
-      <h3 className="text-lg font-semibold mb-4">
+    <aside className="border border-gray-200 rounded-xl p-4 lg:p-6 bg-white shadow-sm h-fit space-y-4">
+      <h3 className="text-lg font-semibold">
         {t("OrderSummary.orderSummary")}
       </h3>
 
-      <div className="space-y-3">
+      <div className="space-y-2">
         {/* Price */}
         <div className="flex justify-between text-gray-700">
           <span>{t("OrderSummary.price")}</span>
@@ -83,11 +84,11 @@ const OrderSummary = ({ data }) => {
           </div>
         )}
 
-        {/* Coupon */}
-        {priceData?.coupon?.length > 0 && (
+        {/* Coupon Code */}
+        {priceData?.coupon_code?.length > 0 && (
           <div className="flex justify-between text-gray-700">
             <span>{t("OrderSummary.coupon")}</span>
-            <span className="font-medium">{priceData.coupon}</span>
+            <span className="font-medium">{priceData.coupon_code}</span>
           </div>
         )}
 
@@ -102,7 +103,7 @@ const OrderSummary = ({ data }) => {
           </div>
         )}
 
-        <hr className="my-4" />
+        <hr />
 
         {/* Total */}
         <div className="flex justify-between items-center text-gray-900">
@@ -114,33 +115,28 @@ const OrderSummary = ({ data }) => {
             <img src={currencyIcon} alt="currency-icon" className="w-4" />
           </span>
         </div>
+      </div>
 
-        {/* Coupon Input */}
-        {
-          <CouponCode
-            setPriceData={setPriceData}
-            priceData={priceData}
-            discount={data?.discountPercent && data?.discountPercent > 0}
-          />
-        }
+      {/* Coupon Input */}
+      <CouponCode
+        setPriceData={setPriceData}
+        priceData={priceData}
+        discount={data?.discountPercent && data?.discountPercent > 0}
+      />
 
-        {/* Payment Method */}
-        {/* Payment Method */}
-        <div className="space-y-2">
+      {/* Payment Method */}
+      {/* <div>
           <h3 className="text-lg font-semibold mb-2">
             {t("OrderSummary.paymentMethod")}
           </h3>
 
           <div className="flex gap-3">
-            {/* Cash */}
             <label
-              className={`flex-1 cursor-pointer rounded-xl border p-3 flex flex-col items-center gap-2 transition-all duration-200
-        ${
-          paymentMethod === "cash"
-            ? "border-myPurple bg-myPurple/10 shadow-md"
-            : "border-gray-200 bg-white hover:border-myPurple hover:shadow-sm"
-        }
-      `}
+              className={`flex-1 cursor-pointer rounded-xl border p-3 flex flex-col items-center gap-2 transition-all duration-200 ${
+                paymentMethod === "cash"
+                  ? "border-myPurple bg-myPurple/10 shadow-md"
+                  : "border-gray-200 bg-white hover:border-myPurple hover:shadow-sm"
+              }`}
             >
               <input
                 type="radio"
@@ -156,15 +152,12 @@ const OrderSummary = ({ data }) => {
               </span>
             </label>
 
-            {/* Online */}
             <label
-              className={`flex-1 cursor-pointer rounded-xl border p-3 flex flex-col items-center gap-2 transition-all duration-200
-        ${
-          paymentMethod === "online"
-            ? "border-myPurple bg-myPurple/10 shadow-md"
-            : "border-gray-200 bg-white hover:border-myPurple hover:shadow-sm"
-        }
-      `}
+              className={`flex-1 cursor-pointer rounded-xl border p-3 flex flex-col items-center gap-2 transition-all duration-200 ${
+                paymentMethod === "online"
+                  ? "border-myPurple bg-myPurple/10 shadow-md"
+                  : "border-gray-200 bg-white hover:border-myPurple hover:shadow-sm"
+              }`}
             >
               <input
                 type="radio"
@@ -180,20 +173,19 @@ const OrderSummary = ({ data }) => {
               </span>
             </label>
           </div>
-        </div>
+        </div> */}
 
-        {/* Checkout Button */}
-        <button
-          onClick={() => setOpenDelete(true)}
-          disabled={isPending}
-          type="button"
-          className="mainBtn w-full mt-4"
-        >
-          {isPending
-            ? t("OrderSummary.loading")
-            : t("OrderSummary.proceedToCheckout")}
-        </button>
-      </div>
+      {/* Checkout Button */}
+      <button
+        onClick={() => setOpenDelete(true)}
+        disabled={isPending}
+        type="button"
+        className="mainBtn w-full"
+      >
+        {isPending
+          ? t("OrderSummary.loading")
+          : t("OrderSummary.proceedToCheckout")}
+      </button>
 
       {/* Delete Modal */}
       <ConfirmModal
@@ -203,7 +195,7 @@ const OrderSummary = ({ data }) => {
         onConfirm={() =>
           mutate({
             coupon_code: priceData.coupon_code,
-            payment_method: paymentMethod,
+            payment_method: "online",
           })
         }
         disabled={isPending}
