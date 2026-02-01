@@ -21,6 +21,8 @@ const CouponCode = ({ setPriceData, discount }) => {
         total: data?.total_after_discount,
       }));
 
+      setInputValue("");
+
       toast.success(t("coupon.success"));
     },
   });

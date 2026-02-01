@@ -19,7 +19,7 @@ const ConfirmModal = ({
       <div className="modal-box space-y-4" onClick={(e) => e.stopPropagation()}>
         <p className="text-center text-lg font-semibold">{confirmMsg}</p>
 
-        <div className="modal-action justify-center">
+        <div className="flex items-center justify-center gap-2">
           <button
             onClick={onClose}
             className="btn bg-red-700 text-white rounded-lg"

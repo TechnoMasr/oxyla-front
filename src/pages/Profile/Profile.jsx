@@ -42,15 +42,13 @@ const Profile = () => {
 
   return (
     <section className="container pagePadding">
-      <div className="flex h-full relative">
-        {/* 🔹 السايدبار */}
+      <div className="flex h-full">
         <ProfileSideBar
           isOpen={isOpen}
           handleClose={handleClose}
           links={profileLinks}
         />
 
-        {/* 🔹 المحتوى */}
         <main className="flex-1 md:p-6 w-full overflow-hidden">
           <div className="flex items-center gap-2">
             <button

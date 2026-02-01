@@ -19,7 +19,7 @@ const ProfileSideBar = ({ isOpen, handleClose, links }) => {
       )}
 
       <aside
-        className={`fixed lg:static top-0 start-0 h-full w-64 bg-white border-e border-gray-200 z-[101] lg:z-0 transform transition-transform duration-300
+        className={`fixed lg:sticky top-0 lg:top-26 start-0 h-full w-64 bg-white border-e border-gray-200 z-[101] lg:z-0 transform transition-transform duration-300
         ${isOpen ? "translate-x-0 rtl:-translate-x-0" : "-translate-x-full rtl:translate-x-full"} lg:translate-x-0 rtl:lg:translate-x-0`}
       >
         <div className="flex items-center justify-between p-4 border-b mb-4 border-gray-200">

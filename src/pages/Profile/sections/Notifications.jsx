@@ -85,7 +85,7 @@ const Notifications = () => {
           className={`flex items-start gap-2 p-4 mb-2 border border-gray-200 rounded-xl transition-colors duration-200 ${
             notification.is_read
               ? "bg-white hover:bg-gray-100"
-              : "bg-myPurple/20 hover:bg-myPurple/30"
+              : "bg-myPurple/20 hover:bg-myPurple/30 cursor-pointer"
           }`}
         >
           <span

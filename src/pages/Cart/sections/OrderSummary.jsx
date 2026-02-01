@@ -50,12 +50,10 @@ const OrderSummary = ({ data }) => {
         discount: data.discount,
         coupon_code: data.coupon_code,
         coupon_amount: data.coupon_amount,
-        total: priceData.coupon_code
-          ? data.total_price - priceData.coupon_amount
-          : data.total_price,
+        total: data.total_price,
       }));
     }
-  }, [data, priceData]);
+  }, [data]);
 
   return (
     <aside className="border border-gray-200 rounded-xl p-4 lg:p-6 bg-white shadow-sm h-fit space-y-4">
