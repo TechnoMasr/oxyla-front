@@ -1,4 +1,4 @@
-const AboutBanner = ({ data }) => {
+const PageBanner = ({ data }) => {
   return (
     <section
       className="w-full h-[400px] bg-no-repeat bg-center bg-cover relative"
@@ -15,4 +15,4 @@ const AboutBanner = ({ data }) => {
   );
 };
 
-export default AboutBanner;
+export default PageBanner;

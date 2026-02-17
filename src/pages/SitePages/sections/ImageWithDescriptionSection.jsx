@@ -1,9 +1,9 @@
 import { AiOutlineLike } from "react-icons/ai";
 
-const AboutTopSection = ({ data }) => {
+const ImageWithDescriptionSection = ({ data }) => {
   return (
     <section className="sectionPadding w-full max-w-5xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-16">
-      <div className="rounded-2xl overflow-hidden border-8 border-myPurple h-[300px]">
+      <div className="rounded-2xl overflow-hidden border-8 border-myPurple aspect-square hidden md:block">
         <img
           loading="lazy"
           src={data?.image}
@@ -33,4 +33,4 @@ const AboutTopSection = ({ data }) => {
   );
 };
 
-export default AboutTopSection;
+export default ImageWithDescriptionSection;

@@ -44,7 +44,7 @@ const Header = () => {
 
   const linksList = [
     { name: t("Header.home"), path: "/" },
-    { name: t("Header.aboutUs"), path: "/about-us" },
+    { name: t("Header.aboutUs"), path: "/pages/about-us" },
     { name: t("Header.services"), path: "/services" },
     { name: t("Header.contact"), path: "/contact-us" },
   ];

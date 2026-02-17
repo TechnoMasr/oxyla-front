@@ -4,7 +4,7 @@ import VerifiedEmail from "../pages/VerifiedEmail/VerifiedEmail";
 import OxylaLoading from "../components/Loading/OxylaLoading";
 
 import Home from "../pages/Home/Home";
-import AboutUS from "../pages/AboutUS/AboutUS";
+import SitePages from "../pages/SitePages/SitePages";
 import ContactUS from "../pages/ContactUS/ContactUS";
 import ServicesPage from "../pages/ServicesPage/ServicesPage";
 import ServiceDetails from "../pages/ServiceDetails/ServiceDetails";
@@ -58,10 +58,10 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "about-us",
+        path: "pages/:slug",
         element: (
           <OxylaLoading>
-            <AboutUS />
+            <SitePages />
           </OxylaLoading>
         ),
       },

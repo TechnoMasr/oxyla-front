@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { useSelector } from "react-redux";
 
-const AboutBottomSection = ({ data }) => {
+const TitleWithImageSection = ({ data }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { lang } = useSelector((state) => state.language);
 
@@ -56,7 +56,7 @@ const AboutBottomSection = ({ data }) => {
         </div>
       </article>
 
-      <div className="md:col-span-2 aspect-square mb-2 rounded-2xl overflow-hidden relative">
+      <div className="md:col-span-2 aspect-square mb-2 rounded-2xl overflow-hidden relative hidden md:block">
         <Swiper
           dir={lang === "ar" ? "rtl" : "ltr"}
           modules={[Pagination]}
@@ -83,4 +83,4 @@ const AboutBottomSection = ({ data }) => {
   );
 };
 
-export default AboutBottomSection;
+export default TitleWithImageSection;

@@ -1,4 +1,4 @@
-const AboutMiddleSection = ({ data }) => {
+const CounterSection = ({ data }) => {
   return (
     <section className="relative overflow-hidden">
       <div
@@ -37,4 +37,4 @@ const AboutMiddleSection = ({ data }) => {
   );
 };
 
-export default AboutMiddleSection;
+export default CounterSection;
