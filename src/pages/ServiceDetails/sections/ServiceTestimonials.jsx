@@ -67,7 +67,10 @@ const ServiceTestimonials = ({ data }) => {
                   {item.paragraph}
                 </p>
 
-                <div dangerouslySetInnerHTML={{ __html: item.content }} />
+                <div
+                  dangerouslySetInnerHTML={{ __html: item.content }}
+                  className="rich_content"
+                />
               </div>
             </div>
           </SwiperSlide>

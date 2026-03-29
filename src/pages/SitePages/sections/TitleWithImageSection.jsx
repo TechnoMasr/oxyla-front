@@ -52,6 +52,7 @@ const TitleWithImageSection = ({ data }) => {
             dangerouslySetInnerHTML={{
               __html: data?.items[currentIndex].description,
             }}
+            className="rich_content"
           />
         </div>
       </article>

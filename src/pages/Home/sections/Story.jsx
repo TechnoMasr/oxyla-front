@@ -35,7 +35,10 @@ const Story = ({ data }) => {
                 </div>
 
                 <div className="p-4 text-sm">
-                  <div dangerouslySetInnerHTML={{ __html: item.content }} />
+                  <div
+                    dangerouslySetInnerHTML={{ __html: item.content }}
+                    className="rich_content"
+                  />
                   <h3 className="font-bold mt-2 uppercase text-lg">{`— ${item.name}, ${item.job_title}`}</h3>
                 </div>
               </div>

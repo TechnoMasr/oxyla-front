@@ -14,7 +14,7 @@ const Banner = ({ data }) => {
             </h2>
             <div
               dangerouslySetInnerHTML={{ __html: data?.description }}
-              className="text-lg"
+              className="text-lg rich_content"
             />
           </div>
 

@@ -4,7 +4,10 @@ const ParagraphsWithHeadings = ({ data }) => {
       {data?.items?.map((item) => (
         <div key={item.id}>
           <h2 className="text-2xl font-bold mb-2">{item.title}</h2>
-          <div dangerouslySetInnerHTML={{ __html: item.description }} />
+          <div
+            dangerouslySetInnerHTML={{ __html: item.description }}
+            className="rich_content"
+          />
         </div>
       ))}
     </section>

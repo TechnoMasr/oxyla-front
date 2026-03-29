@@ -11,7 +11,7 @@ const HomeMenu = ({ openMenu, setOpenMenu }) => {
 
   const Links = [
     { id: 1, title: t("HomeMenu.links.home"), link: "/" },
-    { id: 2, title: t("HomeMenu.links.about"), link: "/about-us" },
+    { id: 2, title: t("HomeMenu.links.about"), link: "/pages/about-us" },
     { id: 3, title: t("HomeMenu.links.rooms"), link: "/services" },
     { id: 4, title: t("HomeMenu.links.contact"), link: "/contact-us" },
     {
