@@ -53,3 +53,8 @@ export const getHome = async () => {
   const { data } = await api.get("/home");
   return data?.data || [];
 };
+
+export const getHomeSection1 = async () => {
+  const { data } = await api.get("/home-section-1");
+  return data?.data || [];
+};

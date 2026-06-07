@@ -473,5 +473,7 @@
     "alreadyApplied": "You already have a discount.",
     "invalid": "Invalid coupon code",
     "success": "Coupon applied successfully!"
-  }
+  },
+
+  "GuzzanSite": { "archiveBtn": "Visit Site" }
 }
