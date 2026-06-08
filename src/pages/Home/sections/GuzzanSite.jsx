@@ -74,7 +74,7 @@ const GuzzanSite = () => {
           {/* اللوح الزجاجي الفاتح العائم الأمامي (Glassmorphic Card) */}
           <div className="absolute bottom-4 end-4 lg:bottom-8 lg:end-24 z-20 bg-white/60 backdrop-blur-md border border-white/80 px-4 py-3 rounded-xl shadow-lg shadow-gray-200/50 transform lg:-translate-x-4 lg:translate-y-4 transition-transform duration-500 group-hover:translate-x-0 group-hover:translate-y-0 hidden sm:block">
             <p className="text-[10px] text-myGreen uppercase tracking-wider font-bold">
-              Muzzan
+              Guzzan
             </p>
           </div>
         </div>
