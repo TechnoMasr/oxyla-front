@@ -1,16 +1,15 @@
-import { useState, useEffect } from "react";
-import { RxMixerHorizontal } from "react-icons/rx";
-import FiltersSideBar from "./FiltersSideBar";
+import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import SearchFiltersSkeleton from "../../../components/Loading/SkeletonLoading/SearchFiltersSkeleton";
 
 const Filters = ({ categories = [], isLoading }) => {
-  const [active, setActive] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState(searchParams.get("query") || "");
 
+  const currentCategory = searchParams.get("category") || "all";
   const { t } = useTranslation();
+  const isFirstRender = useRef(true);
 
   const FiltersBtns = [
     { label: "All", slug: "all" },
@@ -20,10 +19,31 @@ const Filters = ({ categories = [], isLoading }) => {
     })),
   ];
 
+  const activeIndex = FiltersBtns.findIndex(
+    (btn) => btn.slug === currentCategory,
+  );
+  const active = activeIndex !== -1 ? activeIndex : 0;
+
+  // 1. دالة ذكية لتحديث الـ URL وتنظيفه من القيم الافتراضية أو الفاضية
+  const updateURL = (category, queryValue) => {
+    const params = {};
+
+    // لو الـ category مش "all"، ضيفها في الـ URL
+    if (category && category !== "all") {
+      params.category = category;
+    }
+
+    // لو السيرش مش فاضي (بعد مسح المسافات)، ضيفه في الـ URL
+    if (queryValue && queryValue.trim() !== "") {
+      params.query = queryValue;
+    }
+
+    setSearchParams(params);
+  };
+
   // --- عند الضغط على زر الفلتر ---
-  const handleFilterClick = (i, slug) => {
-    setActive(i);
-    setSearchParams({ category: slug, query: search });
+  const handleFilterClick = (slug) => {
+    updateURL(slug, search);
   };
 
   // --- تغير البحث داخل input ---
@@ -31,14 +51,19 @@ const Filters = ({ categories = [], isLoading }) => {
     setSearch(e.target.value);
   };
 
-  // --- debounce effect ---
+  // --- debounce effect للبحث ---
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setSearchParams({ category: FiltersBtns[active].slug, query: search });
-    }, 1000); // ← هنا مدة الـ debounce (500ms)
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
 
-    return () => clearTimeout(timeout); // تنظيف الـ timeout عند تغيّر القيمة
-  }, [search, active, FiltersBtns, setSearchParams]);
+    const timeout = setTimeout(() => {
+      updateURL(currentCategory, search);
+    }, 1000);
+
+    return () => clearTimeout(timeout);
+  }, [search, currentCategory]);
 
   if (isLoading) return <SearchFiltersSkeleton />;
 
@@ -52,10 +77,6 @@ const Filters = ({ categories = [], isLoading }) => {
           value={search}
           onChange={handleSearchChange}
         />
-
-        {/* <label htmlFor="filters-drawer" className="text-2xl p-2 cursor-pointer">
-          <RxMixerHorizontal />
-        </label> */}
       </div>
 
       <div className="flex items-center gap-4 flex-wrap mt-4">
@@ -65,14 +86,12 @@ const Filters = ({ categories = [], isLoading }) => {
             className={`px-4 py-2 rounded-full shadow-md hover:brightness-90 transition cursor-pointer capitalize ${
               active === i ? "bg-myGreen text-white" : "bg-white text-black"
             }`}
-            onClick={() => handleFilterClick(i, btn.slug)}
+            onClick={() => handleFilterClick(btn.slug)}
           >
             {btn.label}
           </button>
         ))}
       </div>
-
-      {/* <FiltersSideBar /> */}
     </section>
   );
 };

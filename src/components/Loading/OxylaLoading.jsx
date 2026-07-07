@@ -62,7 +62,8 @@ const OxylaLoading = ({ children }) => {
 
   useEffect(() => {
     let start = null;
-    const duration = 4000; // ممكن أقل شوية
+    // const duration = 4000; 
+    const duration = 2000; 
 
     setProgress(0);
     setVisible(true);

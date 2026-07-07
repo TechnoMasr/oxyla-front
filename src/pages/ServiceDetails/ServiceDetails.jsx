@@ -20,7 +20,7 @@ const ServiceDetails = () => {
 
   return (
     <article className="container pagePadding">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 xl:gap-16">
         <DetailsSection data={service} />
         <ImagesSlider images={service?.images_url} />
       </div>

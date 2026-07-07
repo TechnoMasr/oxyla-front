@@ -54,9 +54,43 @@ input::-webkit-inner-spin-button {
   }
 }
 
+/* @utility container {
+  margin-inline: auto;
+  padding-inline: 1rem;
+} */
+
+@theme {
+  --breakpoint-xs: 480px;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-2xl: 1400px;
+  --breakpoint-3xl: 1600px;
+}
+
+/* container */
 @utility container {
   margin-inline: auto;
   padding-inline: 1rem;
+
+  width: 100%;
+
+  @media (width >= 576px) {
+    max-width: 540px;
+  }
+  @media (width >= 768px) {
+    max-width: 720px;
+  }
+  @media (width >= 992px) {
+    max-width: 960px;
+  }
+  @media (width >= 1200px) {
+    max-width: 1140px;
+  }
+  @media (width >= 1400px) {
+    max-width: 1320px;
+  }
 }
 
 /* fix hover in mobile */
@@ -80,7 +114,7 @@ input::-webkit-inner-spin-button {
   }
 
   .mainBtn {
-    @apply px-6 py-2 rounded-md text-white font-bold capitalize bg-gradient-to-r from-myGreen via-myBlue to-myPurple 
+    @apply px-6 py-2 rounded-md text-white font-bold capitalize bg-linear-to-r from-myGreen via-myBlue to-myPurple 
     shadow-lg shadow-myPurple/0 transition-all duration-500 flex items-center justify-center gap-2 text-center cursor-pointer;
 
     & svg {
@@ -127,7 +161,7 @@ input::-webkit-inner-spin-button {
     @apply font-semibold text-myPurple duration-500 capitalize relative;
 
     &::after {
-      @apply content-[''] absolute top-1/2 start-0 -translate-y-1/2 h-2 w-0 opacity-0 bg-myPurple duration-500;
+      @apply content-[''] absolute top-1/2 inset-s-0 -translate-y-1/2 h-2 w-0 opacity-0 bg-myPurple duration-500;
     }
 
     &.active,

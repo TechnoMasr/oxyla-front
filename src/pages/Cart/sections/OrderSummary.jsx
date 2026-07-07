@@ -174,7 +174,7 @@ const OrderSummary = ({ data }) => {
         </div> */}
 
       {/* Checkout Button */}
-      <button
+      {/* <button
         onClick={() => setOpenDelete(true)}
         disabled={isPending}
         type="button"
@@ -183,7 +183,7 @@ const OrderSummary = ({ data }) => {
         {isPending
           ? t("OrderSummary.loading")
           : t("OrderSummary.proceedToCheckout")}
-      </button>
+      </button> */}
 
       {/* Delete Modal */}
       <ConfirmModal

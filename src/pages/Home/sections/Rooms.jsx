@@ -55,7 +55,8 @@ const Rooms = ({ data }) => {
             to="/services"
             className="flex items-center gap-1 font-semibold hover:underline"
           >
-            {t("ExploreMoreRooms")} <GoArrowUpRight className="text-lg" />
+            {t("ExploreMoreRooms")}{" "}
+            <GoArrowUpRight className="text-lg rtl:rotate-270" />
           </Link>
         </div>
       </div>

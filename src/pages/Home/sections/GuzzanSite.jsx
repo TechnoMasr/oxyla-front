@@ -19,7 +19,7 @@ const GuzzanSite = () => {
 
   return (
     <section
-      className="relative my-16 md:my-28 mx-4 max-w-7xl lg:mx-auto rounded-3xl bg-gray-200 
+      className="relative my-16 md:my-28 mx-4 max-w-7xl lg:mx-auto rounded-3xl bg-gray-200 group
       border border-gray-100 text-gray-900 overflow-hidden shadow-xl shadow-gray-200/50 bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url(${bg})` }}
     >
@@ -47,7 +47,7 @@ const GuzzanSite = () => {
               href={data?.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold rounded-xl text-myPurple bg-white hover:brightness-90 shadow-lg shadow-myBlue/15 transition-all duration-300 active:scale-95 group gap-2"
+              className="inline-flex items-center justify-center px-6 py-3 text-sm font-bold rounded-xl text-myPurple group bg-white hover:brightness-90 shadow-lg shadow-myBlue/15 transition-all duration-300 active:scale-95  gap-2"
             >
               <span>{t("GuzzanSite.archiveBtn")}</span>
 
@@ -57,7 +57,7 @@ const GuzzanSite = () => {
         </div>
 
         {/* الجانب الأيسر: الوهم البصري للصورة ثلاثية الأبعاد */}
-        <div className="relative w-full lg:w-1/2 h-[240px] lg:h-full flex items-center justify-center lg:justify-end group perspective-[1000px]">
+        <div className="relative w-full lg:w-1/2 h-[240px] lg:h-full flex items-center justify-center lg:justify-end perspective-[1000px]">
           {/* الكارت المائل ثلاثي الأبعاد للصورة */}
           {data?.image && (
             <div className="relative w-[320px] md:w-[380px] aspect-4/3 rounded-2xl overflow-hidden shadow-xl border border-gray-200/80 bg-gray-50 transition-all duration-500 transform lg:rotate-y-[25deg] lg:rotate-x-[10deg] lg:-translate-y-4 group-hover:rotate-y-0 group-hover:rotate-x-0 group-hover:translate-y-[-8px] group-hover:scale-105 z-10">

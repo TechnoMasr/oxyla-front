@@ -11,6 +11,7 @@
   "Testimonials": "تقييمات",
   "MostBookedCapsules": "الغرف الاكثر زيارة",
   "Search": "بحث",
+  "NoServices": "لا توجد خدمات متاحة",
 
   "CartCard": {
     "deleteConfirmation": "هل أنت متأكد أنك تريد حذف هذا العنصر؟",
@@ -28,7 +29,9 @@
     "rooms": "الغرف",
     "booking": "الحجز",
     "contact": "اتصل بنا",
-    "logoAlt": "الشعار"
+    "logoAlt": "الشعار",
+    "cr": "السجل التجاري",
+    "tax": "الرقم الضريبي"
   },
 
   "Header": {
@@ -311,6 +314,8 @@
   "detailsSection": {
     "home": "الرئيسية",
     "pickDate": "اختر التاريخ",
+    "selectedDateLabel": "التاريخ المحدد",
+    "clickToSelectDate": "اضغط لتحديد تاريخ الحجز",
     "appointmentsAvailable": "المواعيد المتاحة",
     "serviceAdded": "تمت اضافة الخدمة إلى السلة",
     "includedInSession": "متضمن في جلستك",

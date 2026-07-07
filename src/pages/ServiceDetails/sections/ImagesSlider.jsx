@@ -13,7 +13,7 @@ const ImagesSlider = ({ images }) => {
   const { lang } = useSelector((state) => state.language);
 
   return (
-    <div className="lg:col-span-2 order-1 lg:order-2 relative">
+    <div className="order-1 xl:order-2 relative">
       {/* ✅ السلايدر الرئيسي */}
       <Swiper
         dir={lang === "ar" ? "rtl" : "ltr"}
@@ -47,7 +47,8 @@ const ImagesSlider = ({ images }) => {
         onSwiper={setThumbsSwiper}
         loop={true}
         spaceBetween={10}
-        slidesPerView={images.length >= 5 ? 5 : images.length}
+        // slidesPerView={images.length >= 5 ? 5 : images.length}
+        slidesPerView={4}
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Thumbs]}

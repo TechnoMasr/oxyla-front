@@ -36,7 +36,7 @@ const DiscountBanner = () => {
 
         <button
           onClick={() => setVisible(false)}
-          className="w-6 h-6 flex items-center justify-center rounded-full text-xl cursor-pointer hover:bg-white/20 transition"
+          className="absolute top-1/2 -translate-y-1/2 inset-e-2 w-6 h-6 flex items-center justify-center rounded-full text-xl cursor-pointer hover:bg-white/20 transition"
           aria-label={t("discountBanner.close")}
         >
           &times;

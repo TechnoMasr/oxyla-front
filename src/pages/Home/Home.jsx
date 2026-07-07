@@ -2,6 +2,7 @@ import HomeLoader from "./HomeLoader";
 import { useEffect, useState } from "react";
 import Hero from "./sections/Hero/Hero";
 import GuzzanSite from "./sections/GuzzanSite";
+import OurPartners from "./sections/OurPartners";
 import Services from "./sections/Services";
 import Features from "./sections/Features";
 import Rooms from "./sections/Rooms";
@@ -54,6 +55,7 @@ const Home = () => {
             <Story data={homeData?.section6} />
             <FAQS data={homeData?.section7} />
             <Banner data={homeData?.section8} />
+            <OurPartners />
           </>
         )}
       </article>

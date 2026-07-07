@@ -58,3 +58,8 @@ export const getHomeSection1 = async () => {
   const { data } = await api.get("/home-section-1");
   return data?.data || [];
 };
+
+export const getOurPartners = async () => {
+  const { data } = await api.get("/partners");
+  return data?.data || [];
+};

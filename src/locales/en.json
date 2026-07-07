@@ -11,6 +11,7 @@
   "Testimonials": "Testimonials",
   "MostBookedCapsules": "Most Booked Capsules",
   "Search": "Search",
+  "NoServices": "No Services Available",
 
   "CartCard": {
     "deleteConfirmation": "Are you sure you want to delete this item?",
@@ -28,7 +29,9 @@
     "rooms": "Rooms",
     "booking": "Booking",
     "contact": "Contact",
-    "logoAlt": "Logo"
+    "logoAlt": "Logo",
+    "cr": "Commercial Registration",
+    "tax": "Tax Number"
   },
 
   "Header": {
@@ -309,9 +312,11 @@
 
   "detailsSection": {
     "home": "Home",
-    "pickDate": "Pick a date",
-    "appointmentsAvailable": "Appointments available",
-    "serviceAdded": "service added to cart",
+    "pickDate": "Pick a Date",
+    "selectedDateLabel": "Selected Date",
+    "clickToSelectDate": "Click to select a booking date",
+    "appointmentsAvailable": "Appointments Available",
+    "serviceAdded": "Service added to cart",
     "includedInSession": "Included in Your Session",
     "numberOfPeople": "Number of People",
     "addToCart": "Add to Cart",

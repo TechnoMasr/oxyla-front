@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react"; // 1. ضفنا useRef هنا
 import { renderStars } from "../../../utils/renderStars";
 import { HiMiniCalendarDateRange } from "react-icons/hi2";
 import { LuPlus, LuMinus } from "react-icons/lu";
@@ -19,6 +19,8 @@ const DetailsSection = ({ data }) => {
   const [quantity, setQuantity] = useState(1);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const dateInputRef = useRef(null); // 2. عملنا مرجع للـ input
+
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
 
@@ -26,6 +28,18 @@ const DetailsSection = ({ data }) => {
   const decrease = () => setQuantity((q) => (q > 1 ? q - 1 : 1));
 
   const requireAuth = useRequireAuth();
+
+  // 3. دالة لفتح الكاليندر برمجياً عند الضغط في أي مكان داخل الكارت
+  const handleCustomPickerClick = () => {
+    if (dateInputRef.current) {
+      // showPicker() هي الطريقة الحديثة والمدعومة لفتح الكاليندر بشكل مباشر
+      if (typeof dateInputRef.current.showPicker === "function") {
+        dateInputRef.current.showPicker();
+      } else {
+        dateInputRef.current.click(); // حلا بديل للمتصفحات الأقدم
+      }
+    }
+  };
 
   const {
     mutate: addToCartMutate,
@@ -61,7 +75,8 @@ const DetailsSection = ({ data }) => {
   };
 
   return (
-    <section className="space-y-6 order-2 lg:order-1">
+    <section className="space-y-6 order-2 xl:order-1">
+      {/* ... باقي العناصر العلوية كما هي دون تغيير ... */}
       <div className="flex items-center gap-2">
         <p className="text-gray-500">{t("detailsSection.home")}</p>/
         <p className="font-bold">{data?.category?.name}</p>
@@ -82,19 +97,54 @@ const DetailsSection = ({ data }) => {
 
       <p className="text-gray-500">{data?.description}</p>
 
-      {/* DATE PICKER */}
-      <div className="flex items-center gap-2">
-        <HiMiniCalendarDateRange className="text-3xl text-myGreen" />
-        <input
-          type="date"
-          value={selectedDate}
-          min={new Date().toISOString().split("T")[0]}
-          onChange={(e) => setSelectedDate(e.target.value)}
-          className="px-2 py-1 border border-gray-500 rounded-md hover:bg-gray-100 transition cursor-pointer"
-        />
+      {/* 🛠️ الـ DATE PICKER المعدل بالـ useRef */}
+      <div className="space-y-2">
+        <p className="text-lg font-semibold">{t("detailsSection.pickDate")}</p>
+        <div className="relative max-w-xs">
+          {/* الكارت الخارجي الـ Custom */}
+          <div
+            onClick={handleCustomPickerClick} // عند الضغط هنا بنشغل الـ Input
+            className={`flex items-center gap-3 px-4 py-3 rounded-xl border-2 cursor-pointer transition-all duration-200 select-none ${
+              selectedDate
+                ? "border-myGreen bg-green-50/50 shadow-sm"
+                : "border-gray-200 hover:border-myGreen bg-white shadow-sm"
+            }`}
+          >
+            <HiMiniCalendarDateRange
+              className={`text-2xl transition-colors ${selectedDate ? "text-myGreen" : "text-gray-400"}`}
+            />
+
+            <div className="flex flex-col text-left flex-1">
+              {selectedDate ? (
+                <>
+                  <span className="text-xs text-gray-400 font-medium">
+                    {t("detailsSection.selectedDateLabel")}
+                  </span>
+                  <span className="text-sm font-bold text-gray-800">
+                    {selectedDate}
+                  </span>
+                </>
+              ) : (
+                <span className="text-sm font-medium text-gray-500">
+                  {t("detailsSection.clickToSelectDate")}
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* الـ input الحقيقي مخفي تماماً بالـ CSS وتحت الكارت */}
+          <input
+            ref={dateInputRef} // ربط الـ Ref
+            type="date"
+            value={selectedDate}
+            min={new Date().toISOString().split("T")[0]}
+            onChange={(e) => setSelectedDate(e.target.value)}
+            className="absolute pointer-events-none opacity-0 left-0 bottom-0 w-0 h-0"
+          />
+        </div>
       </div>
 
-      {/* TIME SELECTION */}
+      {/* ... باقي الأقسام التحتية (المواعيد، الميزات، العدد) كما هي تماماً ... */}
       {data?.times.length > 0 && (
         <div>
           <p className="text-lg mb-1 font-semibold">
@@ -125,7 +175,6 @@ const DetailsSection = ({ data }) => {
         </div>
       )}
 
-      {/* FEATURES */}
       {data?.features.length > 0 && (
         <div>
           <p className="text-lg mb-1 font-semibold">
@@ -152,7 +201,6 @@ const DetailsSection = ({ data }) => {
         </div>
       )}
 
-      {/* QUANTITY + ADD TO CART */}
       <div className="flex items-end gap-4">
         <div>
           <p className="text-lg mb-1 font-semibold">
