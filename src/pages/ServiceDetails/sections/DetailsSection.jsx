@@ -187,12 +187,14 @@ const DetailsSection = ({ data }) => {
                 className="flex flex-col items-center gap-1 text-gray-600"
               >
                 <span className="w-12 h-12 overflow-hidden border-2 rounded-full">
-                  <img
-                    loading="lazy"
-                    src={item.image_url}
-                    alt={item.name}
-                    className="w-full h-full object-cover"
-                  />
+                  {item.image_url && (
+                    <img
+                      loading="lazy"
+                      src={item.image_url}
+                      alt={item.name}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
                 </span>
                 <p className="text-sm">{item.name}</p>
               </div>

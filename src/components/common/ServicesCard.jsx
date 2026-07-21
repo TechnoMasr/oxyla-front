@@ -53,12 +53,14 @@ const ServicesCard = ({ service }) => {
       className="flex flex-col lg:flex-row rounded-2xl overflow-hidden shadow-lg border border-gray-200"
     >
       <div className="w-full h-[200px] lg:w-1/2 lg:min-h-full">
-        <img
-          loading="lazy"
-          src={service.image_url}
-          alt={service.name}
-          className="w-full h-full object-cover"
-        />
+        {service.image_url && (
+          <img
+            loading="lazy"
+            src={service.image_url}
+            alt={service.name}
+            className="w-full h-full object-cover"
+          />
+        )}
       </div>
 
       <div className="p-4 flex-1 space-y-4">

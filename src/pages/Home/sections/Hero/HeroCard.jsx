@@ -10,19 +10,23 @@ const HeroCard = ({ item, index }) => {
       transition={{ duration: 1, delay: 5 + index * 0.5 }}
       className="overflow-hidden group relative"
     >
-      <img
-        loading="lazy"
-        src={item?.mobile_image}
-        alt={item?.title}
-        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 md:hidden"
-      />
+      {item?.mobile_image && (
+        <img
+          loading="lazy"
+          src={item?.mobile_image}
+          alt={item?.title}
+          className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 md:hidden"
+        />
+      )}
 
-      <img
-        loading="lazy"
-        src={item?.web_image}
-        alt={item?.title}
-        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 hidden md:block"
-      />
+      {item?.web_image && (
+        <img
+          loading="lazy"
+          src={item?.web_image}
+          alt={item?.title}
+          className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 hidden md:block"
+        />
+      )}
 
       <div
         className="absolute -bottom-16 left-0 w-full bg-black/0 backdrop-blur-none 

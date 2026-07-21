@@ -26,12 +26,14 @@ const Story = ({ data }) => {
             <SwiperSlide key={item.id}>
               <div className="bg-white rounded-xl shadow-lg flex flex-col justify-between overflow-hidden">
                 <div className="w-full h-48 overflow-hidden rounded-xl">
-                  <img
-                    loading="lazy"
-                    src={item.image_url}
-                    alt={item.name}
-                    className="w-full h-full object-cover"
-                  />
+                  {item.image_url && (
+                    <img
+                      loading="lazy"
+                      src={item.image_url}
+                      alt={item.name}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
                 </div>
 
                 <div className="p-4 text-sm">

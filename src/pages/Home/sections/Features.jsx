@@ -18,12 +18,14 @@ const Features = ({ data }) => {
             key={feature.id}
             className="space-y-4 bg-gray-100 p-4 rounded-xl shadow-lg"
           >
-            <img
-              loading="lazy"
-              src={feature.icon}
-              alt={feature.description}
-              className="w-8 h-8 object-contain"
-            />
+            {feature.icon && (
+              <img
+                loading="lazy"
+                src={feature.icon}
+                alt={feature.description}
+                className="w-8 h-8 object-contain"
+              />
+            )}
             <p className="font-semibold uppercase text-lg">
               {feature.description}
             </p>

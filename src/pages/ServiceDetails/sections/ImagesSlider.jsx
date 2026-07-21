@@ -31,12 +31,14 @@ const ImagesSlider = ({ images }) => {
       >
         {images.map((img, index) => (
           <SwiperSlide key={index}>
-            <img
-              loading="lazy"
-              src={img}
-              alt="service"
-              className="w-full h-[300px] md:h-[400px] lg:h-[450px] object-cover rounded-2xl transition-transform duration-500 hover:scale-[1.02]"
-            />
+            {img && (
+              <img
+                loading="lazy"
+                src={img}
+                alt="service"
+                className="w-full h-[300px] md:h-[400px] lg:h-[450px] object-cover rounded-2xl transition-transform duration-500 hover:scale-[1.02]"
+              />
+            )}
           </SwiperSlide>
         ))}
       </Swiper>
@@ -63,12 +65,14 @@ const ImagesSlider = ({ images }) => {
                   : "border-2 border-transparent opacity-70 hover:opacity-100 hover:border-myGreen"
               }`}
             >
-              <img
-                loading="lazy"
-                src={img}
-                alt="thumbnail"
-                className="w-full h-[80px] md:h-[100px] object-cover rounded-lg"
-              />
+              {img && (
+                <img
+                  loading="lazy"
+                  src={img}
+                  alt="thumbnail"
+                  className="w-full h-[80px] md:h-[100px] object-cover rounded-lg"
+                />
+              )}
             </div>
           </SwiperSlide>
         ))}

@@ -31,7 +31,8 @@
     "contact": "Contact",
     "logoAlt": "Logo",
     "cr": "Commercial Registration",
-    "tax": "Tax Number"
+    "tax": "Tax Number",
+    "downloadOn": "Download on"
   },
 
   "Header": {

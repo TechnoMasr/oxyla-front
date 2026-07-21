@@ -20,12 +20,14 @@ const FAQS = ({ data }) => {
       <div className="grid lg:grid-cols-12 gap-8">
         {/* Image section */}
         <div className="hidden lg:block w-full aspect-square rounded-xl shadow-lg overflow-hidden lg:col-span-5">
-          <img
-            loading="lazy"
-            src={data?.image}
-            alt={data?.titles}
-            className="w-full h-full object-cover"
-          />
+          {data?.image && (
+            <img
+              loading="lazy"
+              src={data?.image}
+              alt={data?.titles}
+              className="w-full h-full object-cover"
+            />
+          )}
         </div>
 
         {/* Accordion section */}

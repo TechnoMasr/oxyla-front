@@ -38,12 +38,14 @@ const Rooms = ({ data }) => {
                 </div>
 
                 <div className="w-full h-56 lg:h-72 overflow-hidden rounded-xl">
-                  <img
-                    loading="lazy"
-                    src={item.image_url}
-                    alt={item.name}
-                    className="w-full h-full object-cover"
-                  />
+                  {item.image_url && (
+                    <img
+                      loading="lazy"
+                      src={item.image_url}
+                      alt={item.name}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
                 </div>
               </div>
             </SwiperSlide>

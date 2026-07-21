@@ -44,12 +44,14 @@ const ServiceTestimonials = ({ data }) => {
             <div className="border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm">
               <div className="flex items-center gap-2 bg-stone-200 p-4 pb-6">
                 <span className="h-18 w-18 overflow-hidden rounded-lg">
-                  <img
-                    loading="lazy"
-                    src={item.image_url}
-                    alt={item.name}
-                    className="w-full h-full object-contain"
-                  />
+                  {item.image_url && (
+                    <img
+                      loading="lazy"
+                      src={item.image_url}
+                      alt={item.name}
+                      className="w-full h-full object-contain"
+                    />
+                  )}
                 </span>
 
                 <div>

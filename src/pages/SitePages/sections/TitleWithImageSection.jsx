@@ -70,12 +70,14 @@ const TitleWithImageSection = ({ data }) => {
         >
           {data?.images_full_path.map((img, i) => (
             <SwiperSlide key={i}>
-              <img
-                loading="lazy"
-                src={img}
-                alt={`img-${i}`}
-                className="w-full h-full object-cover"
-              />
+              {img && (
+                <img
+                  loading="lazy"
+                  src={img}
+                  alt={`img-${i}`}
+                  className="w-full h-full object-cover"
+                />
+              )}
             </SwiperSlide>
           ))}
         </Swiper>

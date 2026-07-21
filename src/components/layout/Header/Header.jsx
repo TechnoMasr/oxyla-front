@@ -6,7 +6,7 @@ import logo from "../../../assets/images/logo/logo.png";
 import NavBar from "./NavBar/NavBar";
 import HeaderAction from "./HeaderAction";
 import NavBarMobile from "./NavBar/NavBarMobile";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchSetting } from "../../../store/setting/setting";
 import {
   getCartCountAct,
@@ -17,6 +17,7 @@ import { useTranslation } from "react-i18next";
 const Header = () => {
   const [activeNav, setActiveNav] = useState(false);
   const headerRef = useRef();
+  const { setting } = useSelector((state) => state.setting);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -73,7 +74,7 @@ const Header = () => {
             >
               <img
                 loading="lazy"
-                src={logo}
+                src={setting?.logo || logo}
                 alt="Logo"
                 className="w-14 lg:w-18"
               />

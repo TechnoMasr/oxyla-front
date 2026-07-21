@@ -24,12 +24,14 @@ const WishListCard = ({ item }) => {
   return (
     <div className="flex items-center gap-4 py-4 not-last:border-b border-gray-200">
       <div className="w-26 h-26 sm:w-32 sm:h-32 rounded-lg overflow-hidden">
-        <img
-          loading="lazy"
-          src={item.image_url}
-          alt={item.name}
-          className="w-full h-full object-cover"
-        />
+        {item.image_url && (
+          <img
+            loading="lazy"
+            src={item.image_url}
+            alt={item.name}
+            className="w-full h-full object-cover"
+          />
+        )}
       </div>
 
       <div className="space-y-2 flex-1">
