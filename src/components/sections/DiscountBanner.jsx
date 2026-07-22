@@ -14,8 +14,8 @@ const DiscountBanner = () => {
   if (!discountBanner || !visible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 text-white capitalize bg-gradient-to-r from-myGreen via-myBlue to-myPurple px-4 py-2 shadow-lg">
-      <div className="flex items-center justify-between max-w-7xl mx-auto">
+    <div className="fixed bottom-0 left-0 right-0 z-50 text-white capitalize bg-linear-to-r from-myGreen via-myBlue to-myPurple px-4 py-2 shadow-lg">
+      <div className="container flex items-center justify-between">
         <div className="flex items-center gap-4">
           <p className="text-sm md:text-base">
             <span className="font-semibold">
@@ -36,7 +36,7 @@ const DiscountBanner = () => {
 
         <button
           onClick={() => setVisible(false)}
-          className="absolute top-1/2 -translate-y-1/2 inset-e-2 w-6 h-6 flex items-center justify-center rounded-full text-xl cursor-pointer hover:bg-white/20 transition"
+          className="w-6 h-6 flex items-center justify-center rounded-full text-xl cursor-pointer hover:bg-white/20 transition"
           aria-label={t("discountBanner.close")}
         >
           &times;

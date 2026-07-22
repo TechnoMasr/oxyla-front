@@ -33,8 +33,8 @@ const HeroCard = ({ item, index }) => {
         group-hover:backdrop-blur-xl group-hover:bottom-0 group-hover:bg-black/20
         transition-all duration-500 flex flex-col justify-center items-center text-center p-4"
       >
-        <h2 className="text-4xl font-bold text-white mb-2">{item?.title}</h2>
-        <p className="text-white mb-4">{item?.description}</p>
+        <h2 className="text-xl md:text-2xl lg:text-4xl font-bold text-white mb-2">{item?.title}</h2>
+        <p className="text-sm md:text-base text-white mb-4">{item?.description}</p>
 
         <Link
           to={item?.button_url || "/services"}

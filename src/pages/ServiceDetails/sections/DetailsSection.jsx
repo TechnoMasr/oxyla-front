@@ -1,4 +1,4 @@
-import { useState, useRef } from "react"; // 1. ضفنا useRef هنا
+import { useState, useRef } from "react";
 import { renderStars } from "../../../utils/renderStars";
 import { HiMiniCalendarDateRange } from "react-icons/hi2";
 import { LuPlus, LuMinus } from "react-icons/lu";
@@ -75,7 +75,7 @@ const DetailsSection = ({ data }) => {
   };
 
   return (
-    <section className="space-y-6 order-2 xl:order-1">
+    <section className="space-y-6 order-2 lg:order-1">
       {/* ... باقي العناصر العلوية كما هي دون تغيير ... */}
       <div className="flex items-center gap-2">
         <p className="text-gray-500">{t("detailsSection.home")}</p>/
@@ -95,7 +95,12 @@ const DetailsSection = ({ data }) => {
         </div>
       </div>
 
-      <p className="text-gray-500">{data?.description}</p>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: data?.description,
+        }}
+        className="rich_content"
+      />
 
       {/* 🛠️ الـ DATE PICKER المعدل بالـ useRef */}
       <div className="space-y-2">
@@ -147,7 +152,7 @@ const DetailsSection = ({ data }) => {
       {/* ... باقي الأقسام التحتية (المواعيد، الميزات، العدد) كما هي تماماً ... */}
       {data?.times.length > 0 && (
         <div>
-          <p className="text-lg mb-1 font-semibold">
+          <p className="text-lg mb-2 font-semibold">
             {t("detailsSection.appointmentsAvailable")}
           </p>
           <div className="flex flex-wrap gap-2">
@@ -177,16 +182,22 @@ const DetailsSection = ({ data }) => {
 
       {data?.features.length > 0 && (
         <div>
-          <p className="text-lg mb-1 font-semibold">
-            {t("detailsSection.includedInSession")}
+          <p className="text-lg mb-2 font-semibold">
+            {data?.features_title || t("detailsSection.includedInSession")}
           </p>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-col w-fit">
             {data?.features?.map((item) => (
               <div
                 key={item.id}
-                className="flex flex-col items-center gap-1 text-gray-600"
+                className="flex items-center gap-2 text-gray-600 p-2 not-last:border-b border-gray-200"
               >
-                <span className="w-12 h-12 overflow-hidden border-2 rounded-full">
+                <div
+                  className="aspect-square overflow-hidden border-[1.5px] rounded-full"
+                  style={{
+                    width: data?.features_image_size || "80px",
+                    height: data?.features_image_size || "80px",
+                  }}
+                >
                   {item.image_url && (
                     <img
                       loading="lazy"
@@ -195,19 +206,24 @@ const DetailsSection = ({ data }) => {
                       className="w-full h-full object-cover"
                     />
                   )}
-                </span>
-                <p className="text-sm">{item.name}</p>
+                </div>
+                <p className="text-sm flex-1">{item.name}</p>
               </div>
             ))}
           </div>
         </div>
       )}
 
-      <div className="flex items-end gap-4">
-        <div>
-          <p className="text-lg mb-1 font-semibold">
-            {t("detailsSection.numberOfPeople")}
-          </p>
+      <div>
+        <p className="text-lg font-semibold">
+          {t("detailsSection.numberOfPeople")}
+        </p>
+        <p className="text-gray-500 mb-2">
+          {t("detailsSection.maxNumOfPeople")}:{" "}
+          <span className="font-bold">{data?.max_num_of_people}</span>
+        </p>
+
+        <div className="flex gap-2 md:gap-4">
           <div className="flex items-center justify-between gap-2 p-2 rounded-full border">
             <span className="text-xl cursor-pointer" onClick={decrease}>
               <LuMinus />
@@ -217,22 +233,17 @@ const DetailsSection = ({ data }) => {
               <LuPlus />
             </span>
           </div>
+          <button
+            className="mainBtn rounded-full!"
+            disabled={isPending}
+            onClick={handleAddToCart}
+          >
+            {isPending
+              ? t("detailsSection.adding")
+              : t("detailsSection.addToCart")}
+          </button>{" "}
         </div>
-
-        <button
-          className="mainBtn rounded-full!"
-          disabled={isPending}
-          onClick={handleAddToCart}
-        >
-          {isPending
-            ? t("detailsSection.adding")
-            : t("detailsSection.addToCart")}
-        </button>
       </div>
-
-      <p>
-        {t("detailsSection.maxNumOfPeople")}: {data?.max_num_of_people}
-      </p>
 
       <FormError errorMsg={errorMessage || error?.response?.data?.message} />
     </section>

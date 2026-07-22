@@ -6,8 +6,6 @@ import {
   FaTiktok,
   FaTwitter,
   FaWhatsapp,
-  FaAndroid,
-  FaApple,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/images/oxela-home-logo/5.png";
@@ -15,6 +13,8 @@ import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { getPages } from "../../../services/mainServices";
 import { useSelector } from "react-redux";
+import appleIcon from "../../../assets/icons/apple.png";
+import playstoreIcon from "../../../assets/icons/playstore.png";
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -102,20 +102,20 @@ const Footer = () => {
 
       {/* --- القسم الجديد: أزرار تحميل التطبيقات --- */}
       {(setting?.android_link || setting?.ios_link) && (
-        <div className="mt-8 flex flex-wrap justify-center gap-4">
+        <div className="mt-8 lg:mt-0 flex flex-wrap justify-center gap-4">
           {setting?.android_link && (
             <a
               href={setting.android_link}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-black text-white px-4 py-2 rounded-lg text-sm hover:bg-myBlue duration-200"
+              className="flex items-center gap-2 bg-white border-[1.5px] border-black text-black px-4 py-2 rounded-xl text-sm hover:brightness-95 duration-200"
             >
-              <FaAndroid className="text-2xl" />
-              <div className="text-left">
-                <span className="block text-xs text-gray-300">
+              <img src={playstoreIcon} alt="Google Play" className="w-7" />
+              <div>
+                <span className="block font-medium text-xs uppercase">
                   {t("Footer.downloadOn")}
                 </span>
-                <span className="font-semibold">Google Play</span>
+                <span className="font-bold">Google Play</span>
               </div>
             </a>
           )}
@@ -124,14 +124,14 @@ const Footer = () => {
               href={setting.ios_link}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-black text-white px-4 py-2 rounded-lg text-sm hover:bg-myBlue duration-200"
+              className="flex items-center gap-2 bg-white border-[1.5px] border-black text-black px-4 py-2 rounded-xl text-sm hover:brightness-95 duration-200"
             >
-              <FaApple className="text-2xl" />
-              <div className="text-left">
-                <span className="block text-xs text-gray-300">
+              <img src={appleIcon} alt="App Store" className="w-7" />
+              <div>
+                <span className="block font-medium text-xs uppercase">
                   {t("Footer.downloadOn")}
                 </span>
-                <span className="font-semibold">App Store</span>
+                <span className="font-bold">App Store</span>
               </div>
             </a>
           )}

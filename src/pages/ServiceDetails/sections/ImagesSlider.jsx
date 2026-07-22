@@ -13,7 +13,7 @@ const ImagesSlider = ({ images }) => {
   const { lang } = useSelector((state) => state.language);
 
   return (
-    <div className="order-1 xl:order-2 relative">
+    <div className="order-1 lg:order-2 relative">
       {/* ✅ السلايدر الرئيسي */}
       <Swiper
         dir={lang === "ar" ? "rtl" : "ltr"}
