@@ -7,7 +7,7 @@ const HeroCard = ({ item, index }) => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 1, delay: 5 + index * 0.5 }}
+      transition={{ duration: 1, delay: 2 + index * 0.5 }}
       className="overflow-hidden group relative"
     >
       {item?.mobile_image && (
