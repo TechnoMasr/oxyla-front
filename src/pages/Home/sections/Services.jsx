@@ -19,7 +19,11 @@ const Services = ({ data }) => {
               className="bg-white text-center p-6 rounded-xl shadow-lg"
             >
               <h3 className="font-bold text-xl mb-2 uppercase">{item.title}</h3>
-              <p className="text-lg">{item.description}</p>
+              {/* <p className="text-lg">{item.description}</p> */}
+              <div
+                dangerouslySetInnerHTML={{ __html: item.description }}
+                className="rich_content"
+              />
             </div>
           ))}
         </div>

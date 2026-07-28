@@ -20,24 +20,27 @@ const Rooms = ({ data }) => {
           dir={lang === "ar" ? "rtl" : "ltr"}
           spaceBetween={20}
           slidesPerView={1}
+          className="!items-stretch" // مهم
           breakpoints={{
             560: { slidesPerView: 1.5 },
             1024: { slidesPerView: 2.5 },
           }}
         >
           {data?.data.map((item) => (
-            <SwiperSlide key={item.id}>
-              <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-                <div className="p-4 text-sm min-h-28">
+            <SwiperSlide key={item.id} className="h-auto">
+              {" "}
+              {/* مهم */}
+              <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full flex flex-col">
+                <div className="p-4 text-sm">
                   <h3 className="font-bold text-lg mb-2 line-clamp-1">
                     {item.name}
                   </h3>
-                  <p className="font-semibold line-clamp-2">
-                    {item.description}
-                  </p>
+                  <div
+                    dangerouslySetInnerHTML={{ __html: item.description }}
+                    className="rich_content line-clamp-3" // حط limit للسطور عشان الفرق ميبقاش كبير أوي
+                  />
                 </div>
-
-                <div className="w-full h-56 lg:h-72 overflow-hidden rounded-xl">
+                <div className="w-full h-56 lg:h-72 overflow-hidden rounded-xl mt-auto">
                   {item.image_url && (
                     <img
                       loading="lazy"

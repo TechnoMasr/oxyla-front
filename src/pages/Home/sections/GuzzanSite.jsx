@@ -19,7 +19,7 @@ const GuzzanSite = () => {
 
   return (
     <section
-      className="relative my-16 md:my-28 mx-4 max-w-7xl lg:mx-auto rounded-3xl bg-gray-200 group
+      className="relative my-8 md:my-16 mx-4 max-w-7xl lg:mx-auto rounded-3xl bg-gray-200 group
       border border-gray-100 text-gray-900 overflow-hidden shadow-xl shadow-gray-200/50 bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url(${bg})` }}
     >
@@ -38,9 +38,14 @@ const GuzzanSite = () => {
             {data?.title}
           </h2>
 
-          <p className="text-sm md:text-base text-white leading-relaxed">
+          {/* <p className="text-sm md:text-base text-white leading-relaxed">
             {data?.description}
-          </p>
+          </p> */}
+
+          <div
+            dangerouslySetInnerHTML={{ __html: data?.description }}
+            className="rich_content text-sm md:text-base text-white leading-relaxed"
+          />
 
           <div className="pt-2 flex justify-center lg:justify-start">
             <a

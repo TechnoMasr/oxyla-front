@@ -12,7 +12,7 @@ const OxylaLoading = ({ children }) => {
 
   // إنشاء bubbles عشوائية
   useEffect(() => {
-    const numBubbles = 35;
+    const numBubbles = 30;
     const logoRadius = logoSize / 2 + 60;
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
@@ -63,7 +63,7 @@ const OxylaLoading = ({ children }) => {
   useEffect(() => {
     let start = null;
     // const duration = 4000; 
-    const duration = 2000; 
+    const duration = 1000; 
 
     setProgress(0);
     setVisible(true);

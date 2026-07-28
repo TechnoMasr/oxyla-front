@@ -29,19 +29,27 @@ const HeroCard = ({ item, index }) => {
       )}
 
       <div
-        className="absolute -bottom-16 left-0 w-full bg-black/0 backdrop-blur-none 
-        group-hover:backdrop-blur-xl group-hover:bottom-0 group-hover:bg-black/20
+        className="absolute bottom-0 left-0 w-full bg-black/0 backdrop-blur-none 
+        group-hover:backdrop-blur-xl group-hover:bg-black/20
         transition-all duration-500 flex flex-col justify-center items-center text-center p-4"
       >
-        <h2 className="text-xl md:text-2xl lg:text-4xl font-bold text-white mb-2">{item?.title}</h2>
-        <p className="text-sm md:text-base text-white mb-4">{item?.description}</p>
+        <h2 className="text-xl md:text-2xl lg:text-4xl font-bold text-white mb-2">
+          {item?.title}
+        </h2>
+        <p className="text-sm md:text-base text-white">{item?.description}</p>
 
-        <Link
-          to={item?.button_url || "/services"}
-          className="px-4 py-2 text-xl text-white border font-semibold rounded flex items-center gap-2"
-        >
-          {item?.button_text} <GoArrowUpRight className=" rtl:rotate-270" />
-        </Link>
+        {item?.enable_button && (
+          <div
+            className={`flex items-center max-h-0 overflow-hidden group-hover:max-h-14 group-hover:mt-4 transition-all duration-500`}
+          >
+            <Link
+              to={item?.button_url || "/services"}
+              className="px-4 py-2 text-xl text-white border font-semibold rounded flex items-center gap-2"
+            >
+              {item?.button_text} <GoArrowUpRight className=" rtl:rotate-270" />
+            </Link>
+          </div>
+        )}
       </div>
     </motion.div>
   );

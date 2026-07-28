@@ -173,7 +173,7 @@ const DetailsSection = ({ data }) => {
                   onChange={() => setSelectedTime(time.id)}
                   className="hidden"
                 />
-                {time.from_time}
+                {time.from_time_formatted}
               </label>
             ))}
           </div>
@@ -189,13 +189,13 @@ const DetailsSection = ({ data }) => {
             {data?.features?.map((item) => (
               <div
                 key={item.id}
-                className="flex items-center gap-2 text-gray-600 p-2 not-last:border-b border-gray-200"
+                className="flex flex-col items-center text-center gap-2 text-gray-600 p-2 not-last:border-b border-gray-200"
               >
                 <div
-                  className="aspect-square overflow-hidden border-[1.5px] rounded-full"
+                  className="aspect-4/3 overflow-hidden border-[1.5px] border-myGreen rounded-xl max-w-full!"
                   style={{
                     width: data?.features_image_size || "80px",
-                    height: data?.features_image_size || "80px",
+                    // height: data?.features_image_size || "80px",
                   }}
                 >
                   {item.image_url && (

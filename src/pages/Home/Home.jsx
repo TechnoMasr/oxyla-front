@@ -48,13 +48,13 @@ const Home = () => {
           <>
             <Hero data={homeData?.sliders} />
             <Services data={homeData?.section2} />
-            <GuzzanSite />
             <Features data={homeData?.section3} />
             <Rooms data={homeData?.section4} />
             <MedicalGrade data={homeData?.section5} />
+            <Banner data={homeData?.section8} />
             <Story data={homeData?.section6} />
             <FAQS data={homeData?.section7} />
-            <Banner data={homeData?.section8} />
+            <GuzzanSite />
             <OurPartners />
           </>
         )}

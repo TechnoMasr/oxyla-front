@@ -11,13 +11,13 @@ import { useEffect, useState } from "react";
 const HomeLoader = () => {
   const [showLoader, setShowLoader] = useState(true);
   const logos = [logo1, logo2, logo3, logo4];
-  const text = "Breath . Renew . Heal";
+  const text = "Breathe . Renew . Heal";
 
   useEffect(() => {
     if (showLoader) {
       setTimeout(() => {
         setShowLoader(false);
-      }, 5000);
+      }, 2500); // كان 5000
     }
   }, [showLoader]);
 
@@ -28,15 +28,15 @@ const HomeLoader = () => {
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 0.5 }} // كان 1
           className="fixed inset-0 z-[1111] bg-white flex flex-col items-center justify-center gap-2"
         >
           <motion.div
             initial={{ x: "40%" }}
             animate={{ x: "0%" }}
             transition={{
-              duration: 2.5,
-              delay: 0.2,
+              duration: 1.25, // كان 2.5
+              delay: 0.1, // كان 0.2
             }}
             className="h-[150px] w-[150px] relative overflow-hidden"
             dir="ltr"
@@ -58,8 +58,8 @@ const HomeLoader = () => {
                 initial={{ opacity: 1 }}
                 animate={{ opacity: 0 }}
                 transition={{
-                  duration: 1,
-                  delay: 0.5 + index * 0.5,
+                  duration: 0.5, // كان 1
+                  delay: 0.25 + index * 0.25, // كان 0.5 + index * 0.5
                 }}
               />
             ))}
@@ -75,8 +75,8 @@ const HomeLoader = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  duration: 0.3,
-                  delay: 2.5 + index * 0.1,
+                  duration: 0.15, // كان 0.3
+                  delay: 1.25 + index * 0.05, // كان 2.5 + index * 0.1
                 }}
               >
                 {letter === " " ? "\u00A0" : letter}
