@@ -1,8 +1,10 @@
 import api from "./api";
 
-export const getWishList = async () => {
-  const { data } = await api.get("/favorites");
-  return data?.data || [];
+export const getWishList = async (page = 1) => {
+  const { data } = await api.get("/favorites", {
+    params: { page },
+  });
+  return data;
 };
 
 export const toggleWishList = async (payload) => {

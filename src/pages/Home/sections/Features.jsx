@@ -16,14 +16,14 @@ const Features = ({ data }) => {
         {data?.data.map((feature) => (
           <li
             key={feature.id}
-            className="space-y-4 bg-gray-100 p-4 rounded-xl shadow-lg"
+            className="flex flex-col items-center text-center lg:items-start lg:text-start gap-4 bg-gray-100 p-4 rounded-xl shadow-lg"
           >
             {feature.icon && (
               <img
                 loading="lazy"
                 src={feature.icon}
                 alt={feature.description}
-                className="w-8 h-8 object-contain"
+                className="w-10 h-10 object-contain"
               />
             )}
             <p className="font-semibold uppercase text-lg">

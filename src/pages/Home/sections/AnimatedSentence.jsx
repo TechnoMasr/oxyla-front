@@ -12,7 +12,7 @@ const AnimatedSentence = ({ text }) => {
           observer.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     if (ref.current) {
@@ -22,18 +22,32 @@ const AnimatedSentence = ({ text }) => {
     return () => observer.disconnect();
   }, []);
 
+  // 1. هنا بنحول الـ HTML String لنص سادة تماماً وبنصلح الرموز
+  const getPlainText = (htmlString) => {
+    if (!htmlString) return "";
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlString, "text/html");
+    return doc.body.textContent || doc.body.innerText || "";
+  };
+
+  const plainText = getPlainText(text);
+
+  // 2. بنقسم النص السادة لكلمات بناءً على المسافات
+  const words = plainText.split(/\s+/).filter(Boolean);
+
   return (
     <p
       ref={ref}
-      className="font-bold text-2xl lg:text-4xl leading-snug flex flex-wrap gap-2"
+      // أضفنا text-right علشان النص عندك متنسق في الـ HTML الأصلي إنه text-align:end
+      className="font-bold text-2xl lg:text-4xl leading-snug flex flex-wrap gap-x-2 gap-y-1 justify-start"
     >
-      {text?.split(" ").map((word, index) => (
+      {words.map((word, index) => (
         <span
           key={index}
           className={`transition-colors duration-500 ${
             isVisible ? "text-black" : "text-stone-400"
           }`}
-          style={{ transitionDelay: `${index * 100}ms` }}
+          style={{ transitionDelay: `${index * 50}ms` }} // قللت الـ delay لـ 50ms عشان النص طويل ومياخدش وقت كبير
         >
           {word}
         </span>

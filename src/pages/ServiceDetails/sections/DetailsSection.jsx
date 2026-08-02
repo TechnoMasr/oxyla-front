@@ -185,19 +185,13 @@ const DetailsSection = ({ data }) => {
           <p className="text-lg mb-2 font-semibold">
             {data?.features_title || t("detailsSection.includedInSession")}
           </p>
-          <div className="flex flex-col w-fit">
+          <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
             {data?.features?.map((item) => (
               <div
                 key={item.id}
-                className="flex flex-col items-center text-center gap-2 text-gray-600 p-2 not-last:border-b border-gray-200"
+                className="flex flex-col items-center text-center gap-2 text-gray-600"
               >
-                <div
-                  className="aspect-4/3 overflow-hidden border-[1.5px] border-myGreen rounded-xl max-w-full!"
-                  style={{
-                    width: data?.features_image_size || "80px",
-                    // height: data?.features_image_size || "80px",
-                  }}
-                >
+                <div className="aspect-4/3 overflow-hidden border-2 border-myGreen rounded-xl max-w-full!">
                   {item.image_url && (
                     <img
                       loading="lazy"

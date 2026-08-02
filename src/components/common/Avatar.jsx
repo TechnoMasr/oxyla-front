@@ -15,7 +15,7 @@ export default function Avatar({ name, img, size = "md"}) {
   return (
     <div
       className={`flex items-center justify-center rounded-full text-white
-      bg-gradient-to-bl from-myGreen via-myBlue to-myPurple overflow-hidden ${sizes[size]}`}
+      bg-linear-to-bl from-myGreen via-myBlue to-myPurple overflow-hidden ${sizes[size]}`}
     >
       {img ? (
         <img

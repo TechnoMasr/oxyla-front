@@ -25,10 +25,17 @@ const SitePages = () => {
   if (isError || !page) return null;
 
   return (
-    <section className="space-y-8">
-      <PageBanner data={page} />
+    <main className="space-y-8">
+      <PageBanner image={page?.banner_image} title={page?.head_text} />
 
-      {page?.blocks?.map((block) =>
+      <section className="container">
+        <div
+          dangerouslySetInnerHTML={{ __html: page.content_text }}
+          className="rich_content"
+        />
+      </section>
+
+      {/* {page?.blocks?.map((block) =>
         block.type === "paragraphs_with_headings" ? (
           <ParagraphsWithHeadings key={block.id} data={block} />
         ) : block.type === "counter" ? (
@@ -38,10 +45,9 @@ const SitePages = () => {
         ) : (
           <TitleWithImageSection key={block.id} data={block} />
         ),
-      )}
-    </section>
+      )} */}
+    </main>
   );
 };
 
 export default SitePages;
-// title_with_image_and_titles_with_descriptions;

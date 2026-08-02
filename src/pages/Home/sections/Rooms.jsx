@@ -20,14 +20,14 @@ const Rooms = ({ data }) => {
           dir={lang === "ar" ? "rtl" : "ltr"}
           spaceBetween={20}
           slidesPerView={1}
-          className="!items-stretch" // مهم
+          className="items-stretch!" // مهم
           breakpoints={{
             560: { slidesPerView: 1.5 },
             1024: { slidesPerView: 2.5 },
           }}
         >
           {data?.data.map((item) => (
-            <SwiperSlide key={item.id} className="h-auto">
+            <SwiperSlide key={item.id} className="h-auto py-4">
               {" "}
               {/* مهم */}
               <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full flex flex-col">
