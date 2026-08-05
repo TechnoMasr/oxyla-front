@@ -265,6 +265,7 @@
     "currentPassword": "Current Password",
     "newPassword": "New Password",
     "confirmNewPassword": "Confirm New Password",
+    "changePassword": "Change Password",
     "edit": "Edit",
     "cancel": "Cancel",
     "saveChanges": "Save Changes",
@@ -272,7 +273,8 @@
     "validation": {
       "enterNewPassword": "Please enter the new password and confirmation.",
       "enterCurrentPassword": "Please enter your current password first.",
-      "passwordMismatch": "Password confirmation does not match."
+      "passwordMismatch": "Password confirmation does not match.",
+      "invalidPhone": "Invalid phone number"
     },
     "errorSomethingWrong": "Something went wrong"
   },
@@ -371,7 +373,22 @@
     "phone": "Phone Number",
     "emailInvalid": "Email must be valid",
     "phoneRequired": "Phone number is required",
-    "phoneInvalid": "Invalid phone number"
+    "phoneInvalid": "Invalid phone number",
+    "gender": "Gender",
+    "selectGender": "Select gender",
+    "male": "Male",
+    "female": "Female",
+    "genderRequired": "Gender is required",
+    "genderInvalid": "Invalid gender",
+    "age": "Age",
+    "ageRequired": "Age is required",
+    "ageInvalid": "Must be a valid number",
+    "ageMin": "Age must be at least 1",
+    "ageMax": "Age cannot exceed 120",
+    "goal": "Goal",
+    "goalPlaceholder": "Enter your goal (max 255 characters)...",
+    "goalRequired": "Goal is required",
+    "goalMax": "Goal must not exceed 255 characters"
   },
 
   "verifyEmailPage": {
@@ -440,7 +457,7 @@
 
   "requiredVerifyEmailModal": {
     "title": "Your email is not verified!",
-    "description": "You must verify your email to access this page",
+    "description": "You must verify your email to continue",
     "goToVerify": "Verify Email",
     "cancel": "Cancel"
   },

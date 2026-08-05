@@ -14,6 +14,7 @@ import FormBtn from "../../components/form/FormBtn";
 import FormError from "../../components/form/FormError";
 import { loginUser } from "../../services/authServices";
 import { getProfileAct } from "../../store/profile/profileSlice";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 const Signin = () => {
   const { t } = useTranslation();
@@ -41,17 +42,24 @@ const Signin = () => {
         then: (schema) =>
           schema
             .required(t("signin.phoneRequired"))
-            .min(8, t("signin.phoneInvalid")),
+            .test("is-valid-phone", t("signin.phoneInvalid"), (value) => {
+              if (!value) return false;
+              const formattedValue = value.startsWith("+")
+                ? value
+                : `+${value}`;
+              const phoneNumber = parsePhoneNumberFromString(formattedValue);
+              return phoneNumber ? phoneNumber.isValid() : false;
+            }),
       }),
     password: yup.string().required(t("signin.passwordRequired")),
   });
-
   // ---------------- FORM ----------------
   const {
     register,
     handleSubmit,
     reset,
     setValue,
+    clearErrors, // <-- أضف clearErrors هنا
     formState: { errors },
   } = useForm({
     resolver: yupResolver(signinSchema),
@@ -61,6 +69,16 @@ const Signin = () => {
       password: "",
     },
   });
+
+  const handleMethodChange = (selectedMethod) => {
+    setMethod(selectedMethod);
+    clearErrors(["email", "phone"]); // مسح أخطاء الـ Email والـ Phone القديمة
+    if (selectedMethod === "email") {
+      setValue("phone", "");
+    } else {
+      setValue("email", "");
+    }
+  };
 
   // ---------------- API ----------------
   const { mutate, isPending, error } = useMutation({
@@ -90,7 +108,7 @@ const Signin = () => {
                 ? "bg-myGreen text-white"
                 : "bg-gray-200 text-black hover:brightness-85 cursor-pointer"
             }`}
-            onClick={() => setMethod("email")}
+            onClick={() => handleMethodChange("email")}
           >
             {t("signin.email")}
           </button>
@@ -101,7 +119,7 @@ const Signin = () => {
                 ? "bg-myGreen text-white"
                 : "bg-gray-200 text-black hover:brightness-85 cursor-pointer"
             }`}
-            onClick={() => setMethod("phone")}
+            onClick={() => handleMethodChange("phone")}
           >
             {t("signin.phone")}
           </button>
@@ -143,16 +161,6 @@ const Signin = () => {
           </Link>
 
           <FormBtn title={t("signin.signIn")} loading={isPending} />
-
-          {/* <div className="divider">{t("signin.or")}</div>
-
-          <button
-            type="button"
-            className="w-full border border-gray-300 rounded-lg flex items-center justify-center gap-4 py-2 cursor-pointer hover:bg-gray-100 transition"
-          >
-            <img loading="lazy" src={googleIcon} alt="google icon" />
-            <span>{t("signin.signInWithGoogle")}</span>
-          </button> */}
 
           <p className="text-sm text-gray-600 text-center">
             {t("signin.dontHaveAccount")}{" "}

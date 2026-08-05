@@ -4,6 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { FaMars, FaVenus } from "react-icons/fa";
 import "react-phone-input-2/lib/style.css";
 
 import AuthCard from "../../components/form/AuthCard";
@@ -14,6 +15,7 @@ import { registerUser } from "../../services/authServices";
 import PhoneInputComponent from "../../components/form/PhoneInputComponent";
 import { getProfileAct } from "../../store/profile/profileSlice";
 import { useDispatch } from "react-redux";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 const Signup = () => {
   const { t } = useTranslation();
@@ -30,7 +32,27 @@ const Signup = () => {
     phone: yup
       .string()
       .required(t("signup.phoneRequired"))
-      .min(8, t("signup.phoneInvalid")),
+      .test("is-valid-phone", t("signup.phoneInvalid"), (value) => {
+        if (!value) return false;
+        // إضافة + إذا لم تكن موجودة لتسهيل الفحص
+        const formattedValue = value.startsWith("+") ? value : `+${value}`;
+        const phoneNumber = parsePhoneNumberFromString(formattedValue);
+        return phoneNumber ? phoneNumber.isValid() : false;
+      }),
+    gender: yup
+      .string()
+      .oneOf(["male", "female"], t("signup.genderInvalid"))
+      .required(t("signup.genderRequired")),
+    age: yup
+      .number()
+      .typeError(t("signup.ageInvalid"))
+      .required(t("signup.ageRequired"))
+      .min(1, t("signup.ageMin"))
+      .max(120, t("signup.ageMax")),
+    goal: yup
+      .string()
+      .required(t("signup.goalRequired"))
+      .max(255, t("signup.goalMax")),
     password: yup
       .string()
       .required(t("signup.passwordRequired"))
@@ -46,11 +68,14 @@ const Signup = () => {
     register,
     handleSubmit,
     setValue,
+    watch,
     reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(signupSchema),
   });
+
+  const selectedGender = watch("gender");
 
   // ---------------- API MUTATION ----------------
   const { mutate, isPending, error } = useMutation({
@@ -68,7 +93,7 @@ const Signup = () => {
   const onSubmit = (data) => {
     mutate({
       ...data,
-      phone: data.phone, // e.g. +20123456789
+      phone: data.phone,
     });
   };
 
@@ -97,11 +122,80 @@ const Signup = () => {
 
           {/* PHONE */}
           <PhoneInputComponent
-            label="Phone"
+            label={t("signup.phone")}
             id="phone"
-            placeholder="Enter phone number"
+            placeholder={t("signup.phone")}
             setValue={setValue}
             error={errors.phone?.message}
+          />
+
+          {/* GENDER CARDS */}
+          <div className="flex flex-col gap-1 text-start">
+            <label className="block w-fit font-semibold mb-1 text-sm capitalize">
+              {t("signup.gender")} :
+            </label>
+            <div className="grid grid-cols-2 gap-4">
+              {/* MALE CARD */}
+              <label
+                className={`flex items-center justify-center gap-2 p-3 border-2 rounded-lg cursor-pointer transition-all ${
+                  selectedGender === "male"
+                    ? "border-blue-600 bg-blue-50 text-blue-600 font-semibold shadow-sm"
+                    : "border-gray-300 bg-white text-gray-600 hover:border-gray-400"
+                }`}
+              >
+                <input
+                  type="radio"
+                  value="male"
+                  {...register("gender")}
+                  className="hidden"
+                />
+                <FaMars className="text-lg" />
+                <span>{t("signup.male")}</span>
+              </label>
+
+              {/* FEMALE CARD */}
+              <label
+                className={`flex items-center justify-center gap-2 p-3 border-2 rounded-lg cursor-pointer transition-all ${
+                  selectedGender === "female"
+                    ? "border-pink-500 bg-pink-50 text-pink-600 font-semibold shadow-sm"
+                    : "border-gray-300 bg-white text-gray-600 hover:border-gray-400"
+                }`}
+              >
+                <input
+                  type="radio"
+                  value="female"
+                  {...register("gender")}
+                  className="hidden"
+                />
+                <FaVenus className="text-lg" />
+                <span>{t("signup.female")}</span>
+              </label>
+            </div>
+            {errors.gender && (
+              <span className="text-red-600 text-sm">
+                {errors.gender.message}
+              </span>
+            )}
+          </div>
+
+          {/* AGE */}
+          <MainInput
+            id="age"
+            type="number"
+            label={t("signup.age")}
+            placeholder={t("signup.age")}
+            register={register("age")}
+            error={errors.age?.message}
+          />
+
+          {/* GOAL */}
+          <MainInput
+            id="goal"
+            label={t("signup.goal")}
+            type="textarea"
+            placeholder={t("signup.goalPlaceholder")}
+            register={register("goal")}
+            error={errors.goal?.message}
           />
 
           {/* PASSWORD */}

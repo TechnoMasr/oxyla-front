@@ -35,11 +35,13 @@ const PhoneInputComponent = ({
           country={country}
           value={phoneValue}
           onChange={(value) => {
-            setPhoneValue(value);
-            setValue && setValue("phone", "+" + value); // RHF
+          setPhoneValue(value);
+          // إرسال فارغ إذا لم يكتب المستخدم شيئًا ليعمل required بشكل صحيح
+          setValue && setValue("phone", value ? "+" + value : "");
           }}
           containerClass="w-full" // يعطي الـ wrapper full width
           inputClass={`w-full ${commonInputClasses}`} // يعطي الـ input نفسه full width
+          countryCodeEditable={false}
           disabled={disabled}
           placeholder={placeholder}
           inputProps={{

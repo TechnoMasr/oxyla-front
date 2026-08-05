@@ -266,6 +266,7 @@
     "currentPassword": "كلمة المرور الحالية",
     "newPassword": "كلمة المرور الجديدة",
     "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
+    "changePassword": "تغيير كلمة السر",
     "edit": "تعديل",
     "cancel": "إلغاء",
     "saveChanges": "حفظ التغييرات",
@@ -273,7 +274,8 @@
     "validation": {
       "enterNewPassword": "يرجى إدخال كلمة المرور الجديدة وتأكيدها.",
       "enterCurrentPassword": "يرجى إدخال كلمة المرور الحالية أولاً.",
-      "passwordMismatch": "تأكيد كلمة المرور لا يطابق."
+      "passwordMismatch": "تأكيد كلمة المرور لا يطابق.",
+      "invalidPhone": "رقم الهاتف غير صحيح"
     },
     "errorSomethingWrong": "حدث خطأ ما"
   },
@@ -370,7 +372,22 @@
     "phone": "رقم الهاتف",
     "emailInvalid": "يجب إدخال بريد إلكتروني صالح",
     "phoneRequired": "رقم الهاتف مطلوب",
-    "phoneInvalid": "رقم الهاتف غير صالح"
+    "phoneInvalid": "رقم الهاتف غير صالح",
+    "gender": "الجنس",
+    "selectGender": "اختر الجنس",
+    "male": "ذكر",
+    "female": "أنثى",
+    "genderRequired": "يرجى تحديد الجنس",
+    "genderInvalid": "الجنس غير صالح",
+    "age": "العمر",
+    "ageRequired": "العمر مطلوب",
+    "ageInvalid": "يجب إدخال رقم صحيح",
+    "ageMin": "يجب أن يكون العمر 1 على الأقل",
+    "ageMax": "يجب ألا يتجاوز العمر 120",
+    "goal": "الهدف",
+    "goalPlaceholder": "اكتب هدفك هنا (بحد أقصى 255 حرف)...",
+    "goalRequired": "الهدف مطلوب",
+    "goalMax": "الهدف يجب ألا يتجاوز 255 حرف"
   },
 
   "verifyEmailPage": {
@@ -439,7 +456,7 @@
 
   "requiredVerifyEmailModal": {
     "title": "بريدك الإلكتروني غير مُفعّل!",
-    "description": "يجب تفعيل بريدك الإلكتروني للوصول إلى هذه الصفحة",
+    "description": "يجب تفعيل بريدك الإلكتروني لتتمكن من المواصلة",
     "goToVerify": "تفعيل البريد الإلكتروني",
     "cancel": "تراجع"
   },

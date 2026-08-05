@@ -16,6 +16,13 @@ const HeaderAction = ({ setActiveNav }) => {
   const { profile, cartCount } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
 
+  // دالة لإلغاء الـ Focus وإغلاق الـ Dropdown فوراً
+  const closeDropdown = () => {
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+  };
+
   const profileList = [
     {
       name: t("headerActions.editProfile"),
@@ -80,6 +87,7 @@ const HeaderAction = ({ setActiveNav }) => {
                   <Link
                     to={`/profile/${item.url}`}
                     className="flex gap-2 items-center text-myPurple"
+                    onClick={closeDropdown} // <-- قفل الدروب داون عند الضغط على أي لينك
                   >
                     {item.icon}
                     <p>{item.name}</p>
@@ -90,10 +98,11 @@ const HeaderAction = ({ setActiveNav }) => {
               <li
                 onClick={() => {
                   dispatch(openModal("logoutModal"));
+                  closeDropdown(); // <-- قفل الدروب داون عند الضغط على زر الخروج
                 }}
-                className=" mt-2 pt-2 border-t border-gray-300"
+                className="mt-2 pt-2 border-t border-gray-300"
               >
-                <button className="flex gap-2 items-center bg-red-700/80 text-white">
+                <button className="flex gap-2 items-center bg-red-700/80 text-white w-full">
                   <TbLogout2 size={20} />
                   <p>{t("headerActions.logout")}</p>
                 </button>
@@ -107,7 +116,10 @@ const HeaderAction = ({ setActiveNav }) => {
           className="text-3xl text-myPurple cursor-pointer"
           onClick={() => setActiveNav(false)}
         >
-          <TbLogin2 title={t("headerActions.login")} className="rtl:rotate-180" />
+          <TbLogin2
+            title={t("headerActions.login")}
+            className="rtl:rotate-180"
+          />
         </Link>
       )}
     </div>
