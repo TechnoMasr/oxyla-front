@@ -5,13 +5,15 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import CouponCode from "./CouponCode";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getProfileAct } from "../../../store/profile/profileSlice";
 // import { IoCashOutline, IoCardOutline } from "react-icons/io5";
 import currencyIcon from "../../../assets/icons/sar-icon.svg";
 
 const OrderSummary = ({ data }) => {
   const { t } = useTranslation();
+  const { setting } = useSelector((state) => state.setting);
+
   const [openDelete, setOpenDelete] = useState(false);
   const queryClient = useQueryClient();
   // const [paymentMethod, setPaymentMethod] = useState("cash");
@@ -116,11 +118,13 @@ const OrderSummary = ({ data }) => {
       </div>
 
       {/* Coupon Input */}
-      <CouponCode
-        setPriceData={setPriceData}
-        priceData={priceData}
-        discount={data?.discountPercent && data?.discountPercent > 0}
-      />
+      {setting?.show_payment_button && (
+        <CouponCode
+          setPriceData={setPriceData}
+          priceData={priceData}
+          discount={data?.discountPercent && data?.discountPercent > 0}
+        />
+      )}
 
       {/* Payment Method */}
       {/* <div>
@@ -174,22 +178,26 @@ const OrderSummary = ({ data }) => {
         </div> */}
 
       {/* Checkout Button */}
-      {/* <button
-        onClick={() => setOpenDelete(true)}
-        disabled={isPending}
-        type="button"
-        className="mainBtn w-full"
-      >
-        {isPending
-          ? t("OrderSummary.loading")
-          : t("OrderSummary.proceedToCheckout")}
-      </button> */}
+      {setting?.show_payment_button && (
+        <button
+          onClick={() => setOpenDelete(true)}
+          disabled={isPending}
+          type="button"
+          className="mainBtn w-full"
+        >
+          {isPending
+            ? t("OrderSummary.loading")
+            : t("OrderSummary.proceedToCheckout")}
+        </button>
+      )}
 
       {/* Delete Modal */}
       <ConfirmModal
         openModal={openDelete}
         onClose={() => setOpenDelete(false)}
-        confirmMsg={t("OrderSummary.confirmOrderMsg")}
+        confirmMsg={
+          setting?.payment_message || t("OrderSummary.confirmOrderMsg")
+        }
         onConfirm={() =>
           mutate({
             coupon_code: priceData.coupon_code,
