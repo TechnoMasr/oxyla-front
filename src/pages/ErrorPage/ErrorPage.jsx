@@ -20,7 +20,7 @@ const ErrorPage = () => {
 
       <div className="flex items-center justify-center flex-wrap gap-3 mt-4">
         <button
-          className={`btn btn-primary`}
+          className="mainBtn light"
           onClick={() => window.location.reload()}
         >
           {t("ErrorPage.reload")} <RxReload />
