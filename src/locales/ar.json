@@ -241,8 +241,10 @@
       "rooms": "الخدمات",
       "contact": "اتصل بنا",
       "profile": "الملف الشخصي",
-      "signin": "تسجيل الدخول"
-    }
+      "signin": "تسجيل الدخول",
+      "signup": "إنشاء حساب"
+    },
+    "viewProfile": "عرض الملف الشخصي"
   },
 
   "NotFound": {
@@ -482,7 +484,7 @@
   },
 
   "discountBanner": {
-    "discount": "خصم {{discount}}%",
+    "discount": "خصم {{discount}}",
     "text": "على أول طلب ليك!",
     "cta": "اطلب الآن",
     "close": "إغلاق"

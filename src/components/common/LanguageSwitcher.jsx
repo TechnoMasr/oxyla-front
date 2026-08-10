@@ -43,9 +43,19 @@ const LanguageSwitcher = ({ home = false }) => {
     <>
       <div
         onClick={() => changeLangWithLoading(lang === "ar" ? "en" : "ar")}
-        className="px-2 py-1 text-sm bg-white text-myPurple border border-myPurple rounded-full cursor-pointer flex items-center gap-1 shadow-sm rtl:font-[Manrope] ltr:font-[Cairo]"
+        className="px-2.5 py-1 text-sm bg-white text-myPurple border border-myPurple rounded-full cursor-pointer flex items-center gap-1 shadow-sm rtl:font-[Manrope] ltr:font-[Cairo]"
       >
-        {lang === "en" ? "العربية" : "English"} <CiGlobe className="text-xl" />
+        {/* النص للشاشات الكبيرة (md وأكبر) */}
+        <span className="hidden md:inline">
+          {lang === "en" ? "العربية" : "English"}
+        </span>
+
+        {/* النص للشاشات الصغيرة (أصغر من md) */}
+        <span className="inline md:hidden uppercase font-semibold">
+          {lang === "en" ? "ar" : "en"}
+        </span>
+
+        <CiGlobe className="text-xl" />
       </div>
 
       <LoadingModal openModal={openLoading} />

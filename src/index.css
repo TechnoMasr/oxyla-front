@@ -115,7 +115,8 @@ input::-webkit-inner-spin-button {
 
   .mainBtn {
     @apply px-6 py-2 rounded-md text-white font-bold capitalize bg-linear-to-r from-myGreen via-myBlue to-myPurple 
-    shadow-lg shadow-myPurple/0 transition-all duration-500 flex items-center justify-center gap-2 text-center cursor-pointer;
+    shadow-lg shadow-myPurple/0 transition-all duration-500 flex items-center justify-center gap-2 text-center cursor-pointer
+    border border-transparent;
 
     & svg {
       @apply text-2xl transition-all duration-500;
@@ -131,11 +132,11 @@ input::-webkit-inner-spin-button {
     }
 
     &.light {
-      @apply bg-none bg-white text-myPurple;
+      @apply bg-none bg-white text-myBlue border border-myBlue;
 
       &:hover,
       &.active {
-        @apply scale-105 shadow-white/70;
+        @apply bg-myBlue text-white shadow-myBlue/70;
       }
     }
   }
@@ -158,18 +159,24 @@ input::-webkit-inner-spin-button {
   }
 
   .navLinkMobile {
-    @apply font-semibold text-myPurple duration-500 capitalize relative;
+    @apply relative flex items-center px-4 py-2.5 rounded-2xl font-semibold text-gray-700 capitalize transition-all duration-300;
 
-    &::after {
-      @apply content-[''] absolute top-1/2 inset-s-0 -translate-y-1/2 h-2 w-0 opacity-0 bg-myPurple duration-500;
+    /* الخط الجانبي المؤشر في حالة الـ Active */
+    &::before {
+      @apply content-[''] absolute start-2 top-1/2 -translate-y-1/2 w-1.5 h-0 rounded-full bg-myPurple opacity-0 transition-all duration-300;
     }
 
-    &.active,
+    /* حالة الـ Hover */
     &:hover {
-      @apply ps-4;
+      @apply text-myPurple bg-myPurple/5 ps-5;
+    }
 
-      &::after {
-        @apply w-3 rounded-e-full opacity-100;
+    /* حالة الـ Active */
+    &.active {
+      @apply text-myPurple bg-myPurple/10 font-bold ps-6 shadow-xs;
+
+      &::before {
+        @apply h-5 opacity-100;
       }
     }
   }

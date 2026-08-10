@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { BiMenuAltRight } from "react-icons/bi";
+import { HiMenuAlt3 } from "react-icons/hi"; // أحدث وأشيك للمنيو
 import { IoClose } from "react-icons/io5";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../../assets/images/logo/logo.png";
@@ -53,19 +53,35 @@ const Header = () => {
   return (
     <header
       ref={headerRef}
-      className="container fixed left-1/2 -translate-x-1/2 top-4 z-50"
+      className="container fixed left-1/2 -translate-x-1/2 top-4 z-50 px-4 sm:px-0"
     >
-      <div className="flex flex-col py-2 px-4 lg:px-10 bg-white/90 backdrop-blur shadow-md rounded-3xl">
+      <div className="flex flex-col py-2 px-4 lg:px-10 bg-white/90 backdrop-blur-md shadow-lg border border-white/20 rounded-3xl transition-all duration-300">
         <div className="flex items-center justify-between gap-2 w-full">
-          <div className="flex items-center gap-1">
-            <span
-              className="text-3xl text-myPurple cursor-pointer lg:hidden"
-              onClick={() => {
-                setActiveNav((prev) => !prev);
-              }}
+          <div className="flex items-center gap-2">
+            {/* زرار فتح وغلق المنيو بتصميم حديث */}
+            <button
+              type="button"
+              aria-label="Toggle Menu"
+              onClick={() => setActiveNav((prev) => !prev)}
+              className="lg:hidden relative w-9 h-9 flex items-center justify-center rounded-2xl bg-myPurple/10 text-myPurple hover:bg-myPurple hover:text-white transition-all duration-300 active:scale-95 cursor-pointer"
             >
-              {activeNav ? <IoClose /> : <BiMenuAltRight />}
-            </span>
+              <div className="relative flex items-center justify-center">
+                <IoClose
+                  className={`text-2xl transition-all duration-300 absolute ${
+                    activeNav
+                      ? "opacity-100 rotate-0 scale-100"
+                      : "opacity-0 -rotate-90 scale-50"
+                  }`}
+                />
+                <HiMenuAlt3
+                  className={`text-2xl transition-all duration-300 ${
+                    activeNav
+                      ? "opacity-0 rotate-90 scale-50"
+                      : "opacity-100 rotate-0 scale-100"
+                  }`}
+                />
+              </div>
+            </button>
 
             <Link
               to="/"

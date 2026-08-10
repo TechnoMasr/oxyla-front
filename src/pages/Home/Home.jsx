@@ -19,6 +19,8 @@ import { useDispatch } from "react-redux";
 import { fetchSetting } from "../../store/setting/setting";
 import { getProfileAct } from "../../store/profile/profileSlice";
 import SkeletonHome from "../../components/Loading/SkeletonLoading/SkeletonHome";
+import ScrollToTopBtn from "../../components/common/ScrollToTopBtn";
+import DiscountBanner from "../../components/sections/DiscountBanner";
 
 const Home = () => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -41,6 +43,7 @@ const Home = () => {
 
         <HomeHeader setOpenMenu={setOpenMenu} />
         <HomeMenu openMenu={openMenu} setOpenMenu={setOpenMenu} />
+        <ScrollToTopBtn />
 
         {isLoading ? (
           <SkeletonHome />
@@ -60,6 +63,7 @@ const Home = () => {
         )}
       </article>
       <Footer />
+      <DiscountBanner />
     </main>
   );
 };

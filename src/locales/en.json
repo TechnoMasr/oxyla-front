@@ -240,8 +240,10 @@
       "rooms": "Rooms",
       "contact": "Contact",
       "profile": "Profile",
-      "signin": "Sign In"
-    }
+      "signin": "Sign In",
+      "signup": "Sign Up"
+    },
+    "viewProfile": "View Profile"
   },
 
   "NotFound": {
@@ -483,7 +485,7 @@
   },
 
   "discountBanner": {
-    "discount": "{{discount}}% discount",
+    "discount": "{{discount}} discount",
     "text": "on your first order!",
     "cta": "Order now",
     "close": "Close"

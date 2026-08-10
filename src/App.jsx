@@ -8,6 +8,7 @@ import LogOutModal from "./components/modals/LogOutModal";
 import RequiredLoginModal from "./components/modals/RequiredLoginModal";
 import RequiredVerifyEmailModal from "./components/modals/RequiredVerifyEmailModal";
 import DiscountBanner from "./components/sections/DiscountBanner";
+import ScrollToTopBtn from "./components/common/ScrollToTopBtn";
 
 function App() {
   const { pathname } = useLocation();
@@ -23,9 +24,10 @@ function App() {
         <Outlet />
       </div>
       <Footer />
+      <DiscountBanner />
 
       <ToastContainer />
-      <DiscountBanner />
+      <ScrollToTopBtn />
 
       {/* modals */}
       <LogOutModal />

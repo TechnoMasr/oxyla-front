@@ -103,7 +103,7 @@ const HeaderAction = ({ setActiveNav }) => {
                 className="mt-2 pt-2 border-t border-gray-300"
               >
                 <button className="flex gap-2 items-center bg-red-700/80 text-white w-full">
-                  <TbLogout2 size={20} />
+                  <TbLogout2 size={20} className="rtl:rotate-180" />
                   <p>{t("headerActions.logout")}</p>
                 </button>
               </li>

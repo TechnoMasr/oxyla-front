@@ -60,7 +60,9 @@ const ProfileSideBar = ({ isOpen, handleClose, links }) => {
             }}
             className={`flex gap-3 px-3 py-2 rounded-md transition items-center bg-red-700/80 text-white cursor-pointer`}
           >
-            <span className="text-xl">{<TbLogout2 />}</span>
+            <span className="text-xl">
+              {<TbLogout2 className="rtl:rotate-180" />}
+            </span>
             <p className="capitalize">{t("profileSideBar.logout")}</p>
           </button>
         </nav>
