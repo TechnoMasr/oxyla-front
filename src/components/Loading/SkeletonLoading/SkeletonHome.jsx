@@ -3,7 +3,7 @@ import Skeleton from "./Skeleton";
 const SkeletonHome = () => {
   return (
     <main className="">
-      <section className="h-[100svh] w-full relative mb-4">
+      <section className="h-svh w-full relative mb-4">
         <div className="h-full w-full bg-white grid grid-cols-1 md:grid-cols-3">
           {Array.from({ length: 3 }).map((_, index) => (
             <div key={index} className="relative overflow-hidden">

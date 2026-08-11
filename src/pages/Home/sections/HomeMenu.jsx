@@ -30,7 +30,7 @@ const HomeMenu = ({ openMenu, setOpenMenu }) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className="fixed inset-0 h-screen w-screen bg-black/50 z-60 flex justify-end"
+          className="fixed inset-0 h-dvh w-screen bg-black/50 z-60 flex justify-end"
           onClick={onClose}
         >
           <div className="w-full sm:w-[400px] h-full">
@@ -56,13 +56,14 @@ const HomeMenu = ({ openMenu, setOpenMenu }) => {
               {/* زر الإغلاق */}
               <span
                 onClick={onClose}
-                className="absolute top-4 right-4 z-10 text-2xl cursor-pointer w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition"
+                className="absolute top-4 right-4 z-10 text-3xl cursor-pointer w-12 h-12 flex items-center justify-center 
+                rounded-full text-white bg-myGreen hover:brightness-110 transition"
               >
                 <IoClose />
               </span>
 
               {/* الجزء العلوي: بيانات المستخدم عند وجود profile */}
-              <div className="mt-8 flex items-center justify-center">
+              <div className="mt-12 flex items-center justify-center">
                 {profile && (
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
@@ -71,7 +72,7 @@ const HomeMenu = ({ openMenu, setOpenMenu }) => {
                     <Link
                       to="/profile"
                       onClick={onClose}
-                      className="flex items-center gap-3 py-2 px-4 rounded-xl hover:bg-gray-50 transition border border-gray-100 shadow-xs"
+                      className="flex items-center gap-3 py-2 px-4 rounded-xl hover:bg-gray-50 transition border border-myGreen shadow-xs"
                     >
                       <Avatar
                         name={profile?.name}
