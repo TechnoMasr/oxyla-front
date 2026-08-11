@@ -30,7 +30,7 @@ const HomeMenu = ({ openMenu, setOpenMenu }) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className="fixed inset-0 h-screen w-screen bg-black/50 z-40 flex justify-end"
+          className="fixed inset-0 h-screen w-screen bg-black/50 z-60 flex justify-end"
           onClick={onClose}
         >
           <div className="w-full sm:w-[400px] h-full">

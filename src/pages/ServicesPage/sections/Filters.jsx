@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import SearchFiltersSkeleton from "../../../components/Loading/SkeletonLoading/SearchFiltersSkeleton";
+import { IoIosSearch } from "react-icons/io";
 
 const Filters = ({ categories = [], isLoading }) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -69,7 +70,11 @@ const Filters = ({ categories = [], isLoading }) => {
 
   return (
     <section>
-      <div className="flex items-center p-2 rounded-full shadow-md">
+      <div className="flex items-center py-2 px-4 rounded-full shadow-md">
+        <span className="text-2xl text-gray-500 border-e pe-2">
+          <IoIosSearch />
+        </span>
+
         <input
           type="text"
           placeholder={t("Search")}
@@ -79,11 +84,11 @@ const Filters = ({ categories = [], isLoading }) => {
         />
       </div>
 
-      <div className="flex items-center gap-4 flex-wrap mt-4">
+      <div className="flex items-center gap-2 lg:gap-4 flex-wrap mt-4">
         {FiltersBtns.map((btn, i) => (
           <button
             key={i}
-            className={`px-4 py-2 rounded-full shadow-md hover:brightness-90 transition cursor-pointer capitalize ${
+            className={`px-2 py-1 lg:px-4 lg:py-2 text-sm lg:text-base rounded-full shadow-md hover:brightness-90 transition cursor-pointer capitalize ${
               active === i ? "bg-myGreen text-white" : "bg-white text-black"
             }`}
             onClick={() => handleFilterClick(btn.slug)}

@@ -17,7 +17,7 @@ const DiscountBanner = () => {
     <div className="sticky bottom-0 left-0 right-0 z-30 text-white capitalize bg-linear-to-r from-myGreen via-myBlue to-myPurple px-4 py-2 shadow-lg">
       <div className="container flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <p className="text-sm md:text-base">
+          <p className="text-sm md:text-base flex-1">
             <span className="font-semibold">
               {t("discountBanner.discount", {
                 discount:

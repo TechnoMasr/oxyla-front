@@ -3,17 +3,20 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { toggleWishList } from "../../services/wishListServices";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
+import ConfirmModal from "../modals/ConfirmModal";
 import currencyIcon from "../../assets/icons/sar-icon.svg";
 
 const WishListCard = ({ item }) => {
+  const [openDelete, setOpenDelete] = useState(false);
   const queryClient = useQueryClient();
-
   const { t } = useTranslation();
 
   const toggleMutation = useMutation({
     mutationFn: (payload) => toggleWishList(payload),
     onSuccess: () => {
       queryClient.invalidateQueries(["wishlist"]);
+      setOpenDelete(false);
     },
   });
 
@@ -54,13 +57,27 @@ const WishListCard = ({ item }) => {
           </Link>
 
           <button
-            onClick={handleToggle}
+            onClick={() => setOpenDelete(true)}
             className="text-red-500 hover:underline cursor-pointer"
           >
             {t("remove")}
           </button>
         </div>
       </div>
+
+      {/* Delete Modal */}
+      <ConfirmModal
+        openModal={openDelete}
+        onClose={() => setOpenDelete(false)}
+        confirmMsg={t("WishListCard.deleteConfirmation")}
+        onConfirm={handleToggle}
+        disabled={toggleMutation.isPending}
+        btnText={
+          toggleMutation.isPending
+            ? t("WishListCard.removing")
+            : t("WishListCard.confirm")
+        }
+      />
     </div>
   );
 };

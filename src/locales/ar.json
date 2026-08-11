@@ -23,6 +23,12 @@
     "itemRemoved": "تم حذف العنصر من السلة"
   },
 
+  "WishListCard": {
+    "deleteConfirmation": "هل أنت أحدث بتأكيد حذف هذا العنصر من المفضلة؟",
+    "removing": "جاري الحذف...",
+    "confirm": "تأكيد"
+  },
+
   "Footer": {
     "home": "الرئيسية",
     "about": "من نحن",
@@ -304,7 +310,8 @@
 
   "wishlistPage": {
     "title": "قائمة الرغبات",
-    "itemsCount": "{{count}} عنصر"
+    "itemsCount": "{{count}} عنصر",
+    "noItems": "لا توجد عناصر في المفضلة."
   },
 
   "profileSideBar": {
@@ -328,7 +335,9 @@
     "addToCart": "اضافة الى السلة",
     "adding": "جارٍ الإضافة...",
     "selectDateTimeError": "يرجى اختيار التاريخ والوقت قبل إضافة الخدمة إلى السلة.",
-    "maxNumOfPeople": "الحد الأقصى لعدد الأشخاص"
+    "maxNumOfPeople": "الحد الأقصى لعدد الأشخاص",
+    "loading": "جاري تحميل المواعيد...",
+    "noTimesAvailable": "لا توجد مواعيد متاحة لهذا اليوم"
   },
 
   "signin": {

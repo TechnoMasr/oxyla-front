@@ -45,13 +45,15 @@ const Wishlist = () => {
         )
       </p>
 
-      <div>
-        {wishlist?.map((item) => (
-          <WishListCard key={item.id} item={item} />
-        ))}
-      </div>
-
-      {wishlist?.length === 0 && <EmptyData />}
+      {wishlist?.length === 0 ? (
+        <EmptyData text={t("wishlistPage.noItems")} />
+      ) : (
+        <div>
+          {wishlist?.map((item) => (
+            <WishListCard key={item.id} item={item} />
+          ))}
+        </div>
+      )}
 
       {/* 4. عرض مكون الباجينيشن وتمرير البيانات */}
       {!isLoading && wishlist.length > 0 && (

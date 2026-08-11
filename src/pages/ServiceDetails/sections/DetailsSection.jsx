@@ -3,7 +3,7 @@ import { renderStars } from "../../../utils/renderStars";
 import { HiMiniCalendarDateRange } from "react-icons/hi2";
 import { LuPlus, LuMinus } from "react-icons/lu";
 import { addToCart } from "../../../services/cartServices.js";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import FormError from "../../../components/form/FormError.jsx";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
@@ -11,6 +11,7 @@ import { getCartCountAct } from "../../../store/profile/profileSlice.js";
 import { useDispatch } from "react-redux";
 import useRequireAuth from "../../../hooks/useRequireAuth.js";
 import currencyIcon from "../../../assets/icons/sar-icon.svg";
+import { getAvailableTimes } from "../../../services/serviceServices.js";
 
 const DetailsSection = ({ data }) => {
   const { t } = useTranslation();
@@ -19,7 +20,7 @@ const DetailsSection = ({ data }) => {
   const [quantity, setQuantity] = useState(1);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const dateInputRef = useRef(null); // 2. عملنا مرجع للـ input
+  const dateInputRef = useRef(null);
 
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
@@ -29,16 +30,31 @@ const DetailsSection = ({ data }) => {
 
   const requireAuth = useRequireAuth();
 
-  // 3. دالة لفتح الكاليندر برمجياً عند الضغط في أي مكان داخل الكارت
   const handleCustomPickerClick = () => {
     if (dateInputRef.current) {
-      // showPicker() هي الطريقة الحديثة والمدعومة لفتح الكاليندر بشكل مباشر
       if (typeof dateInputRef.current.showPicker === "function") {
         dateInputRef.current.showPicker();
       } else {
-        dateInputRef.current.click(); // حلا بديل للمتصفحات الأقدم
+        dateInputRef.current.click();
       }
     }
+  };
+
+  const { data: availableTimes, isLoading: isTimesLoading } = useQuery({
+    queryKey: ["availableTimes", data?.id, selectedDate],
+    queryFn: () => getAvailableTimes(data?.id, selectedDate),
+    enabled: !!data?.id && !!selectedDate,
+  });
+
+  const handleDateChange = (e) => {
+    setSelectedDate(e.target.value);
+    setSelectedTime("");
+    // setErrorMessage(""); // 1️⃣ تفريغ الرسالة عند اختيار تاريخ جديد
+  };
+
+  const handleTimeSelect = (timeId) => {
+    setSelectedTime(timeId);
+    setErrorMessage(""); // 2️⃣ تفريغ الرسالة بمجرد اختيار الوقت
   };
 
   const {
@@ -74,9 +90,12 @@ const DetailsSection = ({ data }) => {
     });
   };
 
+  const timesList = Array.isArray(availableTimes)
+    ? availableTimes
+    : availableTimes?.times || [];
+
   return (
     <section className="space-y-6 order-2 lg:order-1">
-      {/* ... باقي العناصر العلوية كما هي دون تغيير ... */}
       <div className="flex items-center gap-2">
         <p className="text-gray-500">{t("detailsSection.home")}</p>/
         <p className="font-bold">{data?.category?.name}</p>
@@ -102,14 +121,13 @@ const DetailsSection = ({ data }) => {
         className="rich_content"
       />
 
-      {/* 🛠️ الـ DATE PICKER المعدل بالـ useRef */}
+      {/* 🛠️ DATE PICKER */}
       <div className="space-y-2">
         <p className="text-lg font-semibold">{t("detailsSection.pickDate")}</p>
-        <div className="relative max-w-xs">
-          {/* الكارت الخارجي الـ Custom */}
+        <div className="relative w-full md:max-w-xs">
           <div
-            onClick={handleCustomPickerClick} // عند الضغط هنا بنشغل الـ Input
-            className={`flex items-center gap-3 px-4 py-3 rounded-xl border-2 cursor-pointer transition-all duration-200 select-none ${
+            onClick={handleCustomPickerClick}
+            className={`flex items-center justify-between gap-3 px-4 py-3 rounded-xl border-2 cursor-pointer transition-all duration-200 select-none ${
               selectedDate
                 ? "border-myGreen bg-green-50/50 shadow-sm"
                 : "border-gray-200 hover:border-myGreen bg-white shadow-sm"
@@ -119,68 +137,91 @@ const DetailsSection = ({ data }) => {
               className={`text-2xl transition-colors ${selectedDate ? "text-myGreen" : "text-gray-400"}`}
             />
 
-            <div className="flex flex-col text-left flex-1">
+            <div className="flex flex-col">
               {selectedDate ? (
                 <>
-                  <span className="text-xs text-gray-400 font-medium">
+                  <span className="text-sm text-gray-500 font-medium">
                     {t("detailsSection.selectedDateLabel")}
                   </span>
-                  <span className="text-sm font-bold text-gray-800">
+                  <span className="font-bold text-gray-800">
                     {selectedDate}
                   </span>
                 </>
               ) : (
-                <span className="text-sm font-medium text-gray-500">
+                <span className="font-medium text-gray-500">
                   {t("detailsSection.clickToSelectDate")}
                 </span>
               )}
             </div>
           </div>
 
-          {/* الـ input الحقيقي مخفي تماماً بالـ CSS وتحت الكارت */}
           <input
-            ref={dateInputRef} // ربط الـ Ref
+            ref={dateInputRef}
             type="date"
             value={selectedDate}
             min={new Date().toISOString().split("T")[0]}
-            onChange={(e) => setSelectedDate(e.target.value)}
+            onChange={handleDateChange}
             className="absolute pointer-events-none opacity-0 left-0 bottom-0 w-0 h-0"
           />
         </div>
       </div>
 
-      {/* ... باقي الأقسام التحتية (المواعيد، الميزات، العدد) كما هي تماماً ... */}
-      {data?.times.length > 0 && (
+      {/* 🕒 المواعيد المتاحة */}
+      {selectedDate && (
         <div>
           <p className="text-lg mb-2 font-semibold">
             {t("detailsSection.appointmentsAvailable")}
           </p>
-          <div className="flex flex-wrap gap-2">
-            {data?.times?.map((time) => (
-              <label
-                key={time.id}
-                className={`border rounded-lg px-1 py-0.5 cursor-pointer transition text-sm font-medium ${
-                  time.id === selectedTime
-                    ? "bg-myGreen text-white border-myGreen"
-                    : "bg-white text-gray-600 hover:bg-gray-100"
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="available_time"
-                  value={time.id}
-                  checked={selectedTime === time.id}
-                  onChange={() => setSelectedTime(time.id)}
-                  className="hidden"
-                />
-                {time.from_time_formatted}
-              </label>
-            ))}
-          </div>
+
+          {isTimesLoading ? (
+            <p className="text-sm text-gray-500">
+              {t("detailsSection.loading")}
+            </p>
+          ) : timesList.length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {timesList.map((time) => (
+                <label
+                  key={time.id}
+                  className={`border rounded-lg px-3 py-1.5 cursor-pointer transition text-sm font-medium ${
+                    time.id === selectedTime
+                      ? "bg-myGreen text-white border-myGreen"
+                      : "bg-white text-gray-600 hover:bg-gray-100"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="available_time"
+                    value={time.id}
+                    checked={selectedTime === time.id}
+                    onChange={() => handleTimeSelect(time.id)}
+                    className="hidden"
+                  />
+
+                  {time.from_time_formatted && time.to_time_formatted ? (
+                    <span dir="ltr" className="inline-flex items-center gap-1">
+                      <span>{time.from_time_formatted || time.from_time}</span>
+                      <span>-</span>
+                      <span>{time.to_time_formatted || time.to_time}</span>
+                    </span>
+                  ) : (
+                    <span dir="ltr">
+                      {time.from_time_formatted || time.from_time}
+                    </span>
+                  )}
+                </label>
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm text-red-500">
+              {t("detailsSection.noTimesAvailable") ||
+                "لا توجد مواعيد متاحة لهذا اليوم"}
+            </p>
+          )}
         </div>
       )}
 
-      {data?.features.length > 0 && (
+      {/* الميزات */}
+      {data?.features?.length > 0 && (
         <div>
           <p className="text-lg mb-2 font-semibold">
             {data?.features_title || t("detailsSection.includedInSession")}
@@ -208,6 +249,7 @@ const DetailsSection = ({ data }) => {
         </div>
       )}
 
+      {/* العدد وزر الإضافة */}
       <div>
         <p className="text-lg font-semibold">
           {t("detailsSection.numberOfPeople")}
@@ -235,7 +277,7 @@ const DetailsSection = ({ data }) => {
             {isPending
               ? t("detailsSection.adding")
               : t("detailsSection.addToCart")}
-          </button>{" "}
+          </button>
         </div>
       </div>
 

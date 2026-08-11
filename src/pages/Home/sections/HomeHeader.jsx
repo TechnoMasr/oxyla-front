@@ -37,10 +37,10 @@ const HomeHeader = ({ setOpenMenu }) => {
         <button
           onClick={() => setOpenMenu(true)}
           className={`px-2 py-1 text-white font-bold text-2xl cursor-pointer uppercase
-          border border-transparent rounded-full text-shadow transition-all duration-300 ${
+          border border-transparent rounded-full transition-all duration-300 ${
             isScrolled
-              ? "bg-black/10 backdrop-blur-xl shadow-lg border-white/80"
-              : "bg-transparent"
+              ? "bg-black/40 backdrop-blur-xl shadow-lg border-white/80"
+              : "text-shadow bg-transparent"
           }`}
         >
           {t("Menu")}

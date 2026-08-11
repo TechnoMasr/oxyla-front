@@ -8,7 +8,7 @@ const HeroCard = ({ item, index }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1, delay: 2 + index * 0.5 }}
-      className="overflow-hidden group relative"
+      className="w-full h-full overflow-hidden group relative"
     >
       {item?.mobile_image && (
         <img
@@ -31,7 +31,7 @@ const HeroCard = ({ item, index }) => {
       <div
         className="absolute bottom-0 left-0 w-full bg-black/0 backdrop-blur-none 
         group-hover:backdrop-blur-xl group-hover:bg-black/20
-        transition-all duration-500 flex flex-col justify-center items-center text-center p-4"
+        transition-all duration-500 flex flex-col justify-center items-center text-center p-4 pb-10 md:pb-4"
       >
         <h2 className="text-xl md:text-2xl lg:text-4xl font-bold text-white mb-2">
           {item?.title}

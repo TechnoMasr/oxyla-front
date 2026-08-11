@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import ServicesList from "../../../components/common/ServicesList";
 import ServicesSectionSkeleton from "../../../components/Loading/SkeletonLoading/ServicesSectionSkeleton";
 import EmptyData from "../../../components/sections/EmptyData";
+import ServicesCard from "../../../components/common/ServicesCard";
 
 const Services = ({ services, isLoading }) => {
   const { t } = useTranslation();
@@ -15,7 +15,11 @@ const Services = ({ services, isLoading }) => {
       ) : services?.length === 0 ? (
         <EmptyData text={t("NoServices")} />
       ) : (
-        <ServicesList services={services} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-8">
+          {services?.map((service) => (
+            <ServicesCard key={service.id} service={service} />
+          ))}
+        </div>
       )}
     </section>
   );

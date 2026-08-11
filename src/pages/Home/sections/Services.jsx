@@ -12,7 +12,7 @@ const Services = ({ data }) => {
 
         <AnimatedSentence text={data?.home_section2_description} />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8">
           {data?.cards.map((item, index) => (
             <div
               key={index}

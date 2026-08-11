@@ -23,6 +23,12 @@
     "itemRemoved": "Item removed from cart"
   },
 
+  "WishListCard": {
+    "deleteConfirmation": "Are you sure you want to remove this item from your wishlist?",
+    "removing": "Removing...",
+    "confirm": "Confirm"
+  },
+
   "Footer": {
     "home": "Home",
     "about": "About",
@@ -255,7 +261,7 @@
   "Appointment": {
     "title": "Appointment",
     "reservationCount": "reserve",
-    "noReservations": "No reservations available"
+    "noReservations": "No Appointments available"
   },
 
   "editProfilePage": {
@@ -303,7 +309,8 @@
 
   "wishlistPage": {
     "title": "Wishlist",
-    "itemsCount": "{{count}} items"
+    "itemsCount": "{{count}} items",
+    "noItems": "No items in wishlist."
   },
 
   "profileSideBar": {
@@ -327,7 +334,9 @@
     "addToCart": "Add to Cart",
     "adding": "Adding...",
     "selectDateTimeError": "Please select date and time before adding to cart.",
-    "maxNumOfPeople": "Maximum Number of People"
+    "maxNumOfPeople": "Maximum Number of People",
+    "loading": "Loading available times...",
+    "noTimesAvailable": "No available appointments for this date"
   },
 
   "signin": {

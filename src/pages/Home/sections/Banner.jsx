@@ -6,8 +6,8 @@ const Banner = ({ data }) => {
 
   return (
     <section className="sectionPadding container">
-      <div className="bg-linear-to-r from-[#1894DA] to-[#1BABBE] rounded-2xl shadow-lg container">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-4 p-8 lg:py-16">
+      <div className="bg-linear-to-r from-[#1894DA] to-[#1BABBE] rounded-2xl shadow-lg">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-4 p-8 lg:py-16">
           <div className="text-center lg:text-start text-white flex-1">
             <h2 className="text-xl lg:text-3xl font-bold uppercase mb-4">
               {data?.titles}
