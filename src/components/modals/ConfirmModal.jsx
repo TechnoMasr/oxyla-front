@@ -15,10 +15,12 @@ const ConfirmModal = ({
   if (!openModal) return null;
 
   return createPortal(
-    <dialog className={`modal modal-open`} onClick={onClose}>
-      <div className="modal-box space-y-4" onClick={(e) => e.stopPropagation()}>
-        <p className="text-center text-lg font-semibold">{confirmMsg}</p>
-
+    <dialog className="modal modal-open" onClick={onClose}>
+      <div
+        className="modal-box flex flex-col gap-4 max-h-[90vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="text-center lg:text-lg font-semibold">{confirmMsg}</div>
         <div className="flex items-center justify-center gap-2 mb-0">
           <button
             onClick={onClose}
@@ -30,8 +32,7 @@ const ConfirmModal = ({
             {btnText}
           </button>
         </div>
-
-        <FormError errorMsg={error?.response?.data?.message} />
+        {error && <FormError errorMsg={error?.response?.data?.message} />}
       </div>
     </dialog>,
     document.body,

@@ -9,3 +9,8 @@ export const getPageContent = async (slug) => {
   const { data } = await api.get(`/page/${slug}`);
   return data?.data || [];
 };
+
+export const getGoals = async () => {
+  const { data } = await api.get("/goals");
+  return data?.data || [];
+};

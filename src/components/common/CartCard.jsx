@@ -25,7 +25,7 @@ const CartCard = ({ item, orders = false }) => {
   const dispatch = useDispatch();
 
   // Delete Mutation
-  const { mutate: removeMutate, isPending } = useMutation({
+  const { mutate: removeMutate, isPending, error } = useMutation({
     mutationFn: () => removeFromCart(item.id),
     onSuccess: () => {
       queryClient.invalidateQueries(["cart"]);
@@ -119,6 +119,7 @@ const CartCard = ({ item, orders = false }) => {
         onConfirm={() => removeMutate()}
         disabled={isPending}
         btnText={isPending ? t("CartCard.removing") : t("CartCard.confirm")}
+        error={error}
       />
 
       {/* Change Modal */}

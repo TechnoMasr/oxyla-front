@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -16,6 +16,7 @@ import PhoneInputComponent from "../../components/form/PhoneInputComponent";
 import { getProfileAct } from "../../store/profile/profileSlice";
 import { useDispatch } from "react-redux";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
+import { getGoals } from "../../services/mainServices";
 
 const Signup = () => {
   const { t } = useTranslation();
@@ -34,7 +35,6 @@ const Signup = () => {
       .required(t("signup.phoneRequired"))
       .test("is-valid-phone", t("signup.phoneInvalid"), (value) => {
         if (!value) return false;
-        // إضافة + إذا لم تكن موجودة لتسهيل الفحص
         const formattedValue = value.startsWith("+") ? value : `+${value}`;
         const phoneNumber = parsePhoneNumberFromString(formattedValue);
         return phoneNumber ? phoneNumber.isValid() : false;
@@ -49,10 +49,15 @@ const Signup = () => {
       .required(t("signup.ageRequired"))
       .min(1, t("signup.ageMin"))
       .max(120, t("signup.ageMax")),
-    goal: yup
-      .string()
-      .required(t("signup.goalRequired"))
-      .max(255, t("signup.goalMax")),
+    goal: yup.array().of(yup.string()).min(1, t("signup.goalRequired")),
+    goal_other: yup.string().when("goal", {
+      is: (val) => Array.isArray(val) && val.includes("other"),
+      then: (schema) =>
+        schema
+          .required(t("signup.goalOtherRequired") || "برجاء تحديد الهدف")
+          .max(255, t("signup.goalMax")),
+      otherwise: (schema) => schema.notRequired().nullable(),
+    }),
     password: yup
       .string()
       .required(t("signup.passwordRequired"))
@@ -73,11 +78,16 @@ const Signup = () => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(signupSchema),
+    defaultValues: {
+      goal: [],
+    },
   });
 
   const selectedGender = watch("gender");
+  const selectedGoals = watch("goal") || [];
+  const isOtherSelected = selectedGoals.includes("other");
 
-  // ---------------- API MUTATION ----------------
+  // ---------------- API MUTATION & QUERY ----------------
   const { mutate, isPending, error } = useMutation({
     mutationFn: (formData) => registerUser(formData),
     onSuccess: () => {
@@ -90,11 +100,19 @@ const Signup = () => {
     },
   });
 
+  const { data: goalsList, isLoading: isLoadingGoals } = useQuery({
+    queryKey: ["goalsList"],
+    queryFn: getGoals,
+  });
+
   const onSubmit = (data) => {
-    mutate({
+    const payload = {
       ...data,
       phone: data.phone,
-    });
+      ...(!data.goal?.includes("other") && { goal_other: undefined }),
+    };
+
+    mutate(payload);
   };
 
   // ---------------- UI ----------------
@@ -188,15 +206,58 @@ const Signup = () => {
             error={errors.age?.message}
           />
 
-          {/* GOAL */}
-          <MainInput
-            id="goal"
-            label={t("signup.goal")}
-            type="textarea"
-            placeholder={t("signup.goalPlaceholder")}
-            register={register("goal")}
-            error={errors.goal?.message}
-          />
+          {/* GOAL CARDS (MULTI-SELECT) */}
+          <div className="flex flex-col gap-2 text-start">
+            <label className="block w-fit font-semibold text-sm capitalize">
+              {t("signup.goal")} :
+            </label>
+
+            {isLoadingGoals ? (
+              <p className="text-sm text-gray-500">جاري تحميل الأهداف...</p>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {goalsList?.map((item) => {
+                  const isChecked = selectedGoals.includes(item.key);
+                  return (
+                    <label
+                      key={item.key}
+                      className={`flex items-center justify-center text-center p-2.5 border rounded-lg cursor-pointer text-xs font-medium transition-all ${
+                        isChecked
+                          ? "border-myGreen bg-myGreen/5 text-myGreen font-bold shadow-xs"
+                          : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        value={item.key}
+                        {...register("goal")}
+                        className="hidden"
+                      />
+                      <span>{item.label}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            )}
+
+            {errors.goal && (
+              <span className="text-red-600 text-sm">
+                {errors.goal.message}
+              </span>
+            )}
+          </div>
+
+          {/* GOAL OTHER (CONDITIONAL TEXTAREA) */}
+          {isOtherSelected && (
+            <MainInput
+              id="goal_other"
+              label={t("signup.goalOther") || "أدخل الهدف الأخر"}
+              type="textarea"
+              placeholder={t("signup.goalPlaceholder")}
+              register={register("goal_other")}
+              error={errors.goal_other?.message}
+            />
+          )}
 
           {/* PASSWORD */}
           <MainInput

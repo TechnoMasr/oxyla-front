@@ -18,7 +18,7 @@ import "react-phone-input-2/lib/style.css";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 // استيراد hook التحقق
-import useRequireAuth from "../../../hooks/useRequireAuth"; // قم بتعديل المسار حسب مكان الملف لديك
+import useRequireAuth from "../../../hooks/useRequireAuth";
 
 const EditProfile = () => {
   const { t } = useTranslation();
@@ -31,6 +31,8 @@ const EditProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState("");
   const [phoneError, setPhoneError] = useState("");
+  const [goalError, setGoalError] = useState("");
+  const [goalOtherError, setGoalOtherError] = useState(""); // State جديد لخطأ Goal Other
   const [generalPasswordError, setGeneralPasswordError] = useState("");
 
   const [passwordErrors, setPasswordErrors] = useState({
@@ -46,7 +48,8 @@ const EditProfile = () => {
     location: profile?.location || "",
     gender: profile?.gender || "",
     age: profile?.age || "",
-    goal: profile?.goal || "",
+    goal: Array.isArray(profile?.goal) ? profile.goal : [],
+    goal_other: profile?.goal_other || "",
   });
 
   const [passwords, setPasswords] = useState({
@@ -64,14 +67,42 @@ const EditProfile = () => {
         location: profile?.location || "",
         gender: profile?.gender || "",
         age: profile?.age || "",
-        goal: profile?.goal || "",
+        goal: Array.isArray(profile?.goal) ? profile.goal : [],
+        goal_other: profile?.goal_other || "",
       });
     }
   }, [profile]);
 
   const handleChange = (e) => {
     if (!isEditing) return;
-    setForm((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    const { id, value } = e.target;
+    setForm((prev) => ({ ...prev, [id]: value }));
+
+    // مسح خطأ goal_other عند الكتابة فيه
+    if (id === "goal_other" && goalOtherError) {
+      setGoalOtherError("");
+    }
+  };
+
+  // التحكم في اختيار وتحديد الأهداف (Multi-Select)
+  const handleGoalToggle = (key) => {
+    if (!isEditing) return;
+    setForm((prev) => {
+      const currentGoals = prev.goal || [];
+      const exists = currentGoals.includes(key);
+      const updatedGoals = exists
+        ? currentGoals.filter((item) => item !== key)
+        : [...currentGoals, key];
+
+      return {
+        ...prev,
+        goal: updatedGoals,
+        // مسح هدف other لو اتعملها unselect
+        goal_other: updatedGoals.includes("other") ? prev.goal_other : "",
+      };
+    });
+    if (goalError) setGoalError("");
+    if (goalOtherError) setGoalOtherError("");
   };
 
   const handlePhoneChange = (value) => {
@@ -120,7 +151,10 @@ const EditProfile = () => {
         location: updatedUserData?.location || form.location,
         gender: updatedUserData?.gender || form.gender,
         age: updatedUserData?.age || form.age,
-        goal: updatedUserData?.goal || form.goal,
+        goal: Array.isArray(updatedUserData?.goal)
+          ? updatedUserData.goal
+          : form.goal,
+        goal_other: updatedUserData?.goal_other || "",
       });
 
       resetPasswordFields();
@@ -138,22 +172,48 @@ const EditProfile = () => {
   });
 
   const validateProfileForm = () => {
+    let isValid = true;
+
     if (form.phone) {
       const phoneNumber = parsePhoneNumberFromString(form.phone);
       if (!phoneNumber || !phoneNumber.isValid()) {
         setPhoneError(t("editProfilePage.validation.invalidPhone"));
-        return false;
+        isValid = false;
+      } else {
+        setPhoneError("");
       }
     }
-    setPhoneError("");
-    return true;
+
+    // تحقق اختيار الأهداف الرئيسية
+    if (!form.goal || form.goal.length === 0) {
+      setGoalError(t("signup.goalRequired"));
+      isValid = false;
+    } else {
+      setGoalError("");
+    }
+
+    // تحقق اختيار "أخرى" بدون كتابة
+    if (form.goal.includes("other") && !form.goal_other?.trim()) {
+      setGoalOtherError(t("signup.goalOtherRequired"));
+      isValid = false;
+    } else {
+      setGoalOtherError("");
+    }
+
+    return isValid;
   };
 
   const handleSubmitProfile = (e) => {
     e.preventDefault();
     requireAuth(() => {
       if (!validateProfileForm()) return;
-      mutate(form);
+
+      const payload = {
+        ...form,
+        ...(!form.goal.includes("other") && { goal_other: undefined }),
+      };
+
+      mutate(payload);
     });
   };
 
@@ -200,28 +260,34 @@ const EditProfile = () => {
       setGeneralPasswordError("");
       if (!validatePasswords()) return;
 
-      mutate({
+      const payload = {
         ...form,
+        ...(!form.goal.includes("other") && { goal_other: undefined }),
         ...passwords,
-      });
+      };
+
+      mutate(payload);
     });
   };
 
-  // حماية زر التعديل
   const handleEditClick = () => {
     requireAuth(() => {
       setIsEditing((prev) => !prev);
       setPhoneError("");
+      setGoalError("");
+      setGoalOtherError("");
     });
   };
 
-  // حماية زر تغيير كلمة السر
   const handleOpenPasswordModal = () => {
     requireAuth(() => {
       resetPasswordFields();
       document.getElementById("change_password_modal").showModal();
     });
   };
+
+  const availableGoals = profile?.available_goals || [];
+  const isOtherSelected = form.goal?.includes("other");
 
   return (
     <section className="mt-6 max-w-4xl mx-auto bg-white p-6 rounded-2xl shadow-sm border border-stone-100">
@@ -235,7 +301,6 @@ const EditProfile = () => {
           </div>
         </div>
 
-        {/* زر تعديل/إلغاء البروفايل */}
         <button
           type="button"
           className={`py-2 px-5 rounded-lg cursor-pointer text-sm font-semibold transition-all ${
@@ -375,17 +440,57 @@ const EditProfile = () => {
             }}
           />
 
-          <MainInput
-            id="goal"
-            type="textarea"
-            label={t("signup.goal")}
-            disabled={!isEditing}
-            placeholder={t("signup.goalPlaceholder")}
-            register={{
-              value: form.goal,
-              onChange: handleChange,
-            }}
-          />
+          {/* GOALS MULTI-SELECT SECTION */}
+          <div className="flex flex-col gap-2 text-start">
+            <label className="block w-fit font-semibold text-sm capitalize">
+              {t("signup.goal")} :
+            </label>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              {availableGoals.map((item) => {
+                const isChecked = form.goal?.includes(item.key);
+                return (
+                  <button
+                    type="button"
+                    key={item.key}
+                    disabled={!isEditing}
+                    onClick={() => handleGoalToggle(item.key)}
+                    className={`flex items-center justify-center text-center p-2.5 border rounded-lg text-xs font-medium transition-all ${
+                      isChecked
+                        ? "border-myGreen bg-green-50 text-myGreen font-bold shadow-xs"
+                        : "border-gray-300 bg-white text-gray-700 hover:border-gray-400"
+                    } ${
+                      !isEditing
+                        ? "opacity-60 cursor-not-allowed bg-gray-100"
+                        : "cursor-pointer"
+                    }`}
+                  >
+                    <span>{item.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {goalError && (
+              <span className="text-red-600 text-sm">{goalError}</span>
+            )}
+          </div>
+
+          {/* GOAL OTHER (CONDITIONAL TEXTAREA) */}
+          {isOtherSelected && (
+            <MainInput
+              id="goal_other"
+              type="textarea"
+              label={t("signup.goalOther")}
+              disabled={!isEditing}
+              placeholder={t("signup.goalPlaceholder")}
+              error={goalOtherError}
+              register={{
+                value: form.goal_other,
+                onChange: handleChange,
+              }}
+            />
+          )}
 
           <MainInput
             id="location"
@@ -411,7 +516,6 @@ const EditProfile = () => {
             </div>
           )}
 
-          {/* زر فتح Modal كلمة السر محمي بواسطة requireAuth */}
           <button
             type="button"
             className="py-2 px-4 border border-stone-300 rounded-lg cursor-pointer hover:bg-stone-50 text-sm font-semibold transition-colors"
@@ -424,7 +528,7 @@ const EditProfile = () => {
         <FormError errorMsg={error} />
       </form>
 
-      {/* DaisyUI Modal لتغيير كلمة السر */}
+      {/* Modal تغيير كلمة السر */}
       <dialog id="change_password_modal" className="modal">
         <div className="modal-box max-w-md">
           <form method="dialog">

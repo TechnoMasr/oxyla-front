@@ -63,14 +63,14 @@ const ServicesCard = ({ service }) => {
         )}
       </div>
 
-      <div className="p-4 flex-1 space-y-4">
+      <div className="p-4 flex-1 flex flex-col gap-4">
         <h4 className="text-xl font-bold line-clamp-3">{service.name}</h4>
 
         <div className="space-y-2">
-          <p className="text-sm text-gray-500 flex items-center gap-1">
+        {service.location &&  <p className="text-sm text-gray-500 flex items-center gap-1">
             <CiLocationOn className="text-myGreen text-xl" />
             {service.location}
-          </p>
+          </p>}
 
           <div>
             <span className="text-lg font-bold flex items-center gap-1">
@@ -88,7 +88,7 @@ const ServicesCard = ({ service }) => {
                   : "bg-orange-300 text-white"
               }`}
             >
-              {service.available ? "Available" : "Unavailable"}
+              {service.available ? t("available") : t("unavailable")}
             </p>
             {service.discount > 0 && (
               <span className="text-sm font-bold text-myGreen">
@@ -98,7 +98,7 @@ const ServicesCard = ({ service }) => {
           </div>
         </div>
 
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-between gap-4 mt-auto">
           <span className="text-3xl cursor-pointer" onClick={handleToggle}>
             {isFavourite ? (
               <IoHeart className="text-red-500" />

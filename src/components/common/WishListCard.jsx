@@ -77,6 +77,7 @@ const WishListCard = ({ item }) => {
             ? t("WishListCard.removing")
             : t("WishListCard.confirm")
         }
+        error={toggleMutation.error}
       />
     </div>
   );

@@ -12,6 +12,8 @@
   "MostBookedCapsules": "الغرف الاكثر زيارة",
   "Search": "بحث",
   "NoServices": "لا توجد خدمات متاحة",
+  "available": "متاحة",
+  "unavailable": "غير متاحة",
 
   "CartCard": {
     "deleteConfirmation": "هل أنت متأكد أنك تريد حذف هذا العنصر؟",
@@ -397,6 +399,8 @@
     "ageMax": "يجب ألا يتجاوز العمر 120",
     "goal": "الهدف",
     "goalPlaceholder": "اكتب هدفك هنا (بحد أقصى 255 حرف)...",
+    "goalOther": "الهدف الآخر",
+    "goalOtherRequired": "برجاء كتابة الهدف الآخر",
     "goalRequired": "الهدف مطلوب",
     "goalMax": "الهدف يجب ألا يتجاوز 255 حرف"
   },

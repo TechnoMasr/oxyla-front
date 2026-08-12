@@ -12,6 +12,8 @@
   "MostBookedCapsules": "Most Booked Capsules",
   "Search": "Search",
   "NoServices": "No Services Available",
+  "available": "Available",
+  "unavailable": "Unavailable",
 
   "CartCard": {
     "deleteConfirmation": "Are you sure you want to delete this item?",
@@ -398,6 +400,8 @@
     "ageMax": "Age cannot exceed 120",
     "goal": "Goal",
     "goalPlaceholder": "Enter your goal (max 255 characters)...",
+    "goalOther": "Other Goal",
+    "goalOtherRequired": "Please specify your goal",
     "goalRequired": "Goal is required",
     "goalMax": "Goal must not exceed 255 characters"
   },

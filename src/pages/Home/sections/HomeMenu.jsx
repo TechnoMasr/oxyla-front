@@ -56,7 +56,7 @@ const HomeMenu = ({ openMenu, setOpenMenu }) => {
               {/* زر الإغلاق */}
               <span
                 onClick={onClose}
-                className="absolute top-4 right-4 z-10 text-3xl cursor-pointer w-12 h-12 flex items-center justify-center 
+                className="absolute top-4 right-4 z-10 text-2xl cursor-pointer w-10 h-10 flex items-center justify-center 
                 rounded-full text-white bg-myGreen hover:brightness-110 transition"
               >
                 <IoClose />
@@ -83,7 +83,7 @@ const HomeMenu = ({ openMenu, setOpenMenu }) => {
                         <span className="font-bold text-gray-800 text-lg truncate">
                           {profile?.name || t("Profile")}
                         </span>
-                        <span className="text-xs text-gray-500">
+                        <span className="text-sm text-gray-500">
                           {t("HomeMenu.viewProfile")}
                         </span>
                       </div>
