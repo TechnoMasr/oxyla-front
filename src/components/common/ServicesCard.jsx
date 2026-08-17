@@ -50,7 +50,8 @@ const ServicesCard = ({ service }) => {
     <div
       onClick={() => navigate(`/services/${service.id}`)}
       key={service.id}
-      className="flex flex-col lg:flex-row rounded-2xl overflow-hidden shadow-lg border border-gray-200"
+      className="flex flex-col lg:flex-row rounded-2xl overflow-hidden shadow-md border border-gray-200
+      hover:shadow-xl hover:scale-101 transition-all duration-400"
     >
       <div className="w-full h-[200px] lg:w-1/2 lg:min-h-full">
         {service.image_url && (
@@ -67,10 +68,12 @@ const ServicesCard = ({ service }) => {
         <h4 className="text-xl font-bold line-clamp-3">{service.name}</h4>
 
         <div className="space-y-2">
-        {service.location &&  <p className="text-sm text-gray-500 flex items-center gap-1">
-            <CiLocationOn className="text-myGreen text-xl" />
-            {service.location}
-          </p>}
+          {service.location && (
+            <p className="text-sm text-gray-500 flex items-center gap-1">
+              <CiLocationOn className="text-myGreen text-xl" />
+              {service.location}
+            </p>
+          )}
 
           <div>
             <span className="text-lg font-bold flex items-center gap-1">

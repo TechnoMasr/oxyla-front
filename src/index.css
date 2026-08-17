@@ -222,8 +222,8 @@ input::-webkit-inner-spin-button {
     @apply flex items-center justify-center gap-2;
 
     .pagination-btn {
-      @apply w-8 h-8 flex items-center justify-center rounded-full bg-myGreen/10 border border-myGreen
-      text-myGreen cursor-pointer hover:brightness-80 transition-all duration-200;
+      @apply w-8 h-8 flex items-center justify-center rounded-full bg-myPurple/10 border border-myPurple
+      text-myPurple cursor-pointer hover:brightness-70 transition-all duration-200;
     }
 
     .pagination-btn--disabled {
@@ -231,7 +231,7 @@ input::-webkit-inner-spin-button {
     }
 
     .pagination-btn--active {
-      @apply border-myGreen bg-myGreen text-white;
+      @apply border-myPurple bg-myPurple text-white;
     }
   }
 }

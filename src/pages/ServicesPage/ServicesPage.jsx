@@ -29,6 +29,8 @@ const ServicesPage = () => {
       prev.set("page", newPage.toString());
       return prev;
     });
+
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -39,7 +41,9 @@ const ServicesPage = () => {
 
       {!isLoading && service && (
         <MainPagination
-          totalPages={Math.ceil(service.to / service.per_page) || 1}
+          totalPages={
+            service.last_page || Math.ceil(service.total / service.per_page)
+          }
           currentPage={currentPage}
           onPageChange={handlePageChange}
         />
